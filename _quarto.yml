@@ -19,7 +19,7 @@ website:
 format:
   html:
     theme:
-      - vapor
+      - lux
     css: styles.css
     toc: true
 
