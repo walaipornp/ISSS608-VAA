@@ -67,14 +67,28 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-box-plot",
     "title": "Hands-on Exercise 1",
     "section": "A box plot",
-    "text": "A box plot\nThe code chunk below plots boxplots by using geom_boxplot().\n\nggplot(data=exam_data, \n       aes(y = MATHS,       \n           x= GENDER)) +    \n  geom_boxplot()             \n\n\n\n\n\n\n\n\nNotches are used in box plots to help visually assess whether the medians of distributions differ. If the notches do not overlap, this is evidence that the medians are different.\nThe code chunk below plots the distribution of Maths scores by gender in notched plot instead of boxplot.\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot(notch=TRUE)"
+    "text": "A box plot\nThe code chunk below plots boxplots by using geom_boxplot().\n\nggplot(data=exam_data, \n       aes(y = MATHS,       \n           x= GENDER)) +    \n  geom_boxplot()             \n\n\n\n\n\n\n\n\nThe code chunk below plots a boxplot showing race and English grades by using geom_boxplot().\n\nggplot(data=exam_data, \n       aes(y = ENGLISH,       \n           x= RACE)) +    \n  geom_boxplot()             \n\n\n\n\n\n\n\n\nNotches are used in box plots to help visually assess whether the medians of distributions differ. If the notches do not overlap, this is evidence that the medians are different.\nThe code chunk below plots the distribution of Maths scores by gender in notched plot instead of boxplot.\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot(notch=TRUE)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-violin-plot",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-violin-plot",
     "title": "Hands-on Exercise 1",
     "section": "A violin plot",
-    "text": "A violin plot\ngeom_violin is designed for creating violin plot. Violin plots are a way of comparing multiple data distributions. With ordinary density curves, it is difficult to compare more than just a few distributions because the lines visually interfere with each other. With a violin plot, it’s easier to compare several distributions since they’re placed side by side.\nThe code below plot the distribution of Maths score by gender in violin plot.\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_violin()           \n\n\n\n\n\n\n\n\nA scatter plot\nThe code chunk below plots a scatterplot showing the Maths and English grades of pupils by using geom_point().\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point()           \n\n\n\n\n\n\n\n\nA combined plot\nThe code chunk below plots the data points on the boxplots by using both geom_boxplot() and geom_point().\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot() +                    \n  geom_point(position=\"jitter\", \n             size = 0.5)"
+    "text": "A violin plot\ngeom_violin is designed for creating violin plot. Violin plots are a way of comparing multiple data distributions. With ordinary density curves, it is difficult to compare more than just a few distributions because the lines visually interfere with each other. With a violin plot, it’s easier to compare several distributions since they’re placed side by side.\nThe code below plot the distribution of Maths score by gender in violin plot.\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_violin()           \n\n\n\n\n\n\n\n\nThe code chunk below plots a violin plot showing race and English grades by using geom_violin().\n\nggplot(data=exam_data, \n       aes(y = ENGLISH,       \n           x= RACE)) +    \n  geom_violin()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-scatter-plot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-scatter-plot",
+    "title": "Hands-on Exercise 1",
+    "section": "A scatter plot",
+    "text": "A scatter plot\nThe code chunk below plots a scatterplot showing the Maths and English grades of pupils by using geom_point().\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point()           \n\n\n\n\n\n\n\n\nThe code chunk below plots a scatterplot showing class and English grades by using geom_point().\n\nggplot(data=exam_data, \n       aes(x= CLASS, \n           y=ENGLISH)) +\n  geom_point()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-combined-plot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-combined-plot",
+    "title": "Hands-on Exercise 1",
+    "section": "A combined plot",
+    "text": "A combined plot\nThe code chunk below plots the data points on the boxplots by using both geom_boxplot() and geom_point().\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot() +                    \n  geom_point(position=\"jitter\", \n             size = 0.5)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#the-statistic-summary",
@@ -95,14 +109,14 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-facet_wrap",
     "title": "Hands-on Exercise 1",
     "section": "Working with facet_wrap()",
-    "text": "Working with facet_wrap()\nfacet_wrap wraps a 1d sequence of panels into 2d. This is generally a better use of screen space than facet_grid because most displays are roughly rectangular.\nThe code chunk below plots a trellis plot using facet-wrap().\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ CLASS)"
+    "text": "Working with facet_wrap()\nfacet_wrap wraps a 1d sequence of panels into 2d. This is generally a better use of screen space than facet_grid because most displays are roughly rectangular.\nThe code chunk below plots a trellis plot using facet-wrap().\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ CLASS)\n\n\n\n\n\n\n\n\nThe code chunk below plots a trellis plot of gender using facet-wrap().\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ GENDER)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid-function",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid-function",
     "title": "Hands-on Exercise 1",
     "section": "facet_grid() function",
-    "text": "facet_grid() function\nfacet_grid() forms a matrix of panels defined by row and column facetting variables. It is most useful when you have two discrete variables, and all combinations of the variables exist in the data.\nThe code chunk below plots a trellis plot using facet_grid().\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_grid(~ CLASS)"
+    "text": "facet_grid() function\nfacet_grid() forms a matrix of panels defined by row and column facetting variables. It is most useful when you have two discrete variables, and all combinations of the variables exist in the data.\nThe code chunk below plots a trellis plot of race using facet_grid().\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_grid(~ RACE) \n\n\n\n\n\n\n\n\nThe code chunk below plots a trellis plot using facet_grid()."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-coordinate",
@@ -123,6 +137,6 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-theme",
     "title": "Hands-on Exercise 1",
     "section": "Working with theme",
-    "text": "Working with theme\nThe code chunk below plot a horizontal bar chart using theme_gray().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_gray()     \n\n\n\n\n\n\n\n\nA horizontal bar chart plotted using theme_classic().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_classic()      \n\n\n\n\n\n\n\n\nA horizontal bar chart plotted using theme_minimal().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_minimal()"
+    "text": "Working with theme\nThe code chunk below plot a horizontal bar chart using theme_gray().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_gray()     \n\n\n\n\n\n\n\n\nA horizontal bar chart plotted using theme_classic().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_classic()      \n\n\n\n\n\n\n\n\nA horizontal bar chart plotted using theme_minimal().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_minimal()       \n\n\n\n\n\n\n\n\nA horizontal bar chart plotted using theme_test().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_test()       \n\n\n\n\n\n\n\n\nA horizontal bar chart plotted using theme_dark().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar(fill = \"yellow\") +\n  coord_flip() +\n  theme_dark()"
   }
 ]

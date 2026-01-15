@@ -122,6 +122,15 @@ ggplot(data=exam_data,
   geom_boxplot()             
 ```
 
+The code chunk below plots a boxplot showing race and English grades by using geom_boxplot().
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = ENGLISH,       
+           x= RACE)) +    
+  geom_boxplot()             
+```
+
 Notches are used in box plots to help visually assess whether the medians of distributions differ. If the notches do not overlap, this is evidence that the medians are different.
 
 The code chunk below plots the distribution of Maths scores by gender in notched plot instead of boxplot.
@@ -146,7 +155,16 @@ ggplot(data=exam_data,
   geom_violin()           
 ```
 
-A scatter plot
+The code chunk below plots a violin plot showing race and English grades by using geom_violin().
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = ENGLISH,       
+           x= RACE)) +    
+  geom_violin()             
+```
+
+## A scatter plot
 
 The code chunk below plots a scatterplot showing the Maths and English grades of pupils by using geom_point().
 
@@ -157,7 +175,16 @@ ggplot(data=exam_data,
   geom_point()           
 ```
 
-A combined plot
+The code chunk below plots a scatterplot showing class and English grades by using geom_point().
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= CLASS, 
+           y=ENGLISH)) +
+  geom_point()           
+```
+
+## A combined plot
 
 The code chunk below plots the data points on the boxplots by using both geom_boxplot() and geom_point().
 
@@ -264,18 +291,29 @@ ggplot(data=exam_data,
     facet_wrap(~ CLASS)
 ```
 
-## facet_grid() function
-
-[`facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html) forms a matrix of panels defined by row and column facetting variables. It is most useful when you have two discrete variables, and all combinations of the variables exist in the data.
-
-The code chunk below plots a trellis plot using `facet_grid()`.
+The code chunk below plots a trellis plot of gender using `facet-wrap()`.
 
 ```{r}
 ggplot(data=exam_data, 
        aes(x= MATHS)) +
   geom_histogram(bins=20) +
-    facet_grid(~ CLASS) 
+    facet_wrap(~ GENDER)
 ```
+
+## facet_grid() function
+
+[`facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html) forms a matrix of panels defined by row and column facetting variables. It is most useful when you have two discrete variables, and all combinations of the variables exist in the data.
+
+The code chunk below plots a trellis plot of race using `facet_grid()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS)) +
+  geom_histogram(bins=20) +
+    facet_grid(~ RACE) 
+```
+
+The code chunk below plots a trellis plot using `facet_grid()`.
 
 # Coordinates functions
 
@@ -369,4 +407,24 @@ ggplot(data=exam_data,
   geom_bar() +
   coord_flip() +
   theme_minimal()       
+```
+
+A horizontal bar chart plotted using `theme_test()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_test()       
+```
+
+A horizontal bar chart plotted using `theme_dark()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar(fill = "yellow") +
+  coord_flip() +
+  theme_dark()       
 ```
