@@ -28,6 +28,13 @@ pacman::p_load(ggrepel, patchwork,
                ggthemes,tidyverse) 
 ```
 
+Code chunk below will be used to install hrbrtheme onto R environment.
+
+```{r}
+remotes::install_git("https://codeberg.org/hrbrmstr/hrbrthemes.git")
+library(hrbrthemes)
+```
+
 ## 1.2 Importing the data
 
 For the purpose of this exercise, a data file called *Exam_data* will be used. It consists of year end examination grades of a cohort of primary 3 students from a local school. It is in csv file format.
@@ -99,20 +106,6 @@ ggplot(data=exam_data,
 ```
 
 ### 2.2.2 hrbrthemes
-
-Code chunk below will be used to install hrbrtheme onto R environment.
-
-```{r}
-remotes::install_git("https://codeberg.org/hrbrmstr/hrbrthemes.git")
-```
-
-```{r}
-library(hrbrthemes)
-```
-
-```{r}
-library(extrafont)
-```
 
 [**hrbrthemes**](https://cran.r-project.org/web/packages/hrbrthemes/index.html) package provides a base theme that focuses on typographic elements, including where various labels are placed as well as the fonts that are used.
 
