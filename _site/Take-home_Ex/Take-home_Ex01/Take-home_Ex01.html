@@ -8,7 +8,7 @@
 
 <meta name="author" content="Walaiporn Pawitranon">
 
-<title>Take-home Exercise 1 – ISSS608-VAA</title>
+<title>Take-home Exercise 1: Investigating Ship Performance with Data Visualization – ISSS608-VAA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -178,15 +178,48 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1. Overview</a>
+  <ul class="collapse">
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">1.1 Background</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">1.2 The data</a></li>
+  <li><a href="#the-task" id="toc-the-task" class="nav-link" data-scroll-target="#the-task">1.3 The task</a></li>
+  </ul></li>
+  <li><a href="#getting-start" id="toc-getting-start" class="nav-link" data-scroll-target="#getting-start">2. Getting start</a>
+  <ul class="collapse">
+  <li><a href="#loading-packages" id="toc-loading-packages" class="nav-link" data-scroll-target="#loading-packages">2.1 Loading packages</a></li>
+  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import">2.2 Data import</a></li>
+  </ul></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">3. Data wrangling</a>
+  <ul class="collapse">
+  <li><a href="#variables-selection" id="toc-variables-selection" class="nav-link" data-scroll-target="#variables-selection">3.1 Variables selection</a></li>
+  <li><a href="#handling-missing-value" id="toc-handling-missing-value" class="nav-link" data-scroll-target="#handling-missing-value">3.2 Handling missing value</a></li>
+  <li><a href="#recoding-categorical-variables" id="toc-recoding-categorical-variables" class="nav-link" data-scroll-target="#recoding-categorical-variables">3.3 Recoding categorical variables</a></li>
+  <li><a href="#data-type-conversion" id="toc-data-type-conversion" class="nav-link" data-scroll-target="#data-type-conversion">3.4 Data type conversion</a></li>
+  <li><a href="#variable-creation" id="toc-variable-creation" class="nav-link" data-scroll-target="#variable-creation">3.5 Variable creation</a></li>
+  </ul></li>
+  <li><a href="#univariate-analysis" id="toc-univariate-analysis" class="nav-link" data-scroll-target="#univariate-analysis">4. Univariate Analysis</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">5. Exploratory Data Analysis</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">6. Summary</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">7. Reference</a>
+  <ul class="collapse">
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Take-home Exercise 1</h1>
+<h1 class="title">Take-home Exercise 1: Investigating Ship Performance with Data Visualization</h1>
 </div>
 
 
@@ -209,8 +242,94 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="overview" class="level1">
+<h1>1. Overview</h1>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">1.1 Background</h2>
+<p>The Ship Performance Dataset is a synthetic dataset that simulates real-world operational characteristics of different ship types operating in the Gulf of Guinea. The dataset contains detailed information on vessel operations, including ship type, engine type, route type, speed, fuel efficiency, cargo weight, operational cost, revenue, weather conditions, and voyage frequency. These variables together provide a comprehensive view of how maritime vessels perform under different operational and environmental conditions.</p>
+<p>The maritime industry plays a crucial role in global trade, as the majority of goods are transported by sea. However, shipping operations are complex and influenced by multiple factors such as fuel technology, weather, route distance, and cargo load. Analysing ship performance data can help stakeholders better understand the trade-offs between cost, efficiency, and operational effectiveness, as well as identify opportunities for optimization and sustainability improvement.</p>
+<p>Although the dataset is synthetically generated, it is designed to closely resemble real-world maritime scenarios. This makes it a useful resource for exploratory data analysis, visual analytics</p>
+</section>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">1.2 The data</h2>
+<p>The dataset consists of 2736 rows and 24 columns, with features categorized into numerical and categorical types. Below are some key highlights:</p>
+<p><strong>Numerical Features</strong></p>
+<p>These capture performance metrics such as speed, power, cost, and energy efficiency, enabling detailed analysis and trend identification.</p>
+<ul>
+<li><p>Speed_Over_Ground_knots: Average speed of the ship over water (in knots).</p></li>
+<li><p>Engine_Power_kW: Engine power output (in kilowatts).</p></li>
+<li><p>Distance_Traveled_nm: Total distance traveled by the ship (in nautical miles).</p></li>
+<li><p>Operational_Cost_USD: Total operational cost per voyage (in USD).</p></li>
+<li><p>Revenue_per_Voyage_USD: Revenue generated per voyage (in USD).</p></li>
+<li><p>Efficiency_nm_per_kWh: Energy efficiency calculated in nautical miles per kilowatt-hour.</p></li>
+</ul>
+<p><strong>Categorical Features</strong></p>
+<p>Attributes such as ship type, route type, and weather conditions provide contextual insights and segmentation possibilities.</p>
+<ul>
+<li><p>Ship_Type: Type of ship (e.g., Tanker, Container Ship, Fish Carrier, Bulk Carrier).</p></li>
+<li><p>Route_Type: Shipping route type (e.g., Short-haul, Long-haul, Transoceanic).</p></li>
+<li><p>Engine_Type: Type of engine (e.g., Diesel, Heavy Fuel Oil).</p></li>
+<li><p>Maintenance_Status: Maintenance condition of the ship (e.g., Fair, Critical, Good).</p></li>
+<li><p>Weather_Condition: Prevailing weather conditions during voyages (e.g., Calm, Moderate, Rough).</p></li>
+</ul>
+</section>
+<section id="the-task" class="level2">
+<h2 class="anchored" data-anchor-id="the-task">1.3 The task</h2>
+</section>
+</section>
+<section id="getting-start" class="level1">
+<h1>2. Getting start</h1>
+<section id="loading-packages" class="level2">
+<h2 class="anchored" data-anchor-id="loading-packages">2.1 Loading packages</h2>
+<p>The following code chunk uses&nbsp;<code>p_load()</code>&nbsp;of&nbsp;<a href="https://rpubs.com/akshaypatankar/594834"><strong>pacman</strong></a>&nbsp;package to check if tidyverse packages are installed in the computer. If they are, the libraries will be called into R.</p>
+</section>
+<section id="data-import" class="level2">
+<h2 class="anchored" data-anchor-id="data-import">2.2 Data import</h2>
+<p>xxxx.csv will be used.</p>
+<p>In the code chunk below, read_csv() of readr package is used to import Exam_data.csv into R and saved it into a tibble data.frame.</p>
+</section>
+</section>
+<section id="data-wrangling" class="level1">
+<h1>3. Data wrangling</h1>
+<section id="variables-selection" class="level2">
+<h2 class="anchored" data-anchor-id="variables-selection">3.1 Variables selection</h2>
+</section>
+<section id="handling-missing-value" class="level2">
+<h2 class="anchored" data-anchor-id="handling-missing-value">3.2 Handling missing value</h2>
+</section>
+<section id="recoding-categorical-variables" class="level2">
+<h2 class="anchored" data-anchor-id="recoding-categorical-variables">3.3 Recoding categorical variables</h2>
+</section>
+<section id="data-type-conversion" class="level2">
+<h2 class="anchored" data-anchor-id="data-type-conversion">3.4 Data type conversion</h2>
+</section>
+<section id="variable-creation" class="level2">
+<h2 class="anchored" data-anchor-id="variable-creation">3.5 Variable creation</h2>
+</section>
+</section>
+<section id="univariate-analysis" class="level1">
+<h1>4. Univariate Analysis</h1>
+</section>
+<section id="exploratory-data-analysis" class="level1">
+<h1>5. Exploratory Data Analysis</h1>
+</section>
+<section id="section" class="level1">
+<h1></h1>
+</section>
+<section id="summary" class="level1">
+<h1>6. Summary</h1>
+</section>
+<section id="section-1" class="level1">
+<h1></h1>
+</section>
+<section id="reference" class="level1">
+<h1>7. Reference</h1>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2"></h2>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
