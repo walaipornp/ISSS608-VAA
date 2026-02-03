@@ -1,6 +1,8 @@
 ---
 title: "Hands-on Exercise 4"
 author: "Walaiporn Pawitranon"
+execute: 
+  warning: false
 ---
 
 # 1. Visualizing Distribution
@@ -99,6 +101,34 @@ ggplot(exam,
   ) +
   scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +
   theme_ridges()
+```
+
+```{r}
+ggplot(exam, 
+       aes(x = ENGLISH, 
+           y = CLASS,
+           fill = stat(x))) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01,
+    color='#8da3ca',
+    linewidth=1.05) +
+  scale_color_continuous_sequential('Purple-Blue')+
+  scale_fill_continuous_sequential('Purple-Blue', name='displ')+
+  scale_x_continuous(
+    expand = c(0, 0)
+  ) +
+  scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +
+  theme_ridges()+
+  labs(x = "English Score",
+       y = "",
+       title="Colour transition from light to dark as scores improve.") +   
+  theme(
+    legend.position = "none",
+    #panel.grid.major = element_blank(),
+    axis.title.y = element_blank(),
+    plot.background = element_rect(fill="#f5f5f5",colour="#f5f5f5")  
+    )  
 ```
 
 ### 1.3.3 Mapping the probabilities directly onto colour
@@ -686,8 +716,6 @@ ggplot(data = exam,
   transition_states(.draw, 1, 3)
 ```
 
-![](images/clipboard-1248789485.png)
-
 # 4. Visualizing Models
 
 ## 4.1 Introduction
@@ -753,8 +781,6 @@ check_collinearity(model)
 check_c <- check_collinearity(model)
 plot(check_c)
 ```
-
-![](images/clipboard-1368294938.png)
 
 ### 4.3.6 Model Diagnostic: checking normality assumption
 
