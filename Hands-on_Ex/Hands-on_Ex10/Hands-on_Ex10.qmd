@@ -1,4 +1,0 @@
----
-title: "Hands-on Exercise 10"
-author: "Walaiporn Pawitranon"
----
