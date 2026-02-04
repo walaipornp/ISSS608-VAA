@@ -48,6 +48,8 @@ format:
       - lux
     css: styles.css
     toc: true
+    include-before-body: ""
+    page-layout: full
 
 editor: visual
 

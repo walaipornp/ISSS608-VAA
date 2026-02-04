@@ -8,7 +8,7 @@
 
 <meta name="author" content="Walaiporn Pawitranon">
 
-<title>Take-home Exercise 1: Investigating Ship Performance with Data Visualization – ISSS608-VAA</title>
+<title>Take-home Exercise 1: Visual Analytics of Factors Influencing Student Academic Performance at a Vietnamese University – ISSS608-VAA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -175,7 +210,7 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -215,16 +250,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Take-home Exercise 1: Investigating Ship Performance with Data Visualization</h1>
+<h1 class="title">Take-home Exercise 1: Visual Analytics of Factors Influencing Student Academic Performance at a Vietnamese University</h1>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-left">
 
     <div>
     <div class="quarto-title-meta-heading">Author</div>
@@ -246,53 +281,388 @@ ul.task-list li input[type="checkbox"] {
 <h1>1. Overview</h1>
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">1.1 Background</h2>
-<p>The Ship Performance Dataset is a synthetic dataset that simulates real-world operational characteristics of different ship types operating in the Gulf of Guinea. The dataset contains detailed information on vessel operations, including ship type, engine type, route type, speed, fuel efficiency, cargo weight, operational cost, revenue, weather conditions, and voyage frequency. These variables together provide a comprehensive view of how maritime vessels perform under different operational and environmental conditions.</p>
-<p>The maritime industry plays a crucial role in global trade, as the majority of goods are transported by sea. However, shipping operations are complex and influenced by multiple factors such as fuel technology, weather, route distance, and cargo load. Analysing ship performance data can help stakeholders better understand the trade-offs between cost, efficiency, and operational effectiveness, as well as identify opportunities for optimization and sustainability improvement.</p>
-<p>Although the dataset is synthetically generated, it is designed to closely resemble real-world maritime scenarios. This makes it a useful resource for exploratory data analysis, visual analytics</p>
+<p>This dataset is based on a survey of 2,170 students and alumni from the University of Education, Vietnam National University, Hanoi, conducted between March and May 2023. It includes information on students’ GPA, demographic characteristics, learning motivation, university support, lecturer support, facilities, training programs, and peer relationships.</p>
+<p>Academic performance is influenced by both personal factors (such as motivation and learning adaptation) and external factors (such as teaching quality, institutional support, and family background). In the context of educational innovation in Vietnam, where learners are placed at the center of the learning process, understanding these influences is important for improving student outcomes.</p>
+<p>Although the data is self-reported, it provides valuable insights into students’ learning experiences and their relationship with GPA, making it suitable for exploratory data analysis and visual analytics in educational research.</p>
 </section>
 <section id="the-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-data">1.2 The data</h2>
-<p>The dataset consists of 2736 rows and 24 columns, with features categorized into numerical and categorical types. Below are some key highlights:</p>
-<p><strong>Numerical Features</strong></p>
-<p>These capture performance metrics such as speed, power, cost, and energy efficiency, enabling detailed analysis and trend identification.</p>
-<ul>
-<li><p>Speed_Over_Ground_knots: Average speed of the ship over water (in knots).</p></li>
-<li><p>Engine_Power_kW: Engine power output (in kilowatts).</p></li>
-<li><p>Distance_Traveled_nm: Total distance traveled by the ship (in nautical miles).</p></li>
-<li><p>Operational_Cost_USD: Total operational cost per voyage (in USD).</p></li>
-<li><p>Revenue_per_Voyage_USD: Revenue generated per voyage (in USD).</p></li>
-<li><p>Efficiency_nm_per_kWh: Energy efficiency calculated in nautical miles per kilowatt-hour.</p></li>
-</ul>
-<p><strong>Categorical Features</strong></p>
-<p>Attributes such as ship type, route type, and weather conditions provide contextual insights and segmentation possibilities.</p>
-<ul>
-<li><p>Ship_Type: Type of ship (e.g., Tanker, Container Ship, Fish Carrier, Bulk Carrier).</p></li>
-<li><p>Route_Type: Shipping route type (e.g., Short-haul, Long-haul, Transoceanic).</p></li>
-<li><p>Engine_Type: Type of engine (e.g., Diesel, Heavy Fuel Oil).</p></li>
-<li><p>Maintenance_Status: Maintenance condition of the ship (e.g., Fair, Critical, Good).</p></li>
-<li><p>Weather_Condition: Prevailing weather conditions during voyages (e.g., Calm, Moderate, Rough).</p></li>
-</ul>
+<p>The dataset consists of 2,170 responses from students and alumni of the University of Education, Vietnam National University, Hanoi, with 22 variables capturing demographic, social, and academic factors. The data was collected and reported in <a href="https://www.sciencedirect.com/science/article/pii/S2352340925001702">this study</a>. Below are some key highlights:</p>
+<p>Numerical Features include GPA and time-related variables such as average hours spent studying, using social media, and socializing with friends. These variables allow quantitative assessment of student behaviors and learning outcomes.</p>
+<p>Categorical Features cover student demographics (year of study, gender, minority status, policy-supported students, economic background), parents’ education and occupation, and perceptions of university and lecturer support, curriculum suitability, class competition, and peer influence. These variables provide insights into factors that may influence academic performance and motivation.</p>
+<p>Overall, the dataset offers a comprehensive view of student characteristics, behaviors, and support systems, making it suitable for exploring relationships between various internal and external factors and learning outcomes.</p>
 </section>
 <section id="the-task" class="level2">
 <h2 class="anchored" data-anchor-id="the-task">1.3 The task</h2>
+<p>Using the 2023 Student Questionnaire Dataset from the University of Education, Vietnam National University, Hanoi, this post aims to use appropriate Exploratory Data Analysis (EDA) methods and ggplot2 functions to uncover:</p>
+<ul>
+<li><p>The distribution of students’ learning outcomes, measured by GPA, and</p></li>
+<li><p>The relationship between GPA and students’ demographic, personal, and external factors, including year of study, gender, family background, time spent studying, adaptation to university, learning methods, university support, lecturer support, classroom competition, and peer influence.</p></li>
+</ul>
+<p>The goal is to identify key factors that influence student performance and provide meaningful insights for educational research and intervention planning.</p>
 </section>
 </section>
 <section id="getting-start" class="level1">
 <h1>2. Getting start</h1>
 <section id="loading-packages" class="level2">
 <h2 class="anchored" data-anchor-id="loading-packages">2.1 Loading packages</h2>
-<p>The following code chunk uses&nbsp;<code>p_load()</code>&nbsp;of&nbsp;<a href="https://rpubs.com/akshaypatankar/594834"><strong>pacman</strong></a>&nbsp;package to check if tidyverse packages are installed in the computer. If they are, the libraries will be called into R.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 87%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Library</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>tidyverse</strong></td>
+<td>Core packages for data wrangling, filtering, summarizing, and plotting (<code>dplyr</code>, <code>ggplot2</code>, <code>readr</code>, <code>tidyr</code>)</td>
+</tr>
+<tr class="even">
+<td><strong>readxl</strong></td>
+<td>Read Excel <code>.xlsx</code> files</td>
+</tr>
+<tr class="odd">
+<td><strong>ggiraph</strong></td>
+<td>Make ggplot2 plots interactive (tooltip, hover, click)</td>
+</tr>
+<tr class="even">
+<td><strong>plotly</strong></td>
+<td>Create interactive scatterplots and coordinated multiple views</td>
+</tr>
+<tr class="odd">
+<td><strong>crosstalk</strong></td>
+<td>Link plots and tables for interactive filtering and highlighting</td>
+</tr>
+<tr class="even">
+<td><strong>DT</strong></td>
+<td>Interactive tables to display and explore student data</td>
+</tr>
+<tr class="odd">
+<td><strong>patchwork</strong></td>
+<td>Combine multiple ggplot2 plots into one figure</td>
+</tr>
+<tr class="even">
+<td><strong>scales</strong></td>
+<td>Format axis labels, percentages, and numbers for readability</td>
+</tr>
+<tr class="odd">
+<td><strong>ggpubr</strong></td>
+<td>Publication-ready plots and statistical annotation</td>
+</tr>
+<tr class="even">
+<td><strong>ggtext</strong></td>
+<td>Enhanced text rendering for ggplot2 labels and tooltips</td>
+</tr>
+<tr class="odd">
+<td><strong>ggdist</strong></td>
+<td>Visualisations of distributions and uncertainty in ggplot2</td>
+</tr>
+<tr class="even">
+<td><strong>ggthemes</strong></td>
+<td>A ggplot extension that provides the user additional themes, scales, and geoms for the ggplots package</td>
+</tr>
+<tr class="odd">
+<td><strong>skimr</strong></td>
+<td>Summarize dataset with descriptive statistics for EDA</td>
+</tr>
+<tr class="even">
+<td><strong>janitor</strong></td>
+<td>Clean column names, tabulate categorical variables for EDA</td>
+</tr>
+</tbody>
+</table>
+<p>The code chunk below will be used load these R packages into RStudio environment</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, readxl, ggiraph, ggthemes, ggdist, plotly, crosstalk, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  DT, patchwork, scales, ggpubr, ggtext, skimr, janitor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="data-import" class="level2">
 <h2 class="anchored" data-anchor-id="data-import">2.2 Data import</h2>
-<p>xxxx.csv will be used.</p>
-<p>In the code chunk below, read_csv() of readr package is used to import Exam_data.csv into R and saved it into a tibble data.frame.</p>
+<p>Database paper.xlsx will be used.</p>
+<p>In the code chunk below, read_xlsx() of readr package is used to import Database paper.xlsx into R and saved it into a tibble data.frame.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>student_data <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/Database paper.xlsx"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 </section>
 <section id="data-wrangling" class="level1">
 <h1>3. Data wrangling</h1>
 <section id="variables-selection" class="level2">
 <h2 class="anchored" data-anchor-id="variables-selection">3.1 Variables selection</h2>
+<p>For this post, only the columns relevant to our planned visualizations were retained. The dataset’s accompanying Codebook was particularly helpful in understanding the meaning of each variable, their coding system, and the types of responses collected.</p>
+<p>The retained variables can be grouped into four broad categories, capturing aspects of University Support, Gender/Personal Demographics, Socio-economic Status, and Student Behavior/Performance. Details are extracted from the Codebook:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 44%">
+<col style="width: 21%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Variable name</th>
+<th>Question</th>
+<th>Encoding scheme</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Personal Demographics</td>
+<td>Year</td>
+<td>What year student are you in?</td>
+<td><p>1 - First-year</p>
+<p>2 - Second-year</p>
+<p>3 - Third-year</p>
+<p>4 - Fourth-year</p>
+<p>5 - Graduated</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>Personal Demographics</td>
+<td>Gender</td>
+<td>What is your gender?</td>
+<td><p>1 - Male</p>
+<p>2 - Female</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="odd">
+<td>Socio-economic Status</td>
+<td>Policy_Stu</td>
+<td>Are you a student on policy government support?</td>
+<td><p>1 - Yes</p>
+<p>2 - No</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>Socio-economic Status</td>
+<td>Poor_Stu</td>
+<td>Is your family a poor household?</td>
+<td><p>1 - Yes</p>
+<p>2 - No</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="odd">
+<td>Family Background</td>
+<td>Father_Edu</td>
+<td>What educational background of your father?</td>
+<td><p>1 - Primary school</p>
+<p>2 - Secondary school</p>
+<p>3 - High school</p>
+<p>4 - College school</p>
+<p>5 - University/graduate education</p>
+<p>6 - Other</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>Family Background</td>
+<td>Mother_Edu</td>
+<td>What educational background of your mother?</td>
+<td><p>1 - Primary school</p>
+<p>2 - Secondary school</p>
+<p>3 - High school</p>
+<p>4 - College school</p>
+<p>5 - University/graduate education</p>
+<p>6 - Other</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="odd">
+<td>Family Background</td>
+<td>Father_Occupation</td>
+<td>What is your father’s occupation status?</td>
+<td><p>1 - Government employee</p>
+<p>2 - Self-employment</p>
+<p>3 - Freelance</p>
+<p>4 - Other</p>
+<p>5 - Not public</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>Family Background</td>
+<td>Mother_Occupation</td>
+<td>What is your mother’s occupation status?</td>
+<td><p>1 - Government employee</p>
+<p>2 - Self-employment</p>
+<p>3 - Freelance</p>
+<p>4 - Other</p>
+<p>5 - Not public</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="odd">
+<td>Student Behavior</td>
+<td>Time_Friends</td>
+<td>How much time do you spend hanging out with your friends on average per day?</td>
+<td><p>1 - under 1 hours</p>
+<p>2 - from 1 to lower 2 hours</p>
+<p>3 - from 2 to lower 3 hours</p>
+<p>4 - from 3 to lower 4 hours</p>
+<p>5 - over 4 hour</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>Student Behavior</td>
+<td>Time_SocicalMedia</td>
+<td>How much time do you spend using social media on average per day?</td>
+<td><p>1 - under 1 hours</p>
+<p>2 - from 1 to lower 2 hours</p>
+<p>3 - from 2 to lower 3 hours</p>
+<p>4 - from 3 to lower 4 hours</p>
+<p>5 - over 4 hour</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="odd">
+<td>Student Behavior</td>
+<td>Time_Studying</td>
+<td>How much time do you spend studying on average per day?</td>
+<td><p>1 - under 2 hours</p>
+<p>2 - from 2 to lower 4 hours</p>
+<p>3 - from 4 to lower 6 hours</p>
+<p>4 - from 6 to lower 8 hours</p>
+<p>5 - over 8 hour</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>Performance</td>
+<td>GPA</td>
+<td>What is your cumulative grade point average (GPA)?</td>
+<td><p>1 - Under 2.0 – Poor</p>
+<p>2 - From 2.0 to lower 2.5 – Average</p>
+<p>3 - From 2.5 to lower 3.2 – Fair</p>
+<p>4 - From 3.2 to lower&nbsp; 3.6 – Good</p>
+<p>5 - Over 3.6 – Excellent</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="odd">
+<td>University Support</td>
+<td>Adapt_Learning_Uni</td>
+<td>How level are you adapting to the learning environment at the university?</td>
+<td><p>1 - Not at all</p>
+<p>2 - Little</p>
+<p>3 - Moderate</p>
+<p>4 - Quite</p>
+<p>5 - Very</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>University Support</td>
+<td>Study_Methods</td>
+<td>How level are your studying methods affecting your outcomes?</td>
+<td><p>1 - Not at all</p>
+<p>2 - Little</p>
+<p>3 - Moderate</p>
+<p>4 - Quite</p>
+<p>5 - Very</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="odd">
+<td>University Support</td>
+<td>SupportOf_Uni</td>
+<td>How level is the university’s support for you?</td>
+<td><p>1 - Not at all</p>
+<p>2 - Little</p>
+<p>3 - Moderate</p>
+<p>4 - Quite</p>
+<p>5 - Very</p></td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>University Support</td>
+<td>SupportOf_Lec</td>
+<td>How level is the lecturer’s support (affecting your outcomes)?</td>
+<td><p>1 - Not at all</p>
+<p>2 - Little</p>
+<p>3 - Moderate</p>
+<p>4 - Quite</p>
+<p>5 - Very</p></td>
+<td>Numerical</td>
+</tr>
+</tbody>
+</table>
+<p>glimpse() of the dplyr package allows us to see all columns and their data type in the data frame.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(student_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,170
+Columns: 22
+$ Year               &lt;dbl&gt; 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, …
+$ Gender             &lt;dbl&gt; 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, …
+$ Policy_Stu         &lt;dbl&gt; 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, …
+$ Minority_Stu       &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+$ Poor_Stu           &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+$ Father_Edu         &lt;dbl&gt; 4, 3, 4, 5, 2, 5, 6, 5, 5, 5, 3, 3, 3, 3, 3, 4, 5, …
+$ Mother_Edu         &lt;dbl&gt; 4, 3, 4, 4, 3, 5, 5, 4, 5, 4, 3, 3, 3, 4, 3, 4, 5, …
+$ Father_Occupation  &lt;dbl&gt; 2, 2, 1, 1, 3, 1, 1, 5, 1, 3, 3, 3, 3, 3, 2, 2, 4, …
+$ Mother_Occupation  &lt;dbl&gt; 3, 4, 2, 1, 3, 2, 4, 3, 1, 3, 3, 3, 3, 3, 2, 2, 4, …
+$ Time_Friends       &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 2, 1, 3, 2, 2, 2, 2, 2, 1, 3, …
+$ Time_SocicalMedia  &lt;dbl&gt; 2, 3, 2, 2, 2, 3, 2, 2, 2, 2, 2, 1, 2, 2, 2, 3, 4, …
+$ Time_Studying      &lt;dbl&gt; 5, 5, 5, 5, 1, 2, 5, 5, 5, 5, 5, 5, 5, 1, 5, 5, 5, …
+$ GPA                &lt;dbl&gt; 4, 3, 4, 4, 4, 4, 3, 5, 5, 3, 3, 4, 4, 3, 5, 4, 4, …
+$ Adapt_Learning_Uni &lt;dbl&gt; 4, 3, 4, 4, 5, 4, 4, 4, 4, 3, 4, 4, 4, 5, 4, 4, 5, …
+$ Study_Methods      &lt;dbl&gt; 4, 3, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 3, 5, …
+$ SupportOf_Uni      &lt;dbl&gt; 3, 3, 4, 5, 5, 5, 5, 5, 4, 5, 4, 4, 4, 5, 4, 4, 5, …
+$ SupportOf_Lec      &lt;dbl&gt; 4, 4, 4, 5, 5, 4, 5, 4, 4, 5, 4, 4, 4, 5, 4, 4, 5, …
+$ Facilitie_Uni      &lt;dbl&gt; 4, 4, 3, 5, 5, 5, 5, 4, 4, 5, 4, 4, 4, 5, 4, 3, 5, …
+$ Quality_Lecturer   &lt;dbl&gt; 4, 3, 4, 5, 5, 5, 4, 5, 5, 5, 4, 4, 4, 5, 4, 4, 5, …
+$ TrainingCurriculum &lt;dbl&gt; 4, 3, 4, 4, 5, 4, 5, 4, 4, 5, 4, 4, 4, 5, 4, 3, 5, …
+$ Competitive_Class  &lt;dbl&gt; 3, 3, 4, 4, 4, 3, 4, 3, 4, 4, 4, 4, 4, 5, 4, 4, 5, …
+$ InfuenceF_Friends  &lt;dbl&gt; 3, 4, 4, 4, 5, 3, 5, 4, 4, 4, 4, 4, 4, 5, 4, 5, 4, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(student_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Year           Gender        Policy_Stu     Minority_Stu      Poor_Stu   
+ Min.   :3.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00  
+ 1st Qu.:4.000   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000   1st Qu.:2.00  
+ Median :5.000   Median :2.000   Median :2.000   Median :2.000   Median :2.00  
+ Mean   :4.672   Mean   :1.889   Mean   :1.647   Mean   :1.941   Mean   :1.96  
+ 3rd Qu.:5.000   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:2.00  
+ Max.   :5.000   Max.   :2.000   Max.   :2.000   Max.   :2.000   Max.   :2.00  
+   Father_Edu      Mother_Edu    Father_Occupation Mother_Occupation
+ Min.   :1.000   Min.   :1.000   Min.   :1.000     Min.   :1.000    
+ 1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.000     1st Qu.:2.000    
+ Median :4.000   Median :4.000   Median :3.000     Median :3.000    
+ Mean   :3.747   Mean   :3.664   Mean   :2.484     Mean   :2.498    
+ 3rd Qu.:5.000   3rd Qu.:5.000   3rd Qu.:3.000     3rd Qu.:3.000    
+ Max.   :6.000   Max.   :6.000   Max.   :5.000     Max.   :5.000    
+  Time_Friends   Time_SocicalMedia Time_Studying        GPA     
+ Min.   :1.000   Min.   :1.000     Min.   :1.000   Min.   :1.0  
+ 1st Qu.:1.000   1st Qu.:2.000     1st Qu.:5.000   1st Qu.:3.0  
+ Median :2.000   Median :3.000     Median :5.000   Median :3.0  
+ Mean   :2.274   Mean   :2.836     Mean   :4.719   Mean   :3.3  
+ 3rd Qu.:3.000   3rd Qu.:4.000     3rd Qu.:5.000   3rd Qu.:4.0  
+ Max.   :5.000   Max.   :5.000     Max.   :5.000   Max.   :5.0  
+ Adapt_Learning_Uni Study_Methods   SupportOf_Uni   SupportOf_Lec  
+ Min.   :1.000      Min.   :1.000   Min.   :1.000   Min.   :1.000  
+ 1st Qu.:3.000      1st Qu.:3.000   1st Qu.:3.000   1st Qu.:4.000  
+ Median :3.000      Median :4.000   Median :4.000   Median :4.000  
+ Mean   :3.502      Mean   :3.662   Mean   :4.001   Mean   :4.186  
+ 3rd Qu.:4.000      3rd Qu.:4.000   3rd Qu.:5.000   3rd Qu.:5.000  
+ Max.   :5.000      Max.   :5.000   Max.   :5.000   Max.   :5.000  
+ Facilitie_Uni   Quality_Lecturer TrainingCurriculum Competitive_Class
+ Min.   :1.000   Min.   :1.000    Min.   :1.000      Min.   :1.000    
+ 1st Qu.:3.000   1st Qu.:4.000    1st Qu.:4.000      1st Qu.:3.000    
+ Median :4.000   Median :5.000    Median :4.000      Median :4.000    
+ Mean   :4.073   Mean   :4.329    Mean   :4.128      Mean   :3.935    
+ 3rd Qu.:5.000   3rd Qu.:5.000    3rd Qu.:5.000      3rd Qu.:5.000    
+ Max.   :5.000   Max.   :5.000    Max.   :5.000      Max.   :5.000    
+ InfuenceF_Friends
+ Min.   :1.000    
+ 1st Qu.:3.000    
+ Median :4.000    
+ Mean   :3.831    
+ 3rd Qu.:5.000    
+ Max.   :5.000    </code></pre>
+</div>
+</div>
 </section>
 <section id="handling-missing-value" class="level2">
 <h2 class="anchored" data-anchor-id="handling-missing-value">3.2 Handling missing value</h2>
