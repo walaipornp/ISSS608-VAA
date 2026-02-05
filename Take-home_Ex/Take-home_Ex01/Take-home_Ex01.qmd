@@ -41,37 +41,22 @@ The goal is to identify key factors that influence student performance and provi
 
 ## 2.1 Loading packages
 
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| Library       | Description                                                                                                   |
-+===============+===============================================================================================================+
+| Library | Description |
+|----|----|
 | **tidyverse** | Core packages for data wrangling, filtering, summarizing, and plotting (`dplyr`, `ggplot2`, `readr`, `tidyr`) |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **readxl**    | Read Excel `.xlsx` files                                                                                      |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggiraph**   | Make ggplot2 plots interactive (tooltip, hover, click)                                                        |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **plotly**    | Create interactive scatterplots and coordinated multiple views                                                |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **crosstalk** | Link plots and tables for interactive filtering and highlighting                                              |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **DT**        | Interactive tables to display and explore student data                                                        |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **patchwork** | Combine multiple ggplot2 plots into one figure                                                                |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **scales**    | Format axis labels, percentages, and numbers for readability                                                  |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggpubr**    | Publication-ready plots and statistical annotation                                                            |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggtext**    | Enhanced text rendering for ggplot2 labels and tooltips                                                       |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggdist**    | Visualisations of distributions and uncertainty in ggplot2                                                    |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggthemes**  | A ggplot extension that provides the user additional themes, scales, and geoms for the ggplots package        |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **skimr**     | Summarize dataset with descriptive statistics for EDA                                                         |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **janitor**   | Clean column names, tabulate categorical variables for EDA                                                    |
-+---------------+---------------------------------------------------------------------------------------------------------------+
+| **readxl** | Read Excel `.xlsx` files |
+| **ggiraph** | Make ggplot2 plots interactive (tooltip, hover, click) |
+| **plotly** | Create interactive scatterplots and coordinated multiple views |
+| **crosstalk** | Link plots and tables for interactive filtering and highlighting |
+| **DT** | Interactive tables to display and explore student data |
+| **patchwork** | Combine multiple ggplot2 plots into one figure |
+| **scales** | Format axis labels, percentages, and numbers for readability |
+| **ggpubr** | Publication-ready plots and statistical annotation |
+| **ggtext** | Enhanced text rendering for ggplot2 labels and tooltips |
+| **ggdist** | Visualisations of distributions and uncertainty in ggplot2 |
+| **ggthemes** | A ggplot extension that provides the user additional themes, scales, and geoms for the ggplots package |
+| **skimr** | Summarize dataset with descriptive statistics for EDA |
+| **janitor** | Clean column names, tabulate categorical variables for EDA |
 
 The code chunk below will be used load these R packages into RStudio environment
 
