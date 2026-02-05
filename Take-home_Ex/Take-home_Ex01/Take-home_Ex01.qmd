@@ -41,22 +41,35 @@ The goal is to identify key factors that influence student performance and provi
 
 ## 2.1 Loading packages
 
-| Library | Description |
-|----|----|
++---------------+---------------------------------------------------------------------------------------------------------------+
+| Library       | Description                                                                                                   |
++===============+===============================================================================================================+
 | **tidyverse** | Core packages for data wrangling, filtering, summarizing, and plotting (`dplyr`, `ggplot2`, `readr`, `tidyr`) |
-| **readxl** | Read Excel `.xlsx` files |
-| **ggiraph** | Make ggplot2 plots interactive (tooltip, hover, click) |
-| **plotly** | Create interactive scatterplots and coordinated multiple views |
-| **crosstalk** | Link plots and tables for interactive filtering and highlighting |
-| **DT** | Interactive tables to display and explore student data |
-| **patchwork** | Combine multiple ggplot2 plots into one figure |
-| **scales** | Format axis labels, percentages, and numbers for readability |
-| **ggpubr** | Publication-ready plots and statistical annotation |
-| **ggtext** | Enhanced text rendering for ggplot2 labels and tooltips |
-| **ggdist** | Visualisations of distributions and uncertainty in ggplot2 |
-| **ggthemes** | A ggplot extension that provides the user additional themes, scales, and geoms for the ggplots package |
-| **skimr** | Summarize dataset with descriptive statistics for EDA |
-| **janitor** | Clean column names, tabulate categorical variables for EDA |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **readxl**    | Read Excel `.xlsx` files                                                                                      |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **ggplot2**   |                                                                                                               |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **scales**    | Format axis labels, percentages, and numbers for readability                                                  |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **plotly**    | Create interactive scatterplots and coordinated multiple views                                                |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **ggthemes**  | A ggplot extension that provides the user additional themes, scales, and geoms for the ggplots package        |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **patchwork** | Combine multiple ggplot2 plots into one figure                                                                |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **ggpubr**    | Publication-ready plots and statistical annotation                                                            |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **ggtext**    | Enhanced text rendering for ggplot2 labels and tooltips                                                       |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **ggdist**    | Visualisations of distributions and uncertainty in ggplot2                                                    |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **ggridges**  |                                                                                                               |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **skimr**     | Summarize dataset with descriptive statistics for EDA                                                         |
++---------------+---------------------------------------------------------------------------------------------------------------+
+| **janitor**   | Clean column names, tabulate categorical variables for EDA                                                    |
++---------------+---------------------------------------------------------------------------------------------------------------+
 
 The code chunk below will be used load these R packages into RStudio environment
 
@@ -83,155 +96,155 @@ For this post, only the columns relevant to our planned visualizations were reta
 
 The retained variables can be grouped into four broad categories, capturing aspects of University Support, Gender/Personal Demographics, Socio-economic Status, and Student Behavior/Performance. Details are extracted from the Codebook:
 
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Category              | Variable name      | Question                                                                     | Encoding scheme                     | Type      |
-+=======================+====================+==============================================================================+=====================================+===========+
-| Personal Demographics | Year               | What year student are you in?                                                | 1 - First-year                      | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Second-year                     |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - Third-year                      |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - Fourth-year                     |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - Graduated                       |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Personal Demographics | Gender             | What is your gender?                                                         | 1 - Male                            | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Female                          |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Socio-economic Status | Policy_Stu         | Are you a student on policy government support?                              | 1 - Yes                             | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - No                              |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Socio-economic Status | Poor_Stu           | Is your family a poor household?                                             | 1 - Yes                             | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - No                              |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Family Background     | Father_Edu         | What educational background of your father?                                  | 1 - Primary school                  | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Secondary school                |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - High school                     |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - College school                  |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - University/graduate education   |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 6 - Other                           |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Family Background     | Mother_Edu         | What educational background of your mother?                                  | 1 - Primary school                  | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Secondary school                |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - High school                     |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - College school                  |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - University/graduate education   |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 6 - Other                           |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Family Background     | Father_Occupation  | What is your father's occupation status?                                     | 1 - Government employee             | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Self-employment                 |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - Freelance                       |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - Other                           |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - Not public                      |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Family Background     | Mother_Occupation  | What is your mother's occupation status?                                     | 1 - Government employee             | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Self-employment                 |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - Freelance                       |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - Other                           |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - Not public                      |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Student Behavior      | Time_Friends       | How much time do you spend hanging out with your friends on average per day? | 1 - under 1 hours                   | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - from 1 to lower 2 hours         |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - from 2 to lower 3 hours         |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - from 3 to lower 4 hours         |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - over 4 hour                     |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Student Behavior      | Time_SocicalMedia  | How much time do you spend using social media on average per day?            | 1 - under 1 hours                   | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - from 1 to lower 2 hours         |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - from 2 to lower 3 hours         |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - from 3 to lower 4 hours         |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - over 4 hour                     |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Student Behavior      | Time_Studying      | How much time do you spend studying on average per day?                      | 1 - under 2 hours                   | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - from 2 to lower 4 hours         |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - from 4 to lower 6 hours         |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - from 6 to lower 8 hours         |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - over 8 hour                     |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| Performance           | GPA                | What is your cumulative grade point average (GPA)?                           | 1 - Under 2.0 – Poor                | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - From 2.0 to lower 2.5 – Average |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - From 2.5 to lower 3.2 – Fair    |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - From 3.2 to lower  3.6 – Good   |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - Over 3.6 – Excellent            |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| University Support    | Adapt_Learning_Uni | How level are you adapting to the learning environment at the university?    | 1 - Not at all                      | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Little                          |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - Moderate                        |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - Quite                           |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - Very                            |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| University Support    | Study_Methods      | How level are your studying methods affecting your outcomes?                 | 1 - Not at all                      | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Little                          |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - Moderate                        |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - Quite                           |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - Very                            |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| University Support    | SupportOf_Uni      | How level is the university's support for you?                               | 1 - Not at all                      | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Little                          |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - Moderate                        |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - Quite                           |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - Very                            |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
-| University Support    | SupportOf_Lec      | How level is the lecturer's support (affecting your outcomes)?               | 1 - Not at all                      | Numerical |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 2 - Little                          |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 3 - Moderate                        |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 4 - Quite                           |           |
-|                       |                    |                                                                              |                                     |           |
-|                       |                    |                                                                              | 5 - Very                            |           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+-----------+
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Category              | Variable name      | Question                                                                     | Encoding scheme                     |
++=======================+====================+==============================================================================+=====================================+
+| Personal Demographics | Year               | What year student are you in?                                                | 1 - First-year                      |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Second-year                     |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - Third-year                      |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - Fourth-year                     |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - Graduated                       |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Personal Demographics | Gender             | What is your gender?                                                         | 1 - Male                            |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Female                          |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Socio-economic Status | Policy_Stu         | Are you a student on policy government support?                              | 1 - Yes                             |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - No                              |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Socio-economic Status | Poor_Stu           | Is your family a poor household?                                             | 1 - Yes                             |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - No                              |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Family Background     | Father_Edu         | What educational background of your father?                                  | 1 - Primary school                  |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Secondary school                |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - High school                     |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - College school                  |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - University/graduate education   |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 6 - Other                           |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Family Background     | Mother_Edu         | What educational background of your mother?                                  | 1 - Primary school                  |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Secondary school                |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - High school                     |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - College school                  |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - University/graduate education   |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 6 - Other                           |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Student Behavior      | Time_Friends       | How much time do you spend hanging out with your friends on average per day? | 1 - under 1 hours                   |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - from 1 to lower 2 hours         |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - from 2 to lower 3 hours         |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - from 3 to lower 4 hours         |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - over 4 hour                     |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Student Behavior      | Time_SocicalMedia  | How much time do you spend using social media on average per day?            | 1 - under 1 hours                   |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - from 1 to lower 2 hours         |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - from 2 to lower 3 hours         |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - from 3 to lower 4 hours         |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - over 4 hour                     |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Student Behavior      | Time_Studying      | How much time do you spend studying on average per day?                      | 1 - under 2 hours                   |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - from 2 to lower 4 hours         |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - from 4 to lower 6 hours         |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - from 6 to lower 8 hours         |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - over 8 hour                     |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Performance           | GPA                | What is your cumulative grade point average (GPA)?                           | 1 - Under 2.0 – Poor                |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - From 2.0 to lower 2.5 – Average |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - From 2.5 to lower 3.2 – Fair    |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - From 3.2 to lower  3.6 – Good   |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - Over 3.6 – Excellent            |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| University Support    | Adapt_Learning_Uni | How level are you adapting to the learning environment at the university?    | 1 - Not at all                      |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Little                          |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - Moderate                        |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - Quite                           |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - Very                            |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| University Support    | Study_Methods      | How level are your studying methods affecting your outcomes?                 | 1 - Not at all                      |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Little                          |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - Moderate                        |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - Quite                           |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - Very                            |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| University Support    | SupportOf_Uni      | How level is the university's support for you?                               | 1 - Not at all                      |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Little                          |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - Moderate                        |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - Quite                           |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - Very                            |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| University Support    | SupportOf_Lec      | How level is the lecturer's support (affecting your outcomes)?               | 1 - Not at all                      |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Little                          |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - Moderate                        |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - Quite                           |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - Very                            |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| University Support    | Facilitie_Uni      | How responsive are the university facilities?                                | 1 - Not at all                      |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Little                          |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - Moderate                        |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - Quite                           |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - Very                            |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| University Support    | TrainingCurriculum | How level is suitable of the university curriculum?                          | 1 - Not at all                      |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 2 - Little                          |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 3 - Moderate                        |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 4 - Quite                           |
+|                       |                    |                                                                              |                                     |
+|                       |                    |                                                                              | 5 - Very                            |
++-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
 
 glimpse() of the dplyr package allows us to see all columns and their data type in the data frame.
 
@@ -243,19 +256,230 @@ glimpse(student_data)
 summary(student_data)
 ```
 
+A new dataset, student_viz_data, was generated by selecting only the variables relevant to the planned visualizations.
+
+```{r}
+
+selected_vars <- c(
+  "Year", "Gender", "Poor_Stu", "Policy_Stu", "Father_Edu", "Mother_Edu",
+  "Time_Friends", "Time_SocicalMedia", "Time_Studying",
+  "GPA", "Adapt_Learning_Uni", "Study_Methods",
+  "SupportOf_Uni", "SupportOf_Lec", "Facilitie_Uni", "TrainingCurriculum"
+)
+
+student_viz_data <- student_data %>%
+  select(all_of(selected_vars))
+
+head(student_viz_data)
+
+```
+
 ## 3.2 Handling missing value
+
+To check the total number of missing values in the whole dataset, the code chunk below was used.
+
+```{r}
+sum(is.na(student_viz_data))
+```
+
+To examine missing values for each variable individually, the code chunk below was used to compute the number of missing observations by column.
+
+```{r}
+colSums(is.na(student_viz_data))
+```
+
+After inspecting the dataset using colSums(is.na(student_data)), no missing values were detected across all variables. This indicates that the dataset is complete and does not require further treatment such as row deletion, variable removal, or imputation. Therefore, all observations were retained for subsequent data preparation, analysis, and visualization.
 
 ## 3.3 Recoding categorical variables
 
-## 3.4 Data type conversion
+Although many variables in the dataset are recorded using numerical codes (e.g., 1–5), these values do not represent actual quantities or measurements but instead correspond to ordered categories or levels of perception. If left as numeric variables, R would treat them as continuous numbers, implying equal intervals between categories and allowing inappropriate mathematical operations such as averaging or regression as if they were true numerical measurements. This can lead to misleading results and incorrect visual interpretations. Therefore, these variables need to be recoded as ordered factors with meaningful labels to ensure accurate and appropriate analysis and visualization by using the code chunk below.
 
-## 3.5 Variable creation
+```{r}
+library(dplyr)
+
+student_viz_data <- student_viz_data |>
+  mutate(
+    # ----- Student profile -----
+    Year = factor(Year,
+                  levels = c(1,2,3,4,5),
+                  labels = c("First-year",
+                             "Second-year",
+                             "Third-year",
+                             "Fourth-year",
+                             "Graduated")),
+
+    Gender = factor(Gender,
+                    levels = c(1,2),
+                    labels = c("Male", "Female")),
+
+    Poor_Stu = factor(Poor_Stu,
+                      levels = c(1,2),
+                      labels = c("Poor household", "Not poor")),
+
+    Policy_Stu = factor(Policy_Stu,
+                        levels = c(1,2),
+                        labels = c("Policy supported", "Not supported")),
+
+    # ----- Parents' education -----
+    Father_Edu = factor(Father_Edu,
+                        levels = 1:6,
+                        labels = c("Primary school",
+                                   "Secondary school",
+                                   "High school",
+                                   "College",
+                                   "University/Graduate",
+                                   "Other")),
+
+    Mother_Edu = factor(Mother_Edu,
+                        levels = 1:6,
+                        labels = c("Primary school",
+                                   "Secondary school",
+                                   "High school",
+                                   "College",
+                                   "University/Graduate",
+                                   "Other")),
+
+    # ----- Time use -----
+    Time_Friends = factor(Time_Friends,
+                          levels = c(1,2,3,4,5),
+                          labels = c("Under 1 hour",
+                                     "1–<2 hours",
+                                     "2–<3 hours",
+                                     "3–<4 hours",
+                                     "Over 4 hours")),
+
+    Time_SocicalMedia = factor(Time_SocicalMedia,
+                               levels = c(1,2,3,4,5),
+                               labels = c("Under 1 hour",
+                                          "1–<2 hours",
+                                          "2–<3 hours",
+                                          "3–<4 hours",
+                                          "Over 4 hours")),
+
+    Time_Studying = factor(Time_Studying,
+                           levels = c(1,2,3,4,5),
+                           labels = c("Under 2 hours",
+                                      "2–<4 hours",
+                                      "4–<6 hours",
+                                      "6–<8 hours",
+                                      "Over 8 hours")),
+
+    # ----- Academic outcome -----
+    GPA = factor(GPA,
+                 levels = c(1,2,3,4,5),
+                 labels = c("Under 2.0 – Poor",
+                            "2.0–<2.5 – Average",
+                            "2.5–<3.2 – Fair",
+                            "3.2–<3.6 – Good",
+                            "Over 3.6 – Excellent")),
+
+    # ----- University support & learning -----
+    Adapt_Learning_Uni = factor(Adapt_Learning_Uni,
+                                levels = 1:5,
+                                labels = c("Not at all",
+                                           "Little",
+                                           "Moderate",
+                                           "Quite",
+                                           "Very")),
+
+    Study_Methods = factor(Study_Methods,
+                           levels = 1:5,
+                           labels = c("Not at all",
+                                      "Little",
+                                      "Moderate",
+                                      "Quite",
+                                      "Very")),
+
+    SupportOf_Uni = factor(SupportOf_Uni,
+                           levels = 1:5,
+                           labels = c("Not at all",
+                                      "Little",
+                                      "Moderate",
+                                      "Quite",
+                                      "Very")),
+
+    SupportOf_Lec = factor(SupportOf_Lec,
+                           levels = 1:5,
+                           labels = c("Not at all",
+                                      "Little",
+                                      "Moderate",
+                                      "Quite",
+                                      "Very")),
+
+    Facilitie_Uni = factor(Facilitie_Uni,
+                           levels = 1:5,
+                           labels = c("Not at all",
+                                      "Little",
+                                      "Moderate",
+                                      "Quite",
+                                      "Very")),
+
+    TrainingCurriculum = factor(TrainingCurriculum,
+                                levels = 1:5,
+                                labels = c("Not at all",
+                                           "Little",
+                                           "Moderate",
+                                           "Quite",
+                                           "Very"))
+  )
+
+```
+
+After converting the selected variables to factors, we used glimpse() to quickly inspect the structure of the dataset and confirm that all categorical variables were correctly recoded.
+
+```{r}
+glimpse(student_viz_data)
+```
 
 # 4. Univariate Analysis
 
+
 # 5. Exploratory Data Analysis
 
-# 
+EDA1: Student demograpic
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(ggthemes)
+
+# Count of students by Year
+ggplot(student_viz_data, aes(x = factor(Year), fill = factor(Year))) +
+  geom_bar() +
+  labs(title = "Number of Students by Year",
+       x = "Year of Study",
+       y = "Count of Students") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2")
+
+# Gender composition
+ggplot(student_viz_data, aes(x = Gender, fill = Gender)) +
+  geom_bar() +
+  labs(title = "Gender Distribution of Students",
+       x = "Gender",
+       y = "Count") +
+  theme_minimal() +
+  scale_fill_manual(values = c("skyblue", "pink"))
+
+# Economic status (Poor vs Not Poor)
+ggplot(student_viz_data, aes(x = Poor_Stu, fill = Poor_Stu)) +
+  geom_bar() +
+  labs(title = "Students from Poor Households",
+       x = "Poor Student (1=Yes, 2=No)",
+       y = "Count") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Paired")
+
+# Policy-supported students
+ggplot(student_viz_data, aes(x = Policy_Stu, fill = Policy_Stu)) +
+  geom_bar() +
+  labs(title = "Students under Government Policy Support",
+       x = "Policy Supported (1=Yes, 2=No)",
+       y = "Count") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
 
 # 6. Summary
 

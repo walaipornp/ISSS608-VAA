@@ -327,50 +327,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Read Excel <code>.xlsx</code> files</td>
 </tr>
 <tr class="odd">
-<td><strong>ggiraph</strong></td>
-<td>Make ggplot2 plots interactive (tooltip, hover, click)</td>
-</tr>
-<tr class="even">
-<td><strong>plotly</strong></td>
-<td>Create interactive scatterplots and coordinated multiple views</td>
-</tr>
-<tr class="odd">
-<td><strong>crosstalk</strong></td>
-<td>Link plots and tables for interactive filtering and highlighting</td>
-</tr>
-<tr class="even">
-<td><strong>DT</strong></td>
-<td>Interactive tables to display and explore student data</td>
-</tr>
-<tr class="odd">
-<td><strong>patchwork</strong></td>
-<td>Combine multiple ggplot2 plots into one figure</td>
+<td><strong>ggplot2</strong></td>
+<td></td>
 </tr>
 <tr class="even">
 <td><strong>scales</strong></td>
 <td>Format axis labels, percentages, and numbers for readability</td>
 </tr>
 <tr class="odd">
-<td><strong>ggpubr</strong></td>
-<td>Publication-ready plots and statistical annotation</td>
-</tr>
-<tr class="even">
-<td><strong>ggtext</strong></td>
-<td>Enhanced text rendering for ggplot2 labels and tooltips</td>
-</tr>
-<tr class="odd">
-<td><strong>ggdist</strong></td>
-<td>Visualisations of distributions and uncertainty in ggplot2</td>
+<td><strong>plotly</strong></td>
+<td>Create interactive scatterplots and coordinated multiple views</td>
 </tr>
 <tr class="even">
 <td><strong>ggthemes</strong></td>
 <td>A ggplot extension that provides the user additional themes, scales, and geoms for the ggplots package</td>
 </tr>
 <tr class="odd">
+<td><strong>patchwork</strong></td>
+<td>Combine multiple ggplot2 plots into one figure</td>
+</tr>
+<tr class="even">
+<td><strong>ggpubr</strong></td>
+<td>Publication-ready plots and statistical annotation</td>
+</tr>
+<tr class="odd">
+<td><strong>ggtext</strong></td>
+<td>Enhanced text rendering for ggplot2 labels and tooltips</td>
+</tr>
+<tr class="even">
+<td><strong>ggdist</strong></td>
+<td>Visualisations of distributions and uncertainty in ggplot2</td>
+</tr>
+<tr class="odd">
+<td><strong>ggridges</strong></td>
+<td></td>
+</tr>
+<tr class="even">
 <td><strong>skimr</strong></td>
 <td>Summarize dataset with descriptive statistics for EDA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>janitor</strong></td>
 <td>Clean column names, tabulate categorical variables for EDA</td>
 </tr>
@@ -399,11 +395,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The retained variables can be grouped into four broad categories, capturing aspects of University Support, Gender/Personal Demographics, Socio-economic Status, and Student Behavior/Performance. Details are extracted from the Codebook:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 11%">
-<col style="width: 44%">
-<col style="width: 21%">
-<col style="width: 6%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 48%">
+<col style="width: 23%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -411,7 +406,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th>Variable name</th>
 <th>Question</th>
 <th>Encoding scheme</th>
-<th>Type</th>
 </tr>
 </thead>
 <tbody>
@@ -424,7 +418,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>3 - Third-year</p>
 <p>4 - Fourth-year</p>
 <p>5 - Graduated</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="even">
 <td>Personal Demographics</td>
@@ -432,7 +425,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>What is your gender?</td>
 <td><p>1 - Male</p>
 <p>2 - Female</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="odd">
 <td>Socio-economic Status</td>
@@ -440,7 +432,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Are you a student on policy government support?</td>
 <td><p>1 - Yes</p>
 <p>2 - No</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="even">
 <td>Socio-economic Status</td>
@@ -448,7 +439,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Is your family a poor household?</td>
 <td><p>1 - Yes</p>
 <p>2 - No</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="odd">
 <td>Family Background</td>
@@ -460,7 +450,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>4 - College school</p>
 <p>5 - University/graduate education</p>
 <p>6 - Other</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="even">
 <td>Family Background</td>
@@ -472,29 +461,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>4 - College school</p>
 <p>5 - University/graduate education</p>
 <p>6 - Other</p></td>
-<td>Numerical</td>
-</tr>
-<tr class="odd">
-<td>Family Background</td>
-<td>Father_Occupation</td>
-<td>What is your father’s occupation status?</td>
-<td><p>1 - Government employee</p>
-<p>2 - Self-employment</p>
-<p>3 - Freelance</p>
-<p>4 - Other</p>
-<p>5 - Not public</p></td>
-<td>Numerical</td>
-</tr>
-<tr class="even">
-<td>Family Background</td>
-<td>Mother_Occupation</td>
-<td>What is your mother’s occupation status?</td>
-<td><p>1 - Government employee</p>
-<p>2 - Self-employment</p>
-<p>3 - Freelance</p>
-<p>4 - Other</p>
-<p>5 - Not public</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="odd">
 <td>Student Behavior</td>
@@ -505,7 +471,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>3 - from 2 to lower 3 hours</p>
 <p>4 - from 3 to lower 4 hours</p>
 <p>5 - over 4 hour</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="even">
 <td>Student Behavior</td>
@@ -516,7 +481,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>3 - from 2 to lower 3 hours</p>
 <p>4 - from 3 to lower 4 hours</p>
 <p>5 - over 4 hour</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="odd">
 <td>Student Behavior</td>
@@ -527,7 +491,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>3 - from 4 to lower 6 hours</p>
 <p>4 - from 6 to lower 8 hours</p>
 <p>5 - over 8 hour</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="even">
 <td>Performance</td>
@@ -538,7 +501,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>3 - From 2.5 to lower 3.2 – Fair</p>
 <p>4 - From 3.2 to lower&nbsp; 3.6 – Good</p>
 <p>5 - Over 3.6 – Excellent</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="odd">
 <td>University Support</td>
@@ -549,7 +511,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>3 - Moderate</p>
 <p>4 - Quite</p>
 <p>5 - Very</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="even">
 <td>University Support</td>
@@ -560,7 +521,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>3 - Moderate</p>
 <p>4 - Quite</p>
 <p>5 - Very</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="odd">
 <td>University Support</td>
@@ -571,7 +531,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>3 - Moderate</p>
 <p>4 - Quite</p>
 <p>5 - Very</p></td>
-<td>Numerical</td>
 </tr>
 <tr class="even">
 <td>University Support</td>
@@ -582,7 +541,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>3 - Moderate</p>
 <p>4 - Quite</p>
 <p>5 - Very</p></td>
-<td>Numerical</td>
+</tr>
+<tr class="odd">
+<td>University Support</td>
+<td>Facilitie_Uni</td>
+<td>How responsive are the university facilities?</td>
+<td><p>1 - Not at all</p>
+<p>2 - Little</p>
+<p>3 - Moderate</p>
+<p>4 - Quite</p>
+<p>5 - Very</p></td>
+</tr>
+<tr class="even">
+<td>University Support</td>
+<td>TrainingCurriculum</td>
+<td>How level is suitable of the university curriculum?</td>
+<td><p>1 - Not at all</p>
+<p>2 - Little</p>
+<p>3 - Moderate</p>
+<p>4 - Quite</p>
+<p>5 - Very</p></td>
 </tr>
 </tbody>
 </table>
@@ -663,15 +641,218 @@ $ InfuenceF_Friends  &lt;dbl&gt; 3, 4, 4, 4, 5, 3, 5, 4, 4, 4, 4, 4, 4, 5, 4, 5,
  Max.   :5.000    </code></pre>
 </div>
 </div>
+<p>A new dataset, student_viz_data, was generated by selecting only the variables relevant to the planned visualizations.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>selected_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Year"</span>, <span class="st">"Gender"</span>, <span class="st">"Poor_Stu"</span>, <span class="st">"Policy_Stu"</span>, <span class="st">"Father_Edu"</span>, <span class="st">"Mother_Edu"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Time_Friends"</span>, <span class="st">"Time_SocicalMedia"</span>, <span class="st">"Time_Studying"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GPA"</span>, <span class="st">"Adapt_Learning_Uni"</span>, <span class="st">"Study_Methods"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"SupportOf_Uni"</span>, <span class="st">"SupportOf_Lec"</span>, <span class="st">"Facilitie_Uni"</span>, <span class="st">"TrainingCurriculum"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>student_viz_data <span class="ot">&lt;-</span> student_data <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(selected_vars))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(student_viz_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 16
+   Year Gender Poor_Stu Policy_Stu Father_Edu Mother_Edu Time_Friends
+  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;
+1     5      2        2          2          4          4            2
+2     5      1        2          2          3          3            1
+3     5      2        2          2          4          4            1
+4     5      2        2          2          5          4            2
+5     5      1        2          1          2          3            1
+6     5      2        2          2          5          5            1
+# ℹ 9 more variables: Time_SocicalMedia &lt;dbl&gt;, Time_Studying &lt;dbl&gt;, GPA &lt;dbl&gt;,
+#   Adapt_Learning_Uni &lt;dbl&gt;, Study_Methods &lt;dbl&gt;, SupportOf_Uni &lt;dbl&gt;,
+#   SupportOf_Lec &lt;dbl&gt;, Facilitie_Uni &lt;dbl&gt;, TrainingCurriculum &lt;dbl&gt;</code></pre>
+</div>
+</div>
 </section>
 <section id="handling-missing-value" class="level2">
 <h2 class="anchored" data-anchor-id="handling-missing-value">3.2 Handling missing value</h2>
+<p>To check the total number of missing values in the whole dataset, the code chunk below was used.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(student_viz_data))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>To examine missing values for each variable individually, the code chunk below was used to compute the number of missing observations by column.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(student_viz_data))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Year             Gender           Poor_Stu         Policy_Stu 
+                 0                  0                  0                  0 
+        Father_Edu         Mother_Edu       Time_Friends  Time_SocicalMedia 
+                 0                  0                  0                  0 
+     Time_Studying                GPA Adapt_Learning_Uni      Study_Methods 
+                 0                  0                  0                  0 
+     SupportOf_Uni      SupportOf_Lec      Facilitie_Uni TrainingCurriculum 
+                 0                  0                  0                  0 </code></pre>
+</div>
+</div>
+<p>After inspecting the dataset using colSums(is.na(student_data)), no missing values were detected across all variables. This indicates that the dataset is complete and does not require further treatment such as row deletion, variable removal, or imputation. Therefore, all observations were retained for subsequent data preparation, analysis, and visualization.</p>
 </section>
 <section id="recoding-categorical-variables" class="level2">
 <h2 class="anchored" data-anchor-id="recoding-categorical-variables">3.3 Recoding categorical variables</h2>
+<p>Although many variables in the dataset are recorded using numerical codes (e.g., 1–5), these values do not represent actual quantities or measurements but instead correspond to ordered categories or levels of perception. If left as numeric variables, R would treat them as continuous numbers, implying equal intervals between categories and allowing inappropriate mathematical operations such as averaging or regression as if they were true numerical measurements. This can lead to misleading results and incorrect visual interpretations. Therefore, these variables need to be recoded as ordered factors with meaningful labels to ensure accurate and appropriate analysis and visualization by using the code chunk below.</p>
 </section>
 <section id="data-type-conversion" class="level2">
 <h2 class="anchored" data-anchor-id="data-type-conversion">3.4 Data type conversion</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>student_viz_data <span class="ot">&lt;-</span> student_viz_data <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----- Student profile -----</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">factor</span>(Year,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"First-year"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Second-year"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Third-year"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Fourth-year"</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Graduated"</span>)),</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">factor</span>(Gender,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Poor_Stu =</span> <span class="fu">factor</span>(Poor_Stu,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Poor household"</span>, <span class="st">"Not poor"</span>)),</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Policy_Stu =</span> <span class="fu">factor</span>(Policy_Stu,</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Policy supported"</span>, <span class="st">"Not supported"</span>)),</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----- Parents' education -----</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Father_Edu =</span> <span class="fu">factor</span>(Father_Edu,</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Primary school"</span>,</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Secondary school"</span>,</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"High school"</span>,</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"College"</span>,</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"University/Graduate"</span>,</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Other"</span>)),</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mother_Edu =</span> <span class="fu">factor</span>(Mother_Edu,</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Primary school"</span>,</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Secondary school"</span>,</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"High school"</span>,</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"College"</span>,</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"University/Graduate"</span>,</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Other"</span>)),</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----- Time use -----</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">Time_Friends =</span> <span class="fu">factor</span>(Time_Friends,</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>                          <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Under 1 hour"</span>,</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"1–&lt;2 hours"</span>,</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"2–&lt;3 hours"</span>,</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"3–&lt;4 hours"</span>,</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Over 4 hours"</span>)),</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">Time_SocicalMedia =</span> <span class="fu">factor</span>(Time_SocicalMedia,</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>                               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Under 1 hour"</span>,</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"1–&lt;2 hours"</span>,</span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"2–&lt;3 hours"</span>,</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"3–&lt;4 hours"</span>,</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"Over 4 hours"</span>)),</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">Time_Studying =</span> <span class="fu">factor</span>(Time_Studying,</span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Under 2 hours"</span>,</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"2–&lt;4 hours"</span>,</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"4–&lt;6 hours"</span>,</span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"6–&lt;8 hours"</span>,</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Over 8 hours"</span>)),</span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----- Academic outcome -----</span></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">GPA =</span> <span class="fu">factor</span>(GPA,</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>                 <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>                 <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Under 2.0 – Poor"</span>,</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"2.0–&lt;2.5 – Average"</span>,</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"2.5–&lt;3.2 – Fair"</span>,</span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"3.2–&lt;3.6 – Good"</span>,</span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Over 3.6 – Excellent"</span>)),</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----- University support &amp; learning -----</span></span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">Adapt_Learning_Uni =</span> <span class="fu">factor</span>(Adapt_Learning_Uni,</span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>                                <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>                                <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not at all"</span>,</span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Little"</span>,</span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Moderate"</span>,</span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Quite"</span>,</span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Very"</span>)),</span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">Study_Methods =</span> <span class="fu">factor</span>(Study_Methods,</span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not at all"</span>,</span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Little"</span>,</span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Moderate"</span>,</span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Quite"</span>,</span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Very"</span>)),</span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">SupportOf_Uni =</span> <span class="fu">factor</span>(SupportOf_Uni,</span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not at all"</span>,</span>
+<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Little"</span>,</span>
+<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Moderate"</span>,</span>
+<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Quite"</span>,</span>
+<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Very"</span>)),</span>
+<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">SupportOf_Lec =</span> <span class="fu">factor</span>(SupportOf_Lec,</span>
+<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not at all"</span>,</span>
+<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Little"</span>,</span>
+<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Moderate"</span>,</span>
+<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Quite"</span>,</span>
+<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Very"</span>)),</span>
+<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">Facilitie_Uni =</span> <span class="fu">factor</span>(Facilitie_Uni,</span>
+<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not at all"</span>,</span>
+<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Little"</span>,</span>
+<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Moderate"</span>,</span>
+<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Quite"</span>,</span>
+<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Very"</span>)),</span>
+<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">TrainingCurriculum =</span> <span class="fu">factor</span>(TrainingCurriculum,</span>
+<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a>                                <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a>                                <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not at all"</span>,</span>
+<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Little"</span>,</span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Moderate"</span>,</span>
+<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Quite"</span>,</span>
+<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Very"</span>))</span>
+<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(student_viz_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,170
+Columns: 16
+$ Year               &lt;fct&gt; Graduated, Graduated, Graduated, Graduated, Graduat…
+$ Gender             &lt;fct&gt; Female, Male, Female, Female, Male, Female, Female,…
+$ Poor_Stu           &lt;fct&gt; Not poor, Not poor, Not poor, Not poor, Not poor, N…
+$ Policy_Stu         &lt;fct&gt; Not supported, Not supported, Not supported, Not su…
+$ Father_Edu         &lt;fct&gt; College, High school, College, University/Graduate,…
+$ Mother_Edu         &lt;fct&gt; College, High school, College, College, High school…
+$ Time_Friends       &lt;fct&gt; 1–&lt;2 hours, Under 1 hour, Under 1 hour, 1–&lt;2 hours,…
+$ Time_SocicalMedia  &lt;fct&gt; 1–&lt;2 hours, 2–&lt;3 hours, 1–&lt;2 hours, 1–&lt;2 hours, 1–&lt;…
+$ Time_Studying      &lt;fct&gt; Over 8 hours, Over 8 hours, Over 8 hours, Over 8 ho…
+$ GPA                &lt;fct&gt; 3.2–&lt;3.6 – Good, 2.5–&lt;3.2 – Fair, 3.2–&lt;3.6 – Good, …
+$ Adapt_Learning_Uni &lt;fct&gt; Quite, Moderate, Quite, Quite, Very, Quite, Quite, …
+$ Study_Methods      &lt;fct&gt; Quite, Moderate, Quite, Quite, Very, Quite, Quite, …
+$ SupportOf_Uni      &lt;fct&gt; Moderate, Moderate, Quite, Very, Very, Very, Very, …
+$ SupportOf_Lec      &lt;fct&gt; Quite, Quite, Quite, Very, Very, Quite, Very, Quite…
+$ Facilitie_Uni      &lt;fct&gt; Quite, Quite, Moderate, Very, Very, Very, Very, Qui…
+$ TrainingCurriculum &lt;fct&gt; Quite, Moderate, Quite, Quite, Very, Quite, Very, Q…</code></pre>
+</div>
+</div>
 </section>
 <section id="variable-creation" class="level2">
 <h2 class="anchored" data-anchor-id="variable-creation">3.5 Variable creation</h2>
@@ -775,7 +956,7 @@ $ InfuenceF_Friends  &lt;dbl&gt; 3, 4, 4, 4, 5, 3, 5, 4, 4, 4, 4, 4, 4, 5, 4, 5,
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/walaipornp\.github\.io\/ISSS608-VAA\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

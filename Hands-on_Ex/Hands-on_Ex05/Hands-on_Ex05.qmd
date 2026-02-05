@@ -3,6 +3,8 @@ title: "Hands-on Exercise 5"
 author: "Walaiporn Pawitranon"
 execute: 
   warning: false
+  echo: true
+  eval: false
 ---
 
 # 1. Creating Ternary Plot with R

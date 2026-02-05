@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -178,11 +213,88 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#creating-ternary-plot-with-r" id="toc-creating-ternary-plot-with-r" class="nav-link active" data-scroll-target="#creating-ternary-plot-with-r">1. Creating Ternary Plot with R</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">1.1 Overview</a></li>
+  <li><a href="#installing-and-launching-r-packages" id="toc-installing-and-launching-r-packages" class="nav-link" data-scroll-target="#installing-and-launching-r-packages">1.2 Installing and launching R packages</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">1.3 Data Preparation</a>
+  <ul class="collapse">
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">1.3.1 The data</a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data">1.3.2 Importing Data</a></li>
+  <li><a href="#preparing-the-data" id="toc-preparing-the-data" class="nav-link" data-scroll-target="#preparing-the-data">1.3.3 Preparing the Data</a></li>
+  </ul></li>
+  <li><a href="#plotting-ternary-diagram-with-r" id="toc-plotting-ternary-diagram-with-r" class="nav-link" data-scroll-target="#plotting-ternary-diagram-with-r">1.4 Plotting Ternary Diagram with R</a>
+  <ul class="collapse">
+  <li><a href="#plotting-a-static-ternary-diagram" id="toc-plotting-a-static-ternary-diagram" class="nav-link" data-scroll-target="#plotting-a-static-ternary-diagram">1.4.1 Plotting a static ternary diagram</a></li>
+  <li><a href="#plotting-an-interactive-ternary-diagram" id="toc-plotting-an-interactive-ternary-diagram" class="nav-link" data-scroll-target="#plotting-an-interactive-ternary-diagram">1.4.2 Plotting an interactive ternary diagram</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#visual-correlation-analysis" id="toc-visual-correlation-analysis" class="nav-link" data-scroll-target="#visual-correlation-analysis">2. Visual Correlation Analysis</a>
+  <ul class="collapse">
+  <li><a href="#overview-1" id="toc-overview-1" class="nav-link" data-scroll-target="#overview-1">2.1 Overview</a></li>
+  <li><a href="#installing-and-launching-r-packages-1" id="toc-installing-and-launching-r-packages-1" class="nav-link" data-scroll-target="#installing-and-launching-r-packages-1">2.2 Installing and Launching R Packages</a></li>
+  <li><a href="#importing-and-preparing-the-data-set" id="toc-importing-and-preparing-the-data-set" class="nav-link" data-scroll-target="#importing-and-preparing-the-data-set">2.3 Importing and Preparing The Data Set</a>
+  <ul class="collapse">
+  <li><a href="#importing-data-1" id="toc-importing-data-1" class="nav-link" data-scroll-target="#importing-data-1">2.3.1 Importing Data</a></li>
+  </ul></li>
+  <li><a href="#building-correlation-matrix-pairs-method" id="toc-building-correlation-matrix-pairs-method" class="nav-link" data-scroll-target="#building-correlation-matrix-pairs-method">2.4 Building Correlation Matrix: pairs() method</a>
+  <ul class="collapse">
+  <li><a href="#building-a-basic-correlation-matrix" id="toc-building-a-basic-correlation-matrix" class="nav-link" data-scroll-target="#building-a-basic-correlation-matrix">2.4.1 Building a basic correlation matrix</a></li>
+  <li><a href="#drawing-the-lower-corner" id="toc-drawing-the-lower-corner" class="nav-link" data-scroll-target="#drawing-the-lower-corner">2.4.2 Drawing the lower corner</a></li>
+  <li><a href="#including-with-correlation-coefficients" id="toc-including-with-correlation-coefficients" class="nav-link" data-scroll-target="#including-with-correlation-coefficients">2.4.3 Including with correlation coefficients</a></li>
+  </ul></li>
+  <li><a href="#visualizing-correlation-matrix-ggcormat" id="toc-visualizing-correlation-matrix-ggcormat" class="nav-link" data-scroll-target="#visualizing-correlation-matrix-ggcormat">2.5 Visualizing Correlation Matrix: ggcormat()</a>
+  <ul class="collapse">
+  <li><a href="#the-basic-plot" id="toc-the-basic-plot" class="nav-link" data-scroll-target="#the-basic-plot">2.5.1 The basic plot</a></li>
+  </ul></li>
+  <li><a href="#building-multiple-plots" id="toc-building-multiple-plots" class="nav-link" data-scroll-target="#building-multiple-plots">2.6 Building multiple plots</a></li>
+  <li><a href="#visualizing-correlation-matrix-using-corrplot-package" id="toc-visualizing-correlation-matrix-using-corrplot-package" class="nav-link" data-scroll-target="#visualizing-correlation-matrix-using-corrplot-package">2.7 Visualizing Correlation Matrix using corrplot Package</a>
+  <ul class="collapse">
+  <li><a href="#getting-started-with-corrplot" id="toc-getting-started-with-corrplot" class="nav-link" data-scroll-target="#getting-started-with-corrplot">2.7.1 Getting started with corrplot</a></li>
+  <li><a href="#working-with-visual-geometrics" id="toc-working-with-visual-geometrics" class="nav-link" data-scroll-target="#working-with-visual-geometrics">2.7.2 Working with visual geometrics</a></li>
+  <li><a href="#working-with-layout" id="toc-working-with-layout" class="nav-link" data-scroll-target="#working-with-layout">2.7.3 Working with layout</a></li>
+  <li><a href="#working-with-mixed-layout" id="toc-working-with-mixed-layout" class="nav-link" data-scroll-target="#working-with-mixed-layout">2.7.4 Working with mixed layout</a></li>
+  <li><a href="#combining-corrgram-with-the-significant-test" id="toc-combining-corrgram-with-the-significant-test" class="nav-link" data-scroll-target="#combining-corrgram-with-the-significant-test">2.7.5 Combining corrgram with the significant test</a></li>
+  <li><a href="#reorder-a-corrgram" id="toc-reorder-a-corrgram" class="nav-link" data-scroll-target="#reorder-a-corrgram">2.7.6 Reorder a corrgram</a></li>
+  <li><a href="#reordering-a-correlation-matrix-using-hclust" id="toc-reordering-a-correlation-matrix-using-hclust" class="nav-link" data-scroll-target="#reordering-a-correlation-matrix-using-hclust">2.7.7 Reordering a correlation matrix using hclust</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#heatmap-for-visualizing-and-analysing-multivariate-data" id="toc-heatmap-for-visualizing-and-analysing-multivariate-data" class="nav-link" data-scroll-target="#heatmap-for-visualizing-and-analysing-multivariate-data">3. Heatmap for Visualizing and Analysing Multivariate Data</a>
+  <ul class="collapse">
+  <li><a href="#overview-2" id="toc-overview-2" class="nav-link" data-scroll-target="#overview-2">3.1 Overview</a></li>
+  <li><a href="#installing-and-launching-r-packages-2" id="toc-installing-and-launching-r-packages-2" class="nav-link" data-scroll-target="#installing-and-launching-r-packages-2">3.2 Installing and Launching R Packages</a></li>
+  <li><a href="#importing-and-preparing-the-data-set-1" id="toc-importing-and-preparing-the-data-set-1" class="nav-link" data-scroll-target="#importing-and-preparing-the-data-set-1">3.3 Importing and Preparing The Data Set</a>
+  <ul class="collapse">
+  <li><a href="#importing-the-data-set" id="toc-importing-the-data-set" class="nav-link" data-scroll-target="#importing-the-data-set">3.3.1 Importing the data set</a></li>
+  <li><a href="#preparing-the-data-1" id="toc-preparing-the-data-1" class="nav-link" data-scroll-target="#preparing-the-data-1">3.3.2 Preparing the data</a></li>
+  <li><a href="#transforming-the-data-frame-into-a-matrix" id="toc-transforming-the-data-frame-into-a-matrix" class="nav-link" data-scroll-target="#transforming-the-data-frame-into-a-matrix">3.3.3 Transforming the data frame into a matrix</a></li>
+  </ul></li>
+  <li><a href="#static-heatmap" id="toc-static-heatmap" class="nav-link" data-scroll-target="#static-heatmap">3.4 Static Heatmap</a>
+  <ul class="collapse">
+  <li><a href="#heatmap-of-r-stats" id="toc-heatmap-of-r-stats" class="nav-link" data-scroll-target="#heatmap-of-r-stats">3.4.1 heatmap() of R Stats</a></li>
+  </ul></li>
+  <li><a href="#creating-interactive-heatmap" id="toc-creating-interactive-heatmap" class="nav-link" data-scroll-target="#creating-interactive-heatmap">3.5 Creating Interactive Heatmap</a>
+  <ul class="collapse">
+  <li><a href="#working-with-heatmaply" id="toc-working-with-heatmaply" class="nav-link" data-scroll-target="#working-with-heatmaply">3.5.1 Working with heatmaply</a></li>
+  <li><a href="#data-transformation" id="toc-data-transformation" class="nav-link" data-scroll-target="#data-transformation">3.5.2 Data transformation</a></li>
+  <li><a href="#clustering-algorithm" id="toc-clustering-algorithm" class="nav-link" data-scroll-target="#clustering-algorithm">3.5.3 Clustering algorithm</a></li>
+  <li><a href="#manual-approach" id="toc-manual-approach" class="nav-link" data-scroll-target="#manual-approach">3.5.4 Manual approach</a></li>
+  <li><a href="#statistical-approach" id="toc-statistical-approach" class="nav-link" data-scroll-target="#statistical-approach">3.5.5 Statistical approach</a></li>
+  <li><a href="#seriation" id="toc-seriation" class="nav-link" data-scroll-target="#seriation">3.5.6 Seriation</a></li>
+  <li><a href="#working-with-colour-palettes" id="toc-working-with-colour-palettes" class="nav-link" data-scroll-target="#working-with-colour-palettes">3.5.7 Working with colour palettes</a></li>
+  <li><a href="#the-finishing-touch" id="toc-the-finishing-touch" class="nav-link" data-scroll-target="#the-finishing-touch">3.5.8 The finishing touch</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -191,7 +303,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta column-page-left">
 
     <div>
     <div class="quarto-title-meta-heading">Author</div>
@@ -209,8 +321,674 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="creating-ternary-plot-with-r" class="level1">
+<h1>1. Creating Ternary Plot with R</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">1.1 Overview</h2>
+<p>Ternary plots are a way of displaying the distribution and variability of three-part compositional data. (For example, the proportion of aged, economy active and young population or sand, silt, and clay in soil.) It’s display is a triangle with sides scaled from 0 to 1. Each side represents one of the three components. A point is plotted so that a line drawn perpendicular from the point to each leg of the triangle intersect at the component values of the point.</p>
+<p>In this hands-on, you will learn how to build ternary plot programmatically using R for visualising and analysing population structure of Singapore.</p>
+<p>The hands-on exercise consists of four steps:</p>
+<ul>
+<li><p>Install and launch <strong>tidyverse</strong> and <strong>ggtern</strong> packages.</p></li>
+<li><p>Derive three new measures using <em>mutate()</em> function of <strong>dplyr</strong> package.</p></li>
+<li><p>Build a static ternary plot using <em>ggtern()</em> function of <strong>ggtern</strong> package.</p></li>
+<li><p>Build an interactive ternary plot using <em>plot-ly()</em> function of <strong>Plotly R</strong> package.</p></li>
+</ul>
+</section>
+<section id="installing-and-launching-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="installing-and-launching-r-packages">1.2 Installing and launching R packages</h2>
+<p>For this exercise, two main R packages will be used in this hands-on exercise, they are:</p>
+<ul>
+<li><p><a href="http://www.ggtern.com/"><strong>ggtern</strong></a>, a ggplot extension specially designed to plot ternary diagrams. The package will be used to plot static ternary plots.</p></li>
+<li><p><a href="https://plot.ly/r/"><strong>Plotly R</strong></a>, an R package for creating interactive web-based graphs via plotly’s JavaScript graphing library, plotly.js . The <strong>plotly R</strong> libary contains the <em>ggplotly</em> function, which will convert <strong>ggplot2</strong> figures into a Plotly object.</p></li>
+</ul>
+<p>We will also need to ensure that selected <strong>tidyverse</strong> family packages namely: <strong>readr</strong>, <strong>dplyr</strong> and <strong>tidyr</strong> are also installed and loaded.</p>
+<p>The code chunks below will accomplish the task.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(plotly, ggtern, tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="data-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="data-preparation">1.3 Data Preparation</h2>
+<section id="the-data" class="level3">
+<h3 class="anchored" data-anchor-id="the-data">1.3.1 The data</h3>
+<p>For the purpose of this hands-on exercise, the&nbsp;<a href="https://www.singstat.gov.sg/find-data/search-by-theme/population/geographic-distribution/latest-data">Singapore Residents by Planning AreaSubzone, Age Group, Sex and Type of Dwelling, June 2000-2018</a>&nbsp;data will be used. The data set has been downloaded and included in the data sub-folder of the hands-on exercise folder. It is called&nbsp;<em>respopagsex2000to2018_tidy.csv</em>&nbsp;and is in csv file format.</p>
+</section>
+<section id="importing-data" class="level3">
+<h3 class="anchored" data-anchor-id="importing-data">1.3.2 Importing Data</h3>
+<p>To important&nbsp;<em>respopagsex2000to2018_tidy.csv</em>&nbsp;into R,&nbsp;<strong><em>read_csv()</em></strong>&nbsp;function of&nbsp;<strong>readr</strong>&nbsp;package will be used.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggdist, ggridges, ggthemes,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Reading the data into R environment</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/respopagsex2000to2018_tidy.csv"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="preparing-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="preparing-the-data">1.3.3 Preparing the Data</h3>
+<p>Next, use the&nbsp;<strong><em>mutate()</em></strong>&nbsp;function of&nbsp;<strong>dplyr</strong>&nbsp;package to derive three new measures, namely: young, active, and old.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Deriving the young, economy active and old measures</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>agpop_mutated <span class="ot">&lt;-</span> pop_data <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Year</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.character</span>(Year))<span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(AG, Population) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">YOUNG =</span> <span class="fu">rowSums</span>(.[<span class="dv">4</span><span class="sc">:</span><span class="dv">8</span>]))<span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ACTIVE =</span> <span class="fu">rowSums</span>(.[<span class="dv">9</span><span class="sc">:</span><span class="dv">16</span>]))  <span class="sc">%&gt;%</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">OLD =</span> <span class="fu">rowSums</span>(.[<span class="dv">17</span><span class="sc">:</span><span class="dv">21</span>])) <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TOTAL =</span> <span class="fu">rowSums</span>(.[<span class="dv">22</span><span class="sc">:</span><span class="dv">24</span>])) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2018</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TOTAL <span class="sc">&gt;</span> <span class="dv">0</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="plotting-ternary-diagram-with-r" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-ternary-diagram-with-r">1.4 Plotting Ternary Diagram with R</h2>
+<section id="plotting-a-static-ternary-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-a-static-ternary-diagram">1.4.1 Plotting a static ternary diagram</h3>
+<p>Use&nbsp;<strong><em>ggtern()</em></strong>&nbsp;function of&nbsp;<strong>ggtern</strong>&nbsp;package to create a simple ternary plot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Building the static ternary plot</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtern</span>(<span class="at">data=</span>agpop_mutated,<span class="fu">aes</span>(<span class="at">x=</span>YOUNG,<span class="at">y=</span>ACTIVE, <span class="at">z=</span>OLD)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggdist, ggridges, ggthemes,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Building the static ternary plot</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtern</span>(<span class="at">data=</span>agpop_mutated, <span class="fu">aes</span>(<span class="at">x=</span>YOUNG,<span class="at">y=</span>ACTIVE, <span class="at">z=</span>OLD)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Population structure, 2015"</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_rgbw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="plotting-an-interactive-ternary-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-an-interactive-ternary-diagram">1.4.2 Plotting an interactive ternary diagram</h3>
+<p>The code below create an interactive ternary plot using&nbsp;<strong><em>plot_ly()</em></strong>&nbsp;function of&nbsp;<strong>Plotly R</strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reusable function for creating annotation object</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>label <span class="ot">&lt;-</span> <span class="cf">function</span>(txt) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> txt, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fl">0.1</span>, <span class="at">y =</span> <span class="dv">1</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ax =</span> <span class="dv">0</span>, <span class="at">ay =</span> <span class="dv">0</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">xref =</span> <span class="st">"paper"</span>, <span class="at">yref =</span> <span class="st">"paper"</span>, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"center"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">font =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"serif"</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">color =</span> <span class="st">"white"</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bgcolor =</span> <span class="st">"#b3b3b3"</span>, <span class="at">bordercolor =</span> <span class="st">"black"</span>, <span class="at">borderwidth =</span> <span class="dv">2</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># reusable function for axis formatting</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>axis <span class="ot">&lt;-</span> <span class="cf">function</span>(txt) {</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> txt, <span class="at">tickformat =</span> <span class="st">".0%"</span>, <span class="at">tickfont =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>ternaryAxes <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">aaxis =</span> <span class="fu">axis</span>(<span class="st">"Young"</span>), </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">baxis =</span> <span class="fu">axis</span>(<span class="st">"Active"</span>), </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">caxis =</span> <span class="fu">axis</span>(<span class="st">"Old"</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Initiating a plotly visualization </span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  agpop_mutated, </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="sc">~</span>YOUNG, </span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">b =</span> <span class="sc">~</span>ACTIVE, </span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">c =</span> <span class="sc">~</span>OLD, </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="fu">I</span>(<span class="st">"black"</span>), </span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"scatterternary"</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">annotations =</span> <span class="fu">label</span>(<span class="st">"Ternary Markers"</span>), </span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">ternary =</span> ternaryAxes</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+</section>
+<section id="visual-correlation-analysis" class="level1">
+<h1>2. Visual Correlation Analysis</h1>
+<section id="overview-1" class="level2">
+<h2 class="anchored" data-anchor-id="overview-1">2.1 Overview</h2>
+<p>Correlation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables. The values of a correlation coefficient ranges between -1.0 and 1.0. A correlation coefficient of 1 shows a perfect linear relationship between the two variables, while a -1.0 shows a perfect inverse relationship between the two variables. A correlation coefficient of 0.0 shows no linear relationship between the two variables.</p>
+<p>When multivariate data are used, the correlation coefficeints of the pair comparisons are displayed in a table form known as correlation matrix or scatterplot matrix.</p>
+<p>There are three broad reasons for computing a correlation matrix.</p>
+<ul>
+<li><p>To reveal the relationship between high-dimensional variables pair-wisely.</p></li>
+<li><p>To input into other analyses. For example, people commonly use correlation matrices as inputs for exploratory factor analysis, confirmatory factor analysis, structural equation models, and linear regression when excluding missing values pairwise.</p></li>
+<li><p>As a diagnostic when checking other analyses. For example, with linear regression a high amount of correlations suggests that the linear regression’s estimates will be unreliable.</p></li>
+</ul>
+<p>When the data is large, both in terms of the number of observations and the number of variables, <a href="http://www.datavis.ca/papers/corrgram.pdf">Corrgram</a> tend to be used to visually explore and analyse the structure and the patterns of relations among variables. It is designed based on two main schemes:</p>
+<ul>
+<li><p>Rendering the value of a correlation to depict its sign and magnitude, and</p></li>
+<li><p>Reordering the variables in a correlation matrix so that “similar” variables are positioned adjacently, facilitating perception.</p></li>
+</ul>
+<p>In this hands-on exercise, you will learn how to plot data visualisation for visualising correlation matrix with R. It consists of three main sections. First, you will learn how to create correlation matrix using <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.0/topics/pairs"><em>pairs()</em></a> of R Graphics. Next, you will learn how to plot corrgram using <strong>corrplot</strong> package of R. Lastly, you will learn how to create an interactive correlation matrix using plotly R.</p>
+</section>
+<section id="installing-and-launching-r-packages-1" class="level2">
+<h2 class="anchored" data-anchor-id="installing-and-launching-r-packages-1">2.2 Installing and Launching R Packages</h2>
+<p>Before you get started, you are required to open a new Quarto document. Keep the default html authoring format.</p>
+<p>Next, you will use the code chunk below to install and launch <strong>corrplot</strong>, <strong>ggpubr</strong>, <strong>plotly</strong> and <strong>tidyverse</strong> in RStudio.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(corrplot, ggstatsplot, tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="importing-and-preparing-the-data-set" class="level2">
+<h2 class="anchored" data-anchor-id="importing-and-preparing-the-data-set">2.3 Importing and Preparing The Data Set</h2>
+<p>In this hands-on exercise, the&nbsp;<a href="https://archive.ics.uci.edu/ml/datasets/wine+quality">Wine Quality Data Set</a>&nbsp;of UCI Machine Learning Repository will be used. The data set consists of 13 variables and 6497 observations. For the purpose of this exercise, we have combined the red wine and white wine data into one data file. It is called wine_quality and is in csv file format.</p>
+<section id="importing-data-1" class="level3">
+<h3 class="anchored" data-anchor-id="importing-data-1">2.3.1 Importing Data</h3>
+<p>First, let us import the data into R by using&nbsp;<em>read_csv()</em>&nbsp;of&nbsp;<strong>readr</strong>&nbsp;package.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>wine <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/wine_quality.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice that beside quality and type, the rest of the variables are numerical and continuous data type.</p>
+</section>
+</section>
+<section id="building-correlation-matrix-pairs-method" class="level2">
+<h2 class="anchored" data-anchor-id="building-correlation-matrix-pairs-method">2.4 Building Correlation Matrix: pairs() method</h2>
+<p>There are more than one way to build scatterplot matrix with R. In this section, you will learn how to create a scatterplot matrix by using the <em>pairs</em> function of R Graphics.</p>
+<p>Before you continue to the next step, you should read the syntax description of <a href="https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/pairs.html"><em>pairs</em></a>function.</p>
+<section id="building-a-basic-correlation-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="building-a-basic-correlation-matrix">2.4.1 Building a basic correlation matrix</h3>
+<p>Figure below shows the scatter plot matrix of Wine Quality Data. It is a 11 by 11 matrix.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(wine[,<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The required input of&nbsp;<em>pairs()</em>&nbsp;can be a matrix or data frame. The code chunk used to create the scatterplot matrix is relatively simple. It uses the default&nbsp;<em>pairs</em>&nbsp;function. Columns 2 to 12 of wine dataframe is used to build the scatterplot matrix. The variables are: fixed acidity, volatile acidity, citric acid, residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, density, pH, sulphates and alcohol.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(wine[,<span class="dv">2</span><span class="sc">:</span><span class="dv">12</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="drawing-the-lower-corner" class="level3">
+<h3 class="anchored" data-anchor-id="drawing-the-lower-corner">2.4.2 Drawing the lower corner</h3>
+<p><em>pairs</em> function of R Graphics provided many customisation arguments. For example, it is a common practice to show either the upper half or lower half of the correlation matrix instead of both. This is because a correlation matrix is symmetric.</p>
+<p>To show the lower half of the correlation matrix, the upper.panel argument will be used as shown in the code chunk below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(wine[,<span class="dv">2</span><span class="sc">:</span><span class="dv">12</span>], <span class="at">upper.panel =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Similarly, you can display the upper half of the correlation matrix by using the code chun below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(wine[,<span class="dv">2</span><span class="sc">:</span><span class="dv">12</span>], <span class="at">lower.panel =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="including-with-correlation-coefficients" class="level3">
+<h3 class="anchored" data-anchor-id="including-with-correlation-coefficients">2.4.3 Including with correlation coefficients</h3>
+<p>To show the correlation coefficient of each pair of variables instead of a scatter plot, <a href="https://www.rdocumentation.org/packages/xcms/versions/1.48.0/topics/panel.cor"><em>panel.cor</em></a> function will be used. This will also show higher correlations in a larger font.</p>
+<p>Don’t worry about the details for now-just type this code into your R session or script. Let’s have more fun way to display the correlation matrix.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>panel.cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">digits=</span><span class="dv">2</span>, <span class="at">prefix=</span><span class="st">""</span>, cex.cor, ...) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>usr <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="st">"usr"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">on.exit</span>(<span class="fu">par</span>(usr))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">usr =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">cor</span>(x, y, <span class="at">use=</span><span class="st">"complete.obs"</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">c</span>(r, <span class="fl">0.123456789</span>), <span class="at">digits=</span>digits)[<span class="dv">1</span>]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">paste</span>(prefix, txt, <span class="at">sep=</span><span class="st">""</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">missing</span>(cex.cor)) cex.cor <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">/</span><span class="fu">strwidth</span>(txt)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="at">cex =</span> cex.cor <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> r) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(wine[,<span class="dv">2</span><span class="sc">:</span><span class="dv">12</span>], </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">upper.panel =</span> panel.cor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="visualizing-correlation-matrix-ggcormat" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-correlation-matrix-ggcormat">2.5 Visualizing Correlation Matrix: ggcormat()</h2>
+<p>One of the major limitation of the correlation matrix is that the scatter plots appear very cluttered when the number of observations is relatively large (i.e.&nbsp;more than 500 observations). To over come this problem, <strong>Corrgram</strong> data visualisation technique suggested by D. J. Murdoch and E. D. Chow (1996) and Friendly, M (2002) and will be used.</p>
+<p>The are at least three R packages provide function to plot corrgram, they are:</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/web/packages/corrgram/index.html">corrgram</a></p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/ellipse/index.html">ellipse</a></p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/corrplot/index.html">corrplot</a></p></li>
+</ul>
+<p>On top that, some R package like ggstatsplot package also provides functions for building corrgram.</p>
+<p>In this section, you will learn how to visualising correlation matrix by using <a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggcorrmat.html"><em>ggcorrmat()</em></a> of <a href="https://indrajeetpatil.github.io/ggstatsplot/index.html"><strong>ggstatsplot</strong></a> package.</p>
+<section id="the-basic-plot" class="level3">
+<h3 class="anchored" data-anchor-id="the-basic-plot">2.5.1 The basic plot</h3>
+<p>On of the advantage of using&nbsp;<em>ggcorrmat()</em>&nbsp;over many other methods to visualise a correlation matrix is it’s ability to provide a comprehensive and yet professional statistical report as shown in the figure below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ggstatsplot<span class="sc">::</span><span class="fu">ggcorrmat</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> wine, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cor.vars =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ggstatsplot<span class="sc">::</span><span class="fu">ggcorrmat</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> wine, </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cor.vars =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggcorrplot.args =</span> <span class="fu">list</span>(<span class="at">outline.color =</span> <span class="st">"black"</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">hc.order =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">tl.cex =</span> <span class="dv">10</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title    =</span> <span class="st">"Correlogram for wine dataset"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle =</span> <span class="st">"Four pairs are no significant at p &lt; 0.05"</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Things to learn from the code chunk above:</p>
+<ul>
+<li><p><code>cor.vars</code> argument is used to compute the correlation matrix needed to build the corrgram.</p></li>
+<li><p><code>ggcorrplot.args</code> argument provide additional (mostly aesthetic) arguments that will be passed to <a href="http://www.sthda.com/english/wiki/ggcorrplot-visualization-of-a-correlation-matrix-using-ggplot2"><code>ggcorrplot::ggcorrplot</code></a> function. The list should avoid any of the following arguments since they are already internally being used: <code>corr</code>, <code>method</code>, <code>p.mat</code>, <code>sig.level</code>, <code>ggtheme</code>, <code>colors</code>, <code>lab</code>, <code>pch</code>, <code>legend.title</code>, <code>digits</code>.</p></li>
+</ul>
+<p>The sample sub-code chunk can be used to control specific component of the plot such as the font size of the x-axis, y-axis, and the statistical report.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ggplot.component <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">5</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="building-multiple-plots" class="level2">
+<h2 class="anchored" data-anchor-id="building-multiple-plots">2.6 Building multiple plots</h2>
+<p>Since ggstasplot is an extension of ggplot2, it also supports faceting. However the feature is not available in&nbsp;<em>ggcorrmat()</em>&nbsp;but in the&nbsp;<a href="https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggcorrmat.html"><em>grouped_ggcorrmat()</em></a>&nbsp;of&nbsp;<strong>ggstatsplot</strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grouped_ggcorrmat</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> wine,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cor.vars =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">grouping.var =</span> type,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"robust"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">p.adjust.method =</span> <span class="st">"holm"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">plotgrid.args =</span> <span class="fu">list</span>(<span class="at">ncol =</span> <span class="dv">2</span>),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggcorrplot.args =</span> <span class="fu">list</span>(<span class="at">outline.color =</span> <span class="st">"black"</span>, </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">hc.order =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">tl.cex =</span> <span class="dv">10</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">annotation.args =</span> <span class="fu">list</span>(</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">tag_levels =</span> <span class="st">"a"</span>,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Correlogram for wine dataset"</span>,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"The measures are: alcohol, sulphates, fixed acidity, citric acid, chlorides, residual sugar, density, free sulfur dioxide and volatile acidity"</span>,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Dataset: UCI Machine Learning Repository"</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Things to learn from the code chunk above:</p>
+<ul>
+<li><p>to build a facet plot, the only argument needed is <code>grouping.var</code>.</p></li>
+<li><p>Behind <em>group_ggcorrmat()</em>, <strong>patchwork</strong> package is used to create the multiplot. <code>plotgrid.args</code> argument provides a list of additional arguments passed to <a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html"><em>patchwork::wrap_plots</em></a>, except for guides argument which is already separately specified earlier.</p></li>
+<li><p>Likewise, <code>annotation.args</code> argument is calling <a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html"><em>plot annotation arguments</em></a> of patchwork package.</p></li>
+</ul>
+</section>
+<section id="visualizing-correlation-matrix-using-corrplot-package" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-correlation-matrix-using-corrplot-package">2.7 Visualizing Correlation Matrix using corrplot Package</h2>
+<p>In this hands-on exercise, we will focus on corrplot. However, you are encouraged to explore the other two packages too.</p>
+<p>Before getting started, you are required to read <a href="https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html">An Introduction to corrplot Package</a> in order to gain basic understanding of <strong>corrplot</strong> package.</p>
+<section id="getting-started-with-corrplot" class="level3">
+<h3 class="anchored" data-anchor-id="getting-started-with-corrplot">2.7.1 Getting started with corrplot</h3>
+<p>Before we can plot a corrgram using <em>corrplot()</em>, we need to compute the correlation matrix of wine data frame.</p>
+<p>In the code chunk below, <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.0/topics/cor"><em>cor()</em></a> of R Stats is used to compute the correlation matrix of wine data frame.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>wine.cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(wine[, <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Next,&nbsp;<a href="https://www.rdocumentation.org/packages/corrplot/versions/0.2-0/topics/corrplot"><em>corrplot()</em></a>&nbsp;is used to plot the corrgram by using all the default setting as shown in the code chunk below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(wine.cor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice that the default visual object used to plot the corrgram is circle. The default layout of the corrgram is a symmetric matrix. The default colour scheme is diverging blue-red. Blue colours are used to represent pair variables with positive correlation coefficients and red colours are used to represent pair variables with negative correlation coefficients. The intensity of the colour or also know as&nbsp;<strong>saturation</strong>&nbsp;is used to represent the strength of the correlation coefficient. Darker colours indicate relatively stronger linear relationship between the paired variables. On the other hand, lighter colours indicates relatively weaker linear relationship.</p>
+</section>
+<section id="working-with-visual-geometrics" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-visual-geometrics">2.7.2 Working with visual geometrics</h3>
+<p>In&nbsp;<strong>corrplot</strong>&nbsp;package, there are seven visual geometrics (parameter method) can be used to encode the attribute values. They are: circle, square, ellipse, number, shade, color and pie. The default is circle. As shown in the previous section, the default visual geometric of corrplot matrix is circle. However, this default setting can be changed by using the&nbsp;<em>method</em>&nbsp;argument as shown in the code chunk below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(wine.cor, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"ellipse"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong><em>Feel free to change the&nbsp;method&nbsp;argument to other supported visual geometrics.</em></strong></p>
+</section>
+<section id="working-with-layout" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-layout">2.7.3 Working with layout</h3>
+<p><em>corrplor()</em>&nbsp;supports three layout types, namely: “full”, “upper” or “lower”. The default is “full” which display full matrix. The default setting can be changed by using the&nbsp;<em>type</em>&nbsp;argument of&nbsp;<em>corrplot()</em>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(wine.cor, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"ellipse"</span>, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">type=</span><span class="st">"lower"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The default layout of the corrgram can be further customised. For example, arguments&nbsp;<em>diag</em>&nbsp;and&nbsp;<em>tl.col</em>&nbsp;are used to turn off the diagonal cells and to change the axis text label colour to black colour respectively as shown in the code chunk and figure below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(wine.cor, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"ellipse"</span>, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">type=</span><span class="st">"lower"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">diag =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong><em>Please feel free to experiment with other layout design argument such as&nbsp;tl.pos,&nbsp;tl.cex,&nbsp;tl.offset,&nbsp;cl.pos,&nbsp;cl.cex&nbsp;and&nbsp;cl.offset, just to mention a few of them.</em></strong></p>
+</section>
+<section id="working-with-mixed-layout" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-mixed-layout">2.7.4 Working with mixed layout</h3>
+<p>With <strong>corrplot</strong> package, it is possible to design corrgram with mixed visual matrix of one half and numerical matrix on the other half. In order to create a coorgram with mixed layout, the <a href="https://www.rdocumentation.org/packages/corrplot/versions/0.84/topics/corrplot.mixed"><em>corrplot.mixed()</em></a>, a wrapped function for mixed visualisation style will be used.</p>
+<p>Figure below shows a mixed layout corrgram plotted using wine quality data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(wine.cor, </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">lower =</span> <span class="st">"ellipse"</span>, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">upper =</span> <span class="st">"number"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">tl.pos =</span> <span class="st">"lt"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">diag =</span> <span class="st">"l"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">tl.col =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The code chunk used to plot the corrgram are shown below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(wine.cor, </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">lower =</span> <span class="st">"ellipse"</span>, </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">upper =</span> <span class="st">"number"</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">tl.pos =</span> <span class="st">"lt"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">diag =</span> <span class="st">"l"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">tl.col =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice that argument&nbsp;<em>lower</em>&nbsp;and&nbsp;<em>upper</em>&nbsp;are used to define the visualisation method used. In this case ellipse is used to map the lower half of the corrgram and numerical matrix (i.e.&nbsp;number) is used to map the upper half of the corrgram. The argument&nbsp;<em>tl.pos</em>, on the other, is used to specify the placement of the axis label. Lastly, the&nbsp;<em>diag</em>&nbsp;argument is used to specify the glyph on the principal diagonal of the corrgram.</p>
+</section>
+<section id="combining-corrgram-with-the-significant-test" class="level3">
+<h3 class="anchored" data-anchor-id="combining-corrgram-with-the-significant-test">2.7.5 Combining corrgram with the significant test</h3>
+<p>In statistical analysis, we are also interested to know which pair of variables their correlation coefficients are statistically significant.</p>
+<p>Figure below shows a corrgram combined with the significant test. The corrgram reveals that not all correlation pairs are statistically significant. For example the correlation between total sulfur dioxide and free surfur dioxide is statistically significant at significant level of 0.1 but not the pair between total sulfur dioxide and citric acid.</p>
+<p><img src="images/clipboard-4063023037.png" class="img-fluid" width="522"></p>
+<p>With corrplot package, we can use the&nbsp;<em>cor.mtest()</em>&nbsp;to compute the p-values and confidence interval for each pair of variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>wine.sig <span class="ot">=</span> <span class="fu">cor.mtest</span>(wine.cor, <span class="at">conf.level=</span> .<span class="dv">95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We can then use the&nbsp;<em>p.mat</em>&nbsp;argument of&nbsp;<em>corrplot</em>&nbsp;function as shown in the code chunk below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(wine.cor,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"number"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">type =</span> <span class="st">"lower"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">diag =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">p.mat =</span> wine.sig<span class="sc">$</span>p,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">sig.level =</span> .<span class="dv">05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="reorder-a-corrgram" class="level3">
+<h3 class="anchored" data-anchor-id="reorder-a-corrgram">2.7.6 Reorder a corrgram</h3>
+<p>Matrix reorder is very important for mining the hiden structure and pattern in a corrgram. By default, the order of attributes of a corrgram is sorted according to the correlation matrix (i.e.&nbsp;“original”). The default setting can be over-write by using the <em>order</em> argument of <em>corrplot()</em>. Currently, <strong>corrplot</strong> package support four sorting methods, they are:</p>
+<ul>
+<li><p>“AOE” is for the angular order of the eigenvectors. See Michael Friendly (2002) for details.</p></li>
+<li><p>“FPC” for the first principal component order.</p></li>
+<li><p>“hclust” for hierarchical clustering order, and “hclust.method” for the agglomeration method to be used.</p>
+<ul>
+<li>“hclust.method” should be one of “ward”, “single”, “complete”, “average”, “mcquitty”, “median” or “centroid”.</li>
+</ul></li>
+<li><p>“alphabet” for alphabetical order.</p></li>
+</ul>
+<p>“AOE”, “FPC”, “hclust”, “alphabet”. More algorithms can be found in <strong>seriation</strong> package.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(wine.cor, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">lower =</span> <span class="st">"ellipse"</span>, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">upper =</span> <span class="st">"number"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">tl.pos =</span> <span class="st">"lt"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">diag =</span> <span class="st">"l"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">order=</span><span class="st">"AOE"</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">tl.col =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="reordering-a-correlation-matrix-using-hclust" class="level3">
+<h3 class="anchored" data-anchor-id="reordering-a-correlation-matrix-using-hclust">2.7.7 Reordering a correlation matrix using hclust</h3>
+<p>If using&nbsp;<strong>hclust</strong>,&nbsp;<strong><em>corrplot()</em></strong>&nbsp;can draw rectangles around the corrgram based on the results of hierarchical clustering.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(wine.cor, </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"ellipse"</span>, </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.pos =</span> <span class="st">"lt"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">order=</span><span class="st">"hclust"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">hclust.method =</span> <span class="st">"ward.D"</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">addrect =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+</section>
+<section id="heatmap-for-visualizing-and-analysing-multivariate-data" class="level1">
+<h1>3. Heatmap for Visualizing and Analysing Multivariate Data</h1>
+<section id="overview-2" class="level2">
+<h2 class="anchored" data-anchor-id="overview-2">3.1 Overview</h2>
+<p>Heatmaps visualise data through variations in colouring. When applied to a tabular format, heatmaps are useful for cross-examining multivariate data, through placing variables in the columns and observation (or records) in rowa and colouring the cells within the table. Heatmaps are good for showing variance across multiple variables, revealing any patterns, displaying whether any variables are similar to each other, and for detecting if any correlations exist in-between them.</p>
+<p>In this hands-on exercise, you will gain hands-on experience on using R to plot static and interactive heatmap for visualising and analysing multivariate data.</p>
+</section>
+<section id="installing-and-launching-r-packages-2" class="level2">
+<h2 class="anchored" data-anchor-id="installing-and-launching-r-packages-2">3.2 Installing and Launching R Packages</h2>
+<p>Before you get started, you are required to open a new Quarto document. Keep the default html as the authoring format.</p>
+<p>Next, you will use the code chunk below to install and launch <strong>seriation</strong>, <strong>heatmaply</strong>, <strong>dendextend</strong> and <strong>tidyverse</strong> in RStudio.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(seriation, dendextend, heatmaply, tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="importing-and-preparing-the-data-set-1" class="level2">
+<h2 class="anchored" data-anchor-id="importing-and-preparing-the-data-set-1">3.3 Importing and Preparing The Data Set</h2>
+<p>In this hands-on exercise, the data of&nbsp;<a href="https://worldhappiness.report/ed/2018/">World Happines 2018 report</a>&nbsp;will be used. The data set is downloaded from&nbsp;<a href="https://s3.amazonaws.com/happiness-report/2018/WHR2018Chapter2OnlineData.xls">here</a>. The original data set is in Microsoft Excel format. It has been extracted and saved in csv file called&nbsp;<strong>WHData-2018.csv</strong>.</p>
+<section id="importing-the-data-set" class="level3">
+<h3 class="anchored" data-anchor-id="importing-the-data-set">3.3.1 Importing the data set</h3>
+<p>In the code chunk below,&nbsp;<strong>read_csv()</strong>&nbsp;of&nbsp;<em>readr</em>&nbsp;is used to import WHData-2018.csv into R and parsed it into tibble R data frame format.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>wh <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/WHData-2018.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The output tibbled data frame is called&nbsp;<strong>wh</strong>.</p>
+</section>
+<section id="preparing-the-data-1" class="level3">
+<h3 class="anchored" data-anchor-id="preparing-the-data-1">3.3.2 Preparing the data</h3>
+<p>Next, we need to change the rows by country name instead of row number by using the code chunk below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(wh) <span class="ot">&lt;-</span> wh<span class="sc">$</span>Country</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice that the row number has been replaced into the country name.</p>
+</section>
+<section id="transforming-the-data-frame-into-a-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="transforming-the-data-frame-into-a-matrix">3.3.3 Transforming the data frame into a matrix</h3>
+<p>The data was loaded into a data frame, but it has to be a data matrix to make your heatmap.</p>
+<p>The code chunk below will be used to transform <em>wh</em> data frame into a data matrix.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>wh1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(wh, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">7</span><span class="sc">:</span><span class="dv">12</span>))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>wh_matrix <span class="ot">&lt;-</span> <span class="fu">data.matrix</span>(wh)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice that&nbsp;<strong>wh_matrix</strong>&nbsp;is in R matrix format.</p>
+</section>
+</section>
+<section id="static-heatmap" class="level2">
+<h2 class="anchored" data-anchor-id="static-heatmap">3.4 Static Heatmap</h2>
+<p>There are many R packages and functions can be used to drawing static heatmaps, they are:</p>
+<ul>
+<li><p><a href="https://www.rdocumentation.org/packages/stats/versions/3.6.0/topics/heatmap">heatmap()</a>of R stats package. It draws a simple heatmap.</p></li>
+<li><p><a href="https://www.rdocumentation.org/packages/gplots/versions/3.0.1.1/topics/heatmap.2">heatmap.2()</a> of <strong>gplots</strong> R package. It draws an enhanced heatmap compared to the R base function.</p></li>
+<li><p><a href="https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap">pheatmap()</a> of <a href="https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12"><strong>pheatmap</strong></a> R package. <strong>pheatmap</strong> package also known as Pretty Heatmap. The package provides functions to draws pretty heatmaps and provides more control to change the appearance of heatmaps.</p></li>
+<li><p><a href="https://bioconductor.org/packages/release/bioc/html/ComplexHeatmap.html"><strong>ComplexHeatmap</strong></a> package of R/Bioconductor package. The package draws, annotates and arranges complex heatmaps (very useful for genomic data analysis). The full reference guide of the package is available <a href="https://jokergoo.github.io/ComplexHeatmap-reference/book/">here</a>.</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/superheat/"><strong>superheat</strong></a> package: A Graphical Tool for Exploring Complex Datasets Using Heatmaps. A system for generating extendable and customizable heatmaps for exploring complex datasets, including big data and data with multiple data types. The full reference guide of the package is available <a href="https://rlbarter.github.io/superheat/">here</a>.</p></li>
+</ul>
+<p>In this section, you will learn how to plot static heatmaps by using <strong>heatmap()</strong> of <em>R Stats</em> package.</p>
+<section id="heatmap-of-r-stats" class="level3">
+<h3 class="anchored" data-anchor-id="heatmap-of-r-stats">3.4.1 heatmap() of R Stats</h3>
+<p>In this sub-section, we will plot a heatmap by using&nbsp;<em>heatmap()</em>&nbsp;of Base Stats. The code chunk is given below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>wh_heatmap <span class="ot">&lt;-</span> <span class="fu">heatmap</span>(wh_matrix,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Rowv=</span><span class="cn">NA</span>, <span class="at">Colv=</span><span class="cn">NA</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<ul>
+<li>By default, heatmap() plots a cluster heatmap. The arguments Rowv=NA and Colv=NA are used to switch off the option of plotting the row and column dendrograms.</li>
+</ul>
+</blockquote>
+<p>To plot a cluster heatmap, we just have to use the default as shown in the code chunk below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>wh_heatmap <span class="ot">&lt;-</span> <span class="fu">heatmap</span>(wh_matrix)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<ul>
+<li>The order of both rows and columns is different compare to the native wh_matrix. This is because heatmap do a reordering using clusterisation: it calculates the distance between each pair of rows and columns and try to order them by similarity. Moreover, the corresponding dendrogram are provided beside the heatmap.</li>
+</ul>
+</blockquote>
+<p>Here, red cells denotes small values, and red small ones. This heatmap is not really informative. Indeed, the Happiness Score variable have relatively higher values, what makes that the other variables with small values all look the same. Thus, we need to normalize this matrix. This is done using the scale argument. It can be applied to rows or to columns following your needs.</p>
+<p>The code chunk below normalises the matrix column-wise.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>wh_heatmap <span class="ot">&lt;-</span> <span class="fu">heatmap</span>(wh_matrix,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">scale=</span><span class="st">"column"</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">cexRow =</span> <span class="fl">0.6</span>, </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">cexCol =</span> <span class="fl">0.8</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">margins =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice that the values are scaled now. Also note that margins argument is used to ensure that the entire x-axis labels are displayed completely and, cexRow and cexCol arguments are used to define the font size used for y-axis and x-axis labels respectively.</p>
+</section>
+</section>
+<section id="creating-interactive-heatmap" class="level2">
+<h2 class="anchored" data-anchor-id="creating-interactive-heatmap">3.5 Creating Interactive Heatmap</h2>
+<p>heatmaply is an R package for building interactive cluster heatmap that can be shared online as a stand-alone HTML file. It is designed and maintained by Tal Galili.</p>
+<p>Before we get started, you should review the Introduction to Heatmaply to have an overall understanding of the features and functions of Heatmaply package. You are also required to have the user manualof the package handy with you for reference purposes.</p>
+<p>In this section, you will gain hands-on experience on using heatmaply to design an interactive cluster heatmap. We will still use the wh_matrix as the input data.</p>
+<section id="working-with-heatmaply" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-heatmaply">3.5.1 Working with heatmaply</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The code chunk below shows the basic syntax needed to create n interactive heatmap by using heatmaply package.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Note that:</p>
+<p>Different from heatmap(), for heatmaply() the default horizontal dendrogram is placed on the left hand side of the heatmap. The text label of each raw, on the other hand, is placed on the right hand side of the heat map. When the x-axis marker labels are too long, they will be rotated by 135 degree from the north.</p>
+</section>
+<section id="data-transformation" class="level3">
+<h3 class="anchored" data-anchor-id="data-transformation">3.5.2 Data transformation</h3>
+<p>When analysing multivariate data set, it is very common that the variables in the data sets includes values that reflect different types of measurement. In general, these variables’ values have their own range. In order to ensure that all the variables have comparable values, data transformation are commonly used before clustering.</p>
+<p>Three main data transformation methods are supported by heatmaply(), namely: scale, normalise and percentilse.</p>
+<section id="scaling-method" class="level4">
+<h4 class="anchored" data-anchor-id="scaling-method">3.5.2.1 Scaling method</h4>
+<ul>
+<li><p>When all variables are came from or assumed to come from some normal distribution, then scaling (i.e.: subtract the mean and divide by the standard deviation) would bring them all close to the standard normal distribution.</p></li>
+<li><p>In such a case, each value would reflect the distance from the mean in units of standard deviation.</p></li>
+<li><p>The <em>scale</em> argument in <em>heatmaply()</em> supports column and row scaling.</p></li>
+</ul>
+<p>The code chunk below is used to scale variable values columewise.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)],</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">scale =</span> <span class="st">"column"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="normalising-method" class="level4">
+<h4 class="anchored" data-anchor-id="normalising-method">3.5.2.2 Normalising method</h4>
+<ul>
+<li><p>When variables in the data comes from possibly different (and non-normal) distributions, the normalize function can be used to bring data to the 0 to 1 scale by subtracting the minimum and dividing by the maximum of all observations.</p></li>
+<li><p>This preserves the shape of each variable’s distribution while making them easily comparable on the same “scale”.</p></li>
+</ul>
+<p>Different from Scaling, the normalise method is performed on the input data set i.e.&nbsp;wh_matrix as shown in the code chunk below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="percentising-method" class="level4">
+<h4 class="anchored" data-anchor-id="percentising-method">3.5.2.3 Percentising method</h4>
+<ul>
+<li><p>This is similar to ranking the variables, but instead of keeping the rank values, divide them by the maximal rank.</p></li>
+<li><p>This is done by using the ecdf of the variables on their own values, bringing each value to its empirical percentile.</p></li>
+<li><p>The benefit of the percentize function is that each value has a relatively clear interpretation, it is the percent of observations that got that value or below it.</p></li>
+</ul>
+<p>Similar to Normalize method, the Percentize method is also performed on the input data set i.e.&nbsp;wh_matrix as shown in the code chunk below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(<span class="fu">percentize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="clustering-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="clustering-algorithm">3.5.3 Clustering algorithm</h3>
+<p><strong>heatmaply</strong> supports a variety of hierarchical clustering algorithm. The main arguments provided are:</p>
+<ul>
+<li><p><em>distfun</em>: function used to compute the distance (dissimilarity) between both rows and columns. Defaults to dist. The options “pearson”, “spearman” and “kendall” can be used to use correlation-based clustering, which uses as.dist(1 - cor(t(x))) as the distance metric (using the specified correlation method).</p></li>
+<li><p><em>hclustfun</em>: function used to compute the hierarchical clustering when <em>Rowv</em> or <em>Colv</em> are not dendrograms. Defaults to <em>hclust</em>.</p></li>
+<li><p><em>dist_method</em> default is NULL, which results in “euclidean” to be used. It can accept alternative character strings indicating the method to be passed to distfun. By default <em>distfun</em> is “dist”” hence this can be one of “euclidean”, “maximum”, “manhattan”, “canberra”, “binary” or “minkowski”.</p></li>
+<li><p><em>hclust_method</em> default is NULL, which results in “complete” method to be used. It can accept alternative character strings indicating the method to be passed to <em>hclustfun</em>. By default hclustfun is hclust hence this can be one of “ward.D”, “ward.D2”, “single”, “complete”, “average” (= UPGMA), “mcquitty” (= WPGMA), “median” (= WPGMC) or “centroid” (= UPGMC).</p></li>
+</ul>
+<p>In general, a clustering model can be calibrated either manually or statistically.</p>
+</section>
+<section id="manual-approach" class="level3">
+<h3 class="anchored" data-anchor-id="manual-approach">3.5.4 Manual approach</h3>
+<p>In the code chunk below, the heatmap is plotted by using hierachical clustering algorithm with “Euclidean distance” and “ward.D” method.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>wh_d <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]), <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dend_expend</span>(wh_d)[[<span class="dv">3</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="statistical-approach" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-approach">3.5.5 Statistical approach</h3>
+<p>In order to determine the best clustering method and number of cluster the <em>dend_expend()</em> and <em>find_k()</em> functions of <strong>dendextend</strong> package will be used.</p>
+<p>First, the <em>dend_expend()</em> will be used to determine the recommended clustering method to be used.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>wh_d <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]), <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dend_expend</span>(wh_d)[[<span class="dv">3</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The output table shows that “average” method should be used because it gave the high optimum value.</p>
+<p>Next, <em>find_k()</em> is used to determine the optimal number of cluster.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>wh_clust <span class="ot">&lt;-</span> <span class="fu">hclust</span>(wh_d, <span class="at">method =</span> <span class="st">"average"</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>num_k <span class="ot">&lt;-</span> <span class="fu">find_k</span>(wh_clust)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(num_k)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Figure above shows that k=3 would be good.</p>
+<p>With reference to the statistical analysis results, we can prepare the code chunk as shown below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]),</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">dist_method =</span> <span class="st">"euclidean"</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">hclust_method =</span> <span class="st">"average"</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">k_row =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="seriation" class="level3">
+<h3 class="anchored" data-anchor-id="seriation">3.5.6 Seriation</h3>
+<p>One of the problems with hierarchical clustering is that it doesn’t actually place the rows in a definite order, it merely constrains the space of possible orderings. Take three items A, B and C. If you ignore reflections, there are three possible orderings: ABC, ACB, BAC. If clustering them gives you ((A+B)+C) as a tree, you know that C can’t end up between A and B, but it doesn’t tell you which way to flip the A+B cluster. It doesn’t tell you if the ABC ordering will lead to a clearer-looking heatmap than the BAC ordering.</p>
+<p><strong>heatmaply</strong> uses the seriation package to find an optimal ordering of rows and columns. Optimal means to optimize the Hamiltonian path length that is restricted by the dendrogram structure. This, in other words, means to rotate the branches so that the sum of distances between each adjacent leaf (label) will be minimized. This is related to a restricted version of the travelling salesman problem.</p>
+<p>Here we meet our first seriation algorithm: Optimal Leaf Ordering (OLO). This algorithm starts with the output of an agglomerative clustering algorithm and produces a unique ordering, one that flips the various branches of the dendrogram around so as to minimize the sum of dissimilarities between adjacent leaves. Here is the result of applying Optimal Leaf Ordering to the same clustering result as the heatmap above.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]),</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">seriate =</span> <span class="st">"OLO"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The default options is “OLO” (Optimal leaf ordering) which optimizes the above criterion (in O(n^4)). Another option is “GW” (Gruvaeus and Wainer) which aims for the same goal but uses a potentially faster heuristic.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]),</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">seriate =</span> <span class="st">"GW"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The option “mean” gives the output we would get by default from heatmap functions in other packages such as gplots::heatmap.2.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]),</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">seriate =</span> <span class="st">"mean"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The option “none” gives us the dendrograms without any rotation that is based on the data matrix.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]),</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">seriate =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="working-with-colour-palettes" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-colour-palettes">3.5.7 Working with colour palettes</h3>
+<p>The default colour palette uses by <strong>heatmaply</strong> is <em>viridis</em>. heatmaply users, however, can use other colour palettes in order to improve the aestheticness and visual friendliness of the heatmap.</p>
+<p>In the code chunk below, the Blues colour palette of rColorBrewer is used</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]),</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">seriate =</span> <span class="st">"none"</span>,</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">colors =</span> Blues)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-finishing-touch" class="level3">
+<h3 class="anchored" data-anchor-id="the-finishing-touch">3.5.8 The finishing touch</h3>
+<p>Beside providing a wide collection of arguments for meeting the statistical analysis needs, <em>heatmaply</em> also provides many plotting features to ensure cartographic quality heatmap can be produced.</p>
+<p>In the code chunk below the following arguments are used:</p>
+<ul>
+<li><p><em>k_row</em> is used to produce 5 groups.</p></li>
+<li><p><em>margins</em> is used to change the top margin to 60 and row margin to 200.</p></li>
+<li><p><em>fontsizw_row</em> and <em>fontsize_col</em> are used to change the font size for row and column labels to 4.</p></li>
+<li><p><em>main</em> is used to write the main title of the plot.</p></li>
+<li><p><em>xlab</em> and <em>ylab</em> are used to write the x-axis and y-axis labels respectively.</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmaply</span>(<span class="fu">normalize</span>(wh_matrix[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]),</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">Colv=</span><span class="cn">NA</span>,</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">seriate =</span> <span class="st">"none"</span>,</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">colors =</span> Blues,</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">k_row =</span> <span class="dv">5</span>,</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">margins =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="dv">200</span>,<span class="dv">60</span>,<span class="cn">NA</span>),</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">fontsize_row =</span> <span class="dv">4</span>,</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">fontsize_col =</span> <span class="dv">5</span>,</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">main=</span><span class="st">"World Happiness Score and Variables by Country, 2018 </span><span class="sc">\n</span><span class="st">DataTransformation using Normalise Method"</span>,</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">"World Happiness Indicators"</span>,</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylab =</span> <span class="st">"World Countries"</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>          )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -286,7 +1064,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/walaipornp\.github\.io\/ISSS608-VAA\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
