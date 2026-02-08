@@ -458,44 +458,30 @@ glimpse(student_viz_data)
 ## Insight 1: Student Demographic
 
 ::: panel-tabset
-## Number of Students by Year
+## Part A Question
 
-```{r}
+```{r, fig.width=10, fig.height=6}
 #| echo: true
 #| code-fold: true
 #| code-summary: "Code"
 
-ggplot(student_viz_data, aes(x = factor(Year), fill = factor(Year))) +
+Stu_num <- ggplot(student_viz_data, aes(x = factor(Year), fill = factor(Year))) +
   geom_bar() +
   labs(title = "Number of Students by Year",
        x = "Year of Study",
        y = "Count of Students") +
   theme_minimal() +
   scale_fill_brewer(palette = "Set2")
-```
 
-## Gender Distribution of Students
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-ggplot(student_viz_data, aes(x = Gender, fill = Gender)) +
+Stu_sex <- ggplot(student_viz_data, aes(x = Gender, fill = Gender)) +
   geom_bar() +
   labs(title = "Gender Distribution of Students",
        x = "Gender",
        y = "Count") +
   theme_minimal() +
   scale_fill_manual(values = c("skyblue", "pink"))
-```
 
-## Students from Poor Households
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-ggplot(student_viz_data, aes(x = Poor_Stu, fill = Poor_Stu)) +
+Stu_poor <- ggplot(student_viz_data, aes(x = Poor_Stu, fill = Poor_Stu)) +
   geom_bar() +
   labs(title = "Students from Poor Households",
        x = "Poor Student (1=Yes, 2=No)",
@@ -503,15 +489,7 @@ ggplot(student_viz_data, aes(x = Poor_Stu, fill = Poor_Stu)) +
   theme_minimal() +
   scale_fill_brewer(palette = "Paired")
 
-```
-
-## Students under Government Policy Support
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-ggplot(student_viz_data, aes(x = Policy_Stu, fill = Policy_Stu)) +
+Stu_gov <- ggplot(student_viz_data, aes(x = Policy_Stu, fill = Policy_Stu)) +
   geom_bar() +
   labs(title = "Students under Government Policy Support",
        x = "Policy Supported (1=Yes, 2=No)",
@@ -519,6 +497,31 @@ ggplot(student_viz_data, aes(x = Policy_Stu, fill = Policy_Stu)) +
   theme_minimal() +
   scale_fill_brewer(palette = "Pastel1")
 
+(Stu_num + Stu_sex)/(Stu_poor+Stu_gov)
+
+```
+
+## Part B question
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Code"
+
+likert_data <- student_data %>%
+  select(
+    Adapt_Learning_Uni, Study_Methods, SupportOf_Uni,
+    SupportOf_Lec, Facilitie_Uni, Quality_Lecturer,
+    TrainingCurriculum, Competitive_Class, InfuenceF_Friends
+  ) %>%
+  pivot_longer(cols = everything(),
+               names_to = "Question",
+               values_to = "Response")
+
+ggplot(likert_data, aes(x = factor(Response))) +
+  geom_bar(aes(y = after_stat(prop), group = 1)) +
+  facet_wrap(~ Question) +
+  scale_y_continuous(labels = scales::percent)
 ```
 :::
 
@@ -541,25 +544,16 @@ In each plot, GPA was treated as the dependent variable (y-axis), while the resp
 
 A jittered scatter plot (`geom_jitter`) was applied to reduce overplotting and allow individual data points to be visible, especially where many students shared the same GPA category and time group. This helps reveal the distribution of students within each time category rather than just showing aggregated values..
 
-::: panel-tabset
-## Relationship between Daily Study Time and GPA
-
--   Higher study time categories tend to have higher average GPA (as shown by the black diamond).
-
-<!-- -->
-
--   You might also see that very few students study over 8 hours, but those who do generally achieve high GPA.
-
-```{r}
+```{r, fig.width=10, fig.height=6}
 #| echo: true
 #| code-fold: true
 #| code-summary: "Code"
-ggplot(student_viz_data, aes(x = Time_Studying, y = GPA, color = Time_Studying)) +
+Stu_study <- ggplot(student_viz_data, aes(x = Time_Studying, y = GPA, color = Time_Studying)) +
   geom_jitter(width = 0.2, height = 0.2, size = 2, alpha = 0.7) +
   stat_summary(fun = mean, geom = "point", shape = 23, size = 4, fill = "black") +
   labs(
-    title = "Relationship between Daily Study Time and GPA",
-    x = "Time Studying (hours category)",
+    title = "Daily Study Time VS GPA",
+    x = "Time Studying",
     y = "GPA"
   ) +
   theme_minimal() +
@@ -567,30 +561,13 @@ ggplot(student_viz_data, aes(x = Time_Studying, y = GPA, color = Time_Studying))
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1)
   )
-```
 
-## Relationship between Time Spent with Friends and GPA
-
--   Moderate time with friends might not negatively affect GPA.
-
-<!-- -->
-
--   Extremely high socializing hours (4+ hours) could correlate with slightly lower GPA.
-
-<!-- -->
-
--   Some students maintain high GPA even with high social time, showing individual differences.
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-ggplot(student_viz_data, aes(x = Time_Friends, y = GPA, color = Time_Friends)) +
+Stu_friend <- ggplot(student_viz_data, aes(x = Time_Friends, y = GPA, color = Time_Friends)) +
   geom_jitter(width = 0.2, height = 0.2, size = 2, alpha = 0.7) +
   stat_summary(fun = mean, geom = "point", shape = 23, size = 4, fill = "black") +
   labs(
-    title = "Relationship between Time Spent with Friends and GPA",
-    x = "Time with Friends (hours category)",
+    title = "Time Spent with Friends VS GPA",
+    x = "Time with Friends",
     y = "GPA"
   ) +
   theme_minimal() +
@@ -598,26 +575,13 @@ ggplot(student_viz_data, aes(x = Time_Friends, y = GPA, color = Time_Friends)) +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1)
   )
-```
 
-## Relationship between Social Media Usage and GPA
-
--   Excessive social media use (3–4+ hours) may correlate with lower GPA averages.
-
-<!-- -->
-
--   Low-to-moderate social media use seems compatible with higher GPA.
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-ggplot(student_viz_data, aes(x = Time_SocicalMedia, y = GPA, color = Time_SocicalMedia)) +
+Stu_social <- ggplot(student_viz_data, aes(x = Time_SocicalMedia, y = GPA, color = Time_SocicalMedia)) +
   geom_jitter(width = 0.2, height = 0.2, size = 2, alpha = 0.7) +
   stat_summary(fun = mean, geom = "point", shape = 23, size = 4, fill = "black") +
   labs(
-    title = "Relationship between Social Media Usage and GPA",
-    x = "Time on Social Media (hours category)",
+    title = "Social Media Usage VS GPA",
+    x = "Time on Social Media",
     y = "GPA"
   ) +
   theme_minimal() +
@@ -625,8 +589,9 @@ ggplot(student_viz_data, aes(x = Time_SocicalMedia, y = GPA, color = Time_Socica
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1)
   )
+
+(Stu_study)/(Stu_friend+Stu_social)
 ```
-:::
 
 ::: {.callout-tip title="Insight"}
 Overall, the three visualizations suggest that:
@@ -710,16 +675,12 @@ Together, these two plots suggest that academic performance is likely influenced
 A diverging stacked bar chart was used to compare the distribution of classroom competitiveness (Competitive_Class) between students who reported positive friends’ influence and those who did not. Percentages were calculated within each group to allow fair comparison.
 
 
-::: panel-tabset
-## A plot
-
-```{r}
+```{r, fig.width=10, fig.height=6}
 #| echo: true
 #| code-fold: true
 #| code-summary: "Code"
 library(dplyr)
 library(tidyr)
-
 div_data <- student_viz_data |>
   count(InfuenceF_Friends, Competitive_Class) |>
   group_by(InfuenceF_Friends) |>
@@ -737,16 +698,8 @@ div_data2 <- student_viz_data |>
   group_by(Competitive_Class) |>
   mutate(perc = n / sum(n) * 100) |>
   ungroup()
-```
 
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-library(dplyr)
-library(tidyr)
-
-ggplot(div_data, 
+Stu_influ_compet <- ggplot(div_data, 
        aes(x = perc,
            y = InfuenceF_Friends,
            fill = Competitive_Class)) +
@@ -755,72 +708,41 @@ ggplot(div_data,
   labs(
     title = "Class Competitiveness by Friends' Influence",
     x = "Percentage of Students",
-    y = "Friends have positive influence?"
+    y = "Level of friends influence"
   ) +
   theme_minimal() +
   theme(legend.position = "right")
 
-```
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-ggplot(div_data1, 
+Stu_influ <- ggplot(div_data1, 
        aes(x = perc,
            y = InfuenceF_Friends,
            fill = GPA)) +
   geom_col(position = position_stack(vjust = 0.5)) +
   scale_x_continuous(labels = scales::percent_format(scale = 1)) +
   labs(
-    title = "Class Competitiveness by Friends' Influence",
+    title = "Friends' Influence by GPA",
     x = "Percentage of Students",
-    y = "Friends have positive influence?"
+    y = "Level of friends influence"
   ) +
   theme_minimal() +
   theme(legend.position = "right")
 
-```
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-ggplot(div_data2, 
+Stu_compet <- ggplot(div_data2, 
        aes(x = perc,
            y = Competitive_Class,
            fill = GPA)) +
   geom_col(position = position_stack(vjust = 0.5)) +
   scale_x_continuous(labels = scales::percent_format(scale = 1)) +
   labs(
-    title = "Class Competitiveness by Friends' Influence",
+    title = "Class Competitiveness by GPA",
     x = "Percentage of Students",
-    y = "Friends have positive influence?"
+    y = "Level of class competitiveness"
   ) +
   theme_minimal() +
   theme(legend.position = "right")
 
+((Stu_influ|Stu_compet)/Stu_influ_compet)
 ```
-
-
-
-## b
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-
-```
-
-## c
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| code-summary: "Code"
-
-```
-:::
 
 ::: {.callout-tip title="Insight"}
 The visualization shows that students who perceive positive influence from friends are more likely to report being in highly competitive classes compared to those who do not. Conversely, students who do not feel positively influenced by friends tend to have a higher proportion of low or moderate class competitiveness. This suggests that peer influence and perceived academic environment are related and may jointly shape students’ learning experience.
@@ -870,20 +792,115 @@ ggplot(student_viz_data, aes(x = GPA, y = factor(Father_Edu), fill = factor(Fath
 ```
 
 ```{r}
-likert_data <- student_data %>%
-  select(
-    Adapt_Learning_Uni, Study_Methods, SupportOf_Uni,
-    SupportOf_Lec, Facilitie_Uni, Quality_Lecturer,
-    TrainingCurriculum, Competitive_Class, InfuenceF_Friends
-  ) %>%
-  pivot_longer(cols = everything(),
-               names_to = "Question",
-               values_to = "Response")
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(ggridges)
 
-ggplot(likert_data, aes(x = factor(Response))) +
-  geom_bar(aes(y = after_stat(prop), group = 1)) +
-  facet_wrap(~ Question) +
-  scale_y_continuous(labels = scales::percent)
+parent_gpa_long <- student_viz_data |>
+  select(GPA, Father_Edu, Mother_Edu) |>
+  pivot_longer(
+    cols = c(Father_Edu, Mother_Edu),
+    names_to = "Parent",
+    values_to = "Education"
+  )
+
+```
+```{r}
+p_father <- ggplot(student_viz_data, 
+       aes(x = factor(Father_Edu, ordered = TRUE), 
+           y = as.numeric(GPA))) +
+  geom_jitter(width = 0.2, height = 0.1, alpha = 0.6) +
+  stat_summary(fun = mean, geom = "point", 
+               shape = 23, size = 4, fill = "black") +
+  labs(
+    title = "Relationship between Father's Education and GPA",
+    x = "Father's Education Level",
+    y = "GPA Level"
+  ) +
+  theme_minimal()
+
+p_father
+
+
+```
+```{r}
+p_father <- ggplot(student_viz_data, 
+       aes(x = factor(Father_Edu, ordered = TRUE), 
+           y = as.numeric(GPA))) +
+  geom_jitter(width = 0.2, height = 0.1, alpha = 0.6) +
+  stat_summary(fun = mean, geom = "point", 
+               shape = 23, size = 4, fill = "black") +
+  labs(
+    title = "Relationship between Father's Education and GPA",
+    x = "Father's Education Level",
+    y = "GPA Level"
+  ) +
+  theme_minimal()
+
+p_father
+
+
+```
+```{r}
+# Create contingency table
+tab_father <- table(student_viz_data$Father_Edu,
+                    student_viz_data$GPA)
+
+# Run Chi-square test
+chisq.test(tab_father)
+
+```
+```{r}
+library(dplyr)
+library(tidyr)
+
+father_plot_data <- student_viz_data |>
+  count(Father_Edu, GPA) |>
+  group_by(Father_Edu) |>
+  mutate(perc = n/sum(n))
+
+mother_plot_data <- student_viz_data |>
+  count(Mother_Edu, GPA) |>
+  group_by(Mother_Edu) |>
+  mutate(perc = n/sum(n))
+
+```
+
+```{r}
+p_father_chi <- ggplot(father_plot_data,
+       aes(x = factor(Father_Edu),
+           y = perc,
+           fill = factor(GPA))) +
+  geom_col(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "GPA Distribution by Father's Education",
+    x = "Father's Education Level",
+    y = "Percentage of Students",
+    fill = "GPA Level"
+  ) +
+  theme_minimal()
+
+p_father_chi
+
+```
+
+```{r}
+p_mother <- ggplot(student_viz_data, 
+       aes(x = factor(Mother_Edu, ordered = TRUE), 
+           y = as.numeric(GPA))) +
+  geom_jitter(width = 0.2, height = 0.1, alpha = 0.6) +
+  stat_summary(fun = mean, geom = "point", 
+               shape = 23, size = 4, fill = "black") +
+  labs(
+    title = "Relationship between Mother's Education and GPA",
+    x = "Mother's Education Level",
+    y = "GPA Level"
+  ) +
+  theme_minimal()
+
+p_mother
 
 ```
 
@@ -900,24 +917,12 @@ The stacked bar chart provides a descriptive visualization of how responses to l
 
 To complement the descriptive visualization, an inferential test of association was automatically performed by ggbarstats(). Because both variables are categorical Likert-scale responses, a Pearson Chi-square test of independence was used to assess whether the two variables are statistically associated. In addition, Cramér’s V was reported as a measure of effect size to indicate the strength of the relationship.
 
-::: panel-tabset
-## The plot
 
-```{r}
-#| echo: false
-library(ggstatsplot)
-ggbarstats(
-  data = student_viz_data,
-  x = SupportOf_Uni,
-  y = SupportOf_Lec
-)
 
-```
-
-## The code chunk
-
-```{r}
-#| results: false
+```{r, fig.width=10, fig.height=6}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Code"
 library(ggstatsplot)
 ggbarstats(
   data = student_viz_data,
