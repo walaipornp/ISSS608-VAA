@@ -457,6 +457,9 @@ glimpse(student_viz_data)
 
 ## Insight 1: Student Demographic
 
+Descriptive bar charts were created using ggplot2 to summarize the demographic profile of students, including year of study, gender, household poverty status, and government policy support. Each variable was visualized separately using count-based bar charts and arranged in a combined layout for comparison.
+Likert-scale responses were transformed into long format using pivot_longer to facilitate visualization across multiple questions. Proportional bar charts were then generated using ggplot2, with each question displayed in a separate facet and response percentages shown on the y-axis.
+
 ::: panel-tabset
 ## Part A Question
 
@@ -527,6 +530,9 @@ ggplot(likert_data, aes(x = factor(Response))) +
 
 ::: {.callout-tip title="Insight"}
 Overall, the visualizations suggest that:
+- The student population is mainly composed of graduated students, with fewer third- and fourth-year students. The majority of respondents are female. Most students do not come from poor households, and more students are not receiving government policy support than those who are.
+
+- students tend to report moderately positive perceptions of their university experience. Most students rated Adapt_Learning_Uni, SupportOf_Uni, and Quality_Lecturer positively (responses 3–5 dominate). However, Competitive_Class and Facilities show more mixed opinions, indicating potential areas for improvement. Influence from friends is generally perceived as moderate to high, suggesting peer relationships play an important role in academic life.
 
 :::
 
@@ -621,7 +627,11 @@ First, a descriptive bar chart was created using ggplot2 from the tidyverse to s
 
 Second, an inferential visualization was produced using the ggscatterstats() function from the ggstatsplot package. Because both Study Time and GPA are measured on Likert (ordinal) scales, a non-parametric Spearman rank correlation (type = "np") was applied rather than a Pearson correlation. Marginal histograms were removed (marginal = FALSE) since the variables are discrete categories rather than continuous measures. This plot visually displays the relationship between study time and GPA while embedding the Spearman correlation coefficient and p-value directly in the graph.
 
-```{r}
+```{r, fig.width=10, fig.height=6}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Code"
+library(ggstatsplot)
 p1 <- ggplot(student_viz_data, aes(x = factor(Time_Studying))) +
   geom_bar(aes(y = after_stat(prop), group = 1)) +
   scale_y_continuous(labels = scales::percent) +
@@ -751,47 +761,10 @@ The visualization shows that students who perceive positive influence from frien
 
 ## Insight 5: Family background Equity & opportunity
 
-```{r}
-library(ggplot2)
-library(dplyr)
-library(ggthemes)
-
-# 1️⃣ Father's Education vs GPA
-ggplot(student_viz_data, aes(x = factor(Father_Edu), y = GPA, fill = factor(Father_Edu))) +
-  geom_boxplot() +
-  stat_summary(fun=mean, geom="point", shape=23, size=3, color="black", fill="yellow") +
-  labs(title="GPA by Father's Education Level",
-       x="Father's Education",
-       y="GPA") +
-  theme_minimal() +
-  scale_fill_brewer(palette="Pastel2")
-
-# 2️⃣ Mother's Education vs GPA
-ggplot(student_viz_data, aes(x = factor(Mother_Edu), y = GPA, fill = factor(Mother_Edu))) +
-  geom_boxplot() +
-  stat_summary(fun=mean, geom="point", shape=23, size=3, color="black", fill="yellow") +
-  labs(title="GPA by Mother's Education Level",
-       x="Mother's Education",
-       y="GPA") +
-  theme_minimal() +
-  scale_fill_brewer(palette="Pastel2")
-
-# 3️⃣ Economic Background (Poor vs Not Poor) vs GPA
-ggplot(student_viz_data, aes(x = factor(Poor_Stu), y = GPA, fill = factor(Poor_Stu))) +
-  geom_boxplot() +
-  stat_summary(fun=mean, geom="point", shape=23, size=3, color="black", fill="yellow") +
-  labs(title="GPA by Economic Background",
-       x="Poor Student (1=Yes, 2=No)",
-       y="GPA") +
-  theme_minimal() +
-  scale_fill_brewer(palette="Paired")
-
-```
-```{r}
-ggplot(student_viz_data, aes(x = GPA, y = factor(Father_Edu), fill = factor(Father_Edu))) + geom_density_ridges(alpha = 0.7, scale = 1.2, rel_min_height = 0.01) + geom_jitter(height = 0.1, width = 0.1, alpha = 0.5) + labs(title = "GPA Distribution by Father's Education", x = "GPA", y = "Father's Education") + theme_minimal() + scale_fill_brewer(palette = "Set3")
-```
-
-```{r}
+```{r, fig.width=10, fig.height=6}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Code"
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -805,9 +778,7 @@ parent_gpa_long <- student_viz_data |>
     values_to = "Education"
   )
 
-```
-```{r}
-p_father <- ggplot(student_viz_data, 
+Stu_father <- ggplot(student_viz_data, 
        aes(x = factor(Father_Edu, ordered = TRUE), 
            y = as.numeric(GPA))) +
   geom_jitter(width = 0.2, height = 0.1, alpha = 0.6) +
@@ -818,76 +789,12 @@ p_father <- ggplot(student_viz_data,
     x = "Father's Education Level",
     y = "GPA Level"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
 
-p_father
-
-
-```
-```{r}
-p_father <- ggplot(student_viz_data, 
-       aes(x = factor(Father_Edu, ordered = TRUE), 
-           y = as.numeric(GPA))) +
-  geom_jitter(width = 0.2, height = 0.1, alpha = 0.6) +
-  stat_summary(fun = mean, geom = "point", 
-               shape = 23, size = 4, fill = "black") +
-  labs(
-    title = "Relationship between Father's Education and GPA",
-    x = "Father's Education Level",
-    y = "GPA Level"
-  ) +
-  theme_minimal()
-
-p_father
-
-
-```
-```{r}
-# Create contingency table
-tab_father <- table(student_viz_data$Father_Edu,
-                    student_viz_data$GPA)
-
-# Run Chi-square test
-chisq.test(tab_father)
-
-```
-```{r}
-library(dplyr)
-library(tidyr)
-
-father_plot_data <- student_viz_data |>
-  count(Father_Edu, GPA) |>
-  group_by(Father_Edu) |>
-  mutate(perc = n/sum(n))
-
-mother_plot_data <- student_viz_data |>
-  count(Mother_Edu, GPA) |>
-  group_by(Mother_Edu) |>
-  mutate(perc = n/sum(n))
-
-```
-
-```{r}
-p_father_chi <- ggplot(father_plot_data,
-       aes(x = factor(Father_Edu),
-           y = perc,
-           fill = factor(GPA))) +
-  geom_col(position = "fill") +
-  scale_y_continuous(labels = scales::percent) +
-  labs(
-    title = "GPA Distribution by Father's Education",
-    x = "Father's Education Level",
-    y = "Percentage of Students",
-    fill = "GPA Level"
-  ) +
-  theme_minimal()
-
-p_father_chi
-
-```
-
-```{r}
-p_mother <- ggplot(student_viz_data, 
+Stu_mother <- ggplot(student_viz_data, 
        aes(x = factor(Mother_Edu, ordered = TRUE), 
            y = as.numeric(GPA))) +
   geom_jitter(width = 0.2, height = 0.1, alpha = 0.6) +
@@ -898,15 +805,16 @@ p_mother <- ggplot(student_viz_data,
     x = "Mother's Education Level",
     y = "GPA Level"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
 
-p_mother
-
+Stu_father+Stu_mother
 ```
 
 ::: {.callout-tip title="Insight"}
-Overall, the visualizations suggest that:
-
+The scatter plots show that students whose parents have higher education levels (especially university graduates) tend to cluster more around higher GPA levels, while students with parents who have only primary or secondary education show more variation and include more lower GPA values. This suggests that family educational background is associated with students’ academic performance, reflecting unequal opportunities linked to parental education.
 :::
 
 ## Insight 6: University support
