@@ -44,48 +44,39 @@ The goal is to identify key factors that influence student performance and provi
 
 ## 2.1 Loading packages
 
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| Library       | Description                                                                                                   |
-+===============+===============================================================================================================+
-| **tidyverse** | Core packages for data wrangling, filtering, summarizing, and plotting (`dplyr`, `ggplot2`, `readr`, `tidyr`) |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **readxl**    | Read Excel `.xlsx` files                                                                                      |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggplot2**   |                                                                                                               |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **scales**    | Format axis labels, percentages, and numbers for readability                                                  |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **plotly**    | Create interactive scatterplots and coordinated multiple views                                                |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggthemes**  | A ggplot extension that provides the user additional themes, scales, and geoms for the ggplots package        |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **patchwork** | Combine multiple ggplot2 plots into one figure                                                                |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggpubr**    | Publication-ready plots and statistical annotation                                                            |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggtext**    | Enhanced text rendering for ggplot2 labels and tooltips                                                       |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggdist**    | Visualisations of distributions and uncertainty in ggplot2                                                    |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **ggridges**  |                                                                                                               |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **skimr**     | Summarize dataset with descriptive statistics for EDA                                                         |
-+---------------+---------------------------------------------------------------------------------------------------------------+
-| **janitor**   | Clean column names, tabulate categorical variables for EDA                                                    |
-+---------------+---------------------------------------------------------------------------------------------------------------+
+We load the following R packages using the `pacman::p_load()` function:
+
++-----------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Library         | Description                                                                                                                           |
++=================+=======================================================================================================================================+
+| **tidyverse**   | Core packages for data wrangling, filtering, summarizing, and plotting                                                                |
++-----------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| **readxl**      | Read Excel `.xlsx` files                                                                                                              |
++-----------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| **ggplot2**     | Provides a flexible framework for creating data visualization such as bar charts, jitter plots, stacked bar charts, and summary plots |
++-----------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| **dplyr**       | Data manipulation and transformation                                                                                                  |
++-----------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| **tidyr**       | Reshape the dataset into tidy format                                                                                                  |
++-----------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| **scales**      | Format axis labels for readability and interpretability of proportion-based visualizations                                            |
++-----------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| **ggstatsplot** | Display graphical relationships along with statistical test results                                                                   |
++-----------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| **patchwork**   | Combine multiple ggplot2 plots into one figure                                                                                        |
++-----------------+---------------------------------------------------------------------------------------------------------------------------------------+
+
 
 The code chunk below will be used load these R packages into RStudio environment
 
+
 ```{r}
-pacman::p_load(tidyverse, readxl, ggiraph, ggthemes, ggdist, plotly, crosstalk, 
-  DT, patchwork, scales, ggpubr, ggtext, skimr, janitor)
+pacman::p_load(dplyr,tidyr,ggplot2,readxl,scales,ggstatsplot,patchwork)
 ```
 
 ## 2.2 Data import
 
-Database paper.xlsx will be used.
-
-In the code chunk below, read_xlsx() of readr package is used to import Database paper.xlsx into R and saved it into a tibble data.frame.
+In the code chunk below, `read_xlsx()` of readr package is used to import `Database paper.xlsx` into R and saved it into a tibble data.frame.
 
 ```{r}
 student_data <- read_xlsx("data/Database paper.xlsx")
@@ -99,164 +90,187 @@ For this post, only the columns relevant to our planned visualizations were reta
 
 The retained variables can be grouped into four broad categories, capturing aspects of University Support, Gender/Personal Demographics, Socio-economic Status, and Student Behavior/Performance. Details are extracted from the Codebook:
 
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Category              | Variable name      | Question                                                                     | Encoding scheme                     |
-+=======================+====================+==============================================================================+=====================================+
-| Personal Demographics | Year               | What year student are you in?                                                | 1 - First-year                      |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Second-year                     |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - Third-year                      |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - Fourth-year                     |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - Graduated                       |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Personal Demographics | Gender             | What is your gender?                                                         | 1 - Male                            |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Female                          |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Socio-economic Status | Policy_Stu         | Are you a student on policy government support?                              | 1 - Yes                             |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - No                              |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Socio-economic Status | Poor_Stu           | Is your family a poor household?                                             | 1 - Yes                             |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - No                              |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Family Background     | Father_Edu         | What educational background of your father?                                  | 1 - Primary school                  |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Secondary school                |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - High school                     |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - College school                  |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - University/graduate education   |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 6 - Other                           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Family Background     | Mother_Edu         | What educational background of your mother?                                  | 1 - Primary school                  |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Secondary school                |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - High school                     |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - College school                  |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - University/graduate education   |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 6 - Other                           |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Student Behavior      | Time_Friends       | How much time do you spend hanging out with your friends on average per day? | 1 - under 1 hours                   |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - from 1 to lower 2 hours         |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - from 2 to lower 3 hours         |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - from 3 to lower 4 hours         |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - over 4 hour                     |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Student Behavior      | Time_SocicalMedia  | How much time do you spend using social media on average per day?            | 1 - under 1 hours                   |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - from 1 to lower 2 hours         |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - from 2 to lower 3 hours         |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - from 3 to lower 4 hours         |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - over 4 hour                     |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Student Behavior      | Time_Studying      | How much time do you spend studying on average per day?                      | 1 - under 2 hours                   |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - from 2 to lower 4 hours         |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - from 4 to lower 6 hours         |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - from 6 to lower 8 hours         |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - over 8 hour                     |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| Performance           | GPA                | What is your cumulative grade point average (GPA)?                           | 1 - Under 2.0 – Poor                |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - From 2.0 to lower 2.5 – Average |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - From 2.5 to lower 3.2 – Fair    |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - From 3.2 to lower  3.6 – Good   |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - Over 3.6 – Excellent            |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| University Support    | Adapt_Learning_Uni | How level are you adapting to the learning environment at the university?    | 1 - Not at all                      |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Little                          |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - Moderate                        |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - Quite                           |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - Very                            |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| University Support    | Study_Methods      | How level are your studying methods affecting your outcomes?                 | 1 - Not at all                      |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Little                          |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - Moderate                        |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - Quite                           |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - Very                            |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| University Support    | SupportOf_Uni      | How level is the university's support for you?                               | 1 - Not at all                      |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Little                          |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - Moderate                        |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - Quite                           |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - Very                            |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| University Support    | SupportOf_Lec      | How level is the lecturer's support (affecting your outcomes)?               | 1 - Not at all                      |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Little                          |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - Moderate                        |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - Quite                           |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - Very                            |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| University Support    | Facilitie_Uni      | How responsive are the university facilities?                                | 1 - Not at all                      |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Little                          |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - Moderate                        |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - Quite                           |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - Very                            |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
-| University Support    | TrainingCurriculum | How level is suitable of the university curriculum?                          | 1 - Not at all                      |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 2 - Little                          |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 3 - Moderate                        |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 4 - Quite                           |
-|                       |                    |                                                                              |                                     |
-|                       |                    |                                                                              | 5 - Very                            |
-+-----------------------+--------------------+------------------------------------------------------------------------------+-------------------------------------+
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Variable name      | Question                                                                     | Encoding scheme                     |
++====================+==============================================================================+=====================================+
+| Year               | What year student are you in?                                                | 1 - First-year                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Second-year                     |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - Third-year                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - Fourth-year                     |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Graduated                       |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Gender             | What is your gender?                                                         | 1 - Male                            |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Female                          |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Policy_Stu         | Are you a student on policy government support?                              | 1 - Yes                             |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - No                              |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Poor_Stu           | Is your family a poor household?                                             | 1 - Yes                             |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - No                              |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Father_Edu         | What educational background of your father?                                  | 1 - Primary school                  |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Secondary school                |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - High school                     |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - College school                  |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - University/graduate education   |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 6 - Other                           |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Mother_Edu         | What educational background of your mother?                                  | 1 - Primary school                  |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Secondary school                |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - High school                     |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - College school                  |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - University/graduate education   |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 6 - Other                           |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Time_Friends       | How much time do you spend hanging out with your friends on average per day? | 1 - under 1 hours                   |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - from 1 to lower 2 hours         |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - from 2 to lower 3 hours         |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - from 3 to lower 4 hours         |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - over 4 hour                     |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Time_SocicalMedia  | How much time do you spend using social media on average per day?            | 1 - under 1 hours                   |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - from 1 to lower 2 hours         |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - from 2 to lower 3 hours         |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - from 3 to lower 4 hours         |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - over 4 hour                     |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Time_Studying      | How much time do you spend studying on average per day?                      | 1 - under 2 hours                   |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - from 2 to lower 4 hours         |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - from 4 to lower 6 hours         |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - from 6 to lower 8 hours         |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - over 8 hour                     |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| GPA                | What is your cumulative grade point average (GPA)?                           | 1 - Under 2.0 – Poor                |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - From 2.0 to lower 2.5 – Average |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - From 2.5 to lower 3.2 – Fair    |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - From 3.2 to lower  3.6 – Good   |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Over 3.6 – Excellent            |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Adapt_Learning_Uni | How level are you adapting to the learning environment at the university?    | 1 - Not at all                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Little                          |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - Moderate                        |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - Quite                           |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Very                            |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Study_Methods      | How level are your studying methods affecting your outcomes?                 | 1 - Not at all                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Little                          |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - Moderate                        |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - Quite                           |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Very                            |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| SupportOf_Uni      | How level is the university's support for you?                               | 1 - Not at all                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Little                          |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - Moderate                        |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - Quite                           |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Very                            |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| SupportOf_Lec      | How level is the lecturer's support (affecting your outcomes)?               | 1 - Not at all                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Little                          |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - Moderate                        |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - Quite                           |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Very                            |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Facilitie_Uni      | How responsive are the university facilities?                                | 1 - Not at all                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Little                          |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - Moderate                        |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - Quite                           |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Very                            |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| TrainingCurriculum | How level is suitable of the university curriculum?                          | 1 - Not at all                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Little                          |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - Moderate                        |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - Quite                           |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Very                            |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| Competitive_Class  | How level is the competing class affecting you?                              | 1 - Not at all                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Little                          |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - Moderate                        |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - Quite                           |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Very                            |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
+| InfuenceF_Friends  | How the level are friends in class affecting your outcomes?                  | 1 - Not at all                      |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 2 - Little                          |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 3 - Moderate                        |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 4 - Quite                           |
+|                    |                                                                              |                                     |
+|                    |                                                                              | 5 - Very                            |
++--------------------+------------------------------------------------------------------------------+-------------------------------------+
 
-glimpse() of the dplyr package allows us to see all columns and their data type in the data frame.
+
+`glimpse()` of the `dplyr` package allows us to see all columns and their data type in the data frame.
+
 
 ```{r}
 glimpse(student_data)
 ```
 
 
-A new dataset, student_viz_data, was generated by selecting only the variables relevant to the planned visualizations.
+A new dataset, `student_viz_data`, was generated by selecting only the variables relevant to the planned visualizations.
+
 
 ```{r}
 
@@ -276,30 +290,24 @@ head(student_viz_data)
 
 ## 3.2 Handling missing value
 
-To check the total number of missing values in the whole dataset, the code chunk below was used.
-
-```{r}
-sum(is.na(student_viz_data))
-```
-
 To examine missing values for each variable individually, the code chunk below was used to compute the number of missing observations by column.
+
 
 ```{r}
 colSums(is.na(student_viz_data))
 ```
 
-After inspecting the dataset using colSums(is.na(student_data)), no missing values were detected across all variables. This indicates that the dataset is complete and does not require further treatment such as row deletion, variable removal, or imputation. Therefore, all observations were retained for subsequent data preparation, analysis, and visualization.
+
+After inspecting the dataset using c`olSums(is.na(student_data))`, no missing values were detected across all variables. This indicates that the dataset is complete and does not require further treatment such as row deletion, variable removal, or imputation. Therefore, all observations were retained for subsequent data preparation, analysis, and visualization.
 
 ## 3.3 Recoding categorical variables
 
 Although many variables in the dataset are recorded using numerical codes (e.g., 1–5), these values do not represent actual quantities or measurements but instead correspond to ordered categories or levels of perception. If left as numeric variables, R would treat them as continuous numbers, implying equal intervals between categories and allowing inappropriate mathematical operations such as averaging or regression as if they were true numerical measurements. This can lead to misleading results and incorrect visual interpretations. Therefore, these variables need to be recoded as ordered factors with meaningful labels to ensure accurate and appropriate analysis and visualization by using the code chunk below.
 
-```{r}
-library(dplyr)
 
+```{r}
 student_viz_data <- student_viz_data |>
   mutate(
-    # ----- Student profile -----
     Year = factor(Year,
                   levels = c(1,2,3,4,5),
                   labels = c("First-year",
@@ -320,7 +328,6 @@ student_viz_data <- student_viz_data |>
                         levels = c(1,2),
                         labels = c("Policy supported", "Not supported")),
 
-    # ----- Parents' education -----
     Father_Edu = factor(Father_Edu,
                         levels = 1:6,
                         labels = c("Primary school",
@@ -339,7 +346,6 @@ student_viz_data <- student_viz_data |>
                                    "University/Graduate",
                                    "Other")),
 
-    # ----- Time use -----
     Time_Friends = factor(Time_Friends,
                           levels = c(1,2,3,4,5),
                           labels = c("Under 1 hour",
@@ -364,7 +370,6 @@ student_viz_data <- student_viz_data |>
                                       "6–<8 hours",
                                       "Over 8 hours")),
 
-    # ----- Academic outcome -----
     GPA = factor(GPA,
                  levels = c(1,2,3,4,5),
                  labels = c("Under 2.0 – Poor",
@@ -373,7 +378,6 @@ student_viz_data <- student_viz_data |>
                             "3.2–<3.6 – Good",
                             "Over 3.6 – Excellent")),
 
-    # ----- University support & learning -----
     Adapt_Learning_Uni = factor(Adapt_Learning_Uni,
                                 levels = 1:5,
                                 labels = c("Not at all",
@@ -447,7 +451,9 @@ student_viz_data <- student_viz_data |>
 
 ```
 
-After converting the selected variables to factors, we used glimpse() to quickly inspect the structure of the dataset and confirm that all categorical variables were correctly recoded.
+
+After converting the selected variables to factors, we used `glimpse()` to quickly inspect the structure of the dataset and confirm that all categorical variables were correctly recoded.
+
 
 ```{r}
 glimpse(student_viz_data)
@@ -457,8 +463,11 @@ glimpse(student_viz_data)
 
 ## Insight 1: Student Demographic
 
-Descriptive bar charts were created using ggplot2 to summarize the demographic profile of students, including year of study, gender, household poverty status, and government policy support. Each variable was visualized separately using count-based bar charts and arranged in a combined layout for comparison.
-Likert-scale responses were transformed into long format using pivot_longer to facilitate visualization across multiple questions. Proportional bar charts were then generated using ggplot2, with each question displayed in a separate facet and response percentages shown on the y-axis.
+Descriptive bar charts were created using ggplot2 to summarize the likert-scale responses including demographic profile of students in Part A and university life in Part B.
+
+Each demographic variable was visualized separately using count-based bar charts and arranged in a combined layout for comparison.
+
+Likert-scale responses were transformed into long format using `pivot_longer` to facilitate visualization across multiple questions. Proportional bar charts were then generated using ggplot2, with each question displayed in a separate facet and response percentages shown on the y-axis.
 
 ::: panel-tabset
 ## Part A Question
@@ -504,7 +513,7 @@ Stu_gov <- ggplot(student_viz_data, aes(x = Policy_Stu, fill = Policy_Stu)) +
 
 ```
 
-## Part B question
+## Part B Question
 
 ```{r}
 #| echo: true
@@ -530,25 +539,36 @@ ggplot(likert_data, aes(x = factor(Response))) +
 
 ::: {.callout-tip title="Insight"}
 Overall, the visualizations suggest that:
-- The student population is mainly composed of graduated students, with fewer third- and fourth-year students. The majority of respondents are female. Most students do not come from poor households, and more students are not receiving government policy support than those who are.
 
-- students tend to report moderately positive perceptions of their university experience. Most students rated Adapt_Learning_Uni, SupportOf_Uni, and Quality_Lecturer positively (responses 3–5 dominate). However, Competitive_Class and Facilities show more mixed opinions, indicating potential areas for improvement. Influence from friends is generally perceived as moderate to high, suggesting peer relationships play an important role in academic life.
+-   The student population is mainly composed of graduated students, with fewer third and fourth-year students.
 
+-   The majority of respondents are female.
+
+-   Most students do not come from poor households
+
+-   More students are not receiving government policy support than those who are.
+
+-   Students tend to report moderately positive perceptions of their university experience. Most students rated Adapt_Learning_Uni, SupportOf_Uni, and Quality_Lecturer positively (responses 3–5 dominate).
+
+-   Competitive_Class and Facilities show more mixed opinions, indicating potential areas for improvement.
+
+-   Influence from friends is generally perceived as moderate to high, suggesting peer relationships play an important role in academic life.
 :::
 
-## Insight 2: Student Time Allocation
+## Insight 2: Student Time Allocation Impact on GPA
 
-To examine the relationship between students’ time allocation and academic performance (GPA), three separate visualizations were created using jittered scatter plots in `ggplot2`. The three plots explored:
+In university life, the amount of time students spend on various activities may be related to their GPA. Three separate visualizations were created using jittered scatter plots in **ggplot2** to explore these relationships.
 
--    Time spent studying vs. GPA
+-   Time spent studying vs. GPA
 
--    Time spent with friends vs. GPA
+-   Time spent with friends vs. GPA
 
--    Time spent on social media vs. GPA
+-   Time spent on social media vs. GPA
 
 In each plot, GPA was treated as the dependent variable (y-axis), while the respective time variable (categorical hours groups) was used as the independent variable (x-axis).
 
-A jittered scatter plot (`geom_jitter`) was applied to reduce overplotting and allow individual data points to be visible, especially where many students shared the same GPA category and time group. This helps reveal the distribution of students within each time category rather than just showing aggregated values..
+A jittered scatter plot (`geom_jitter`) was applied to reduce overplotting and allow individual data points to be visible, especially where many students shared the same GPA category and time group. This helps reveal the distribution of students within each time category rather than just showing aggregated values.
+
 
 ```{r, fig.width=10, fig.height=6}
 #| echo: true
@@ -603,17 +623,8 @@ Stu_social <- ggplot(student_viz_data, aes(x = Time_SocicalMedia, y = GPA, color
 Overall, the three visualizations suggest that:
 
 -   Students’ behaviors (study, socializing, social media) show **different impacts on GPA**.
-
-<!-- -->
-
 -   Study time is most positively correlated with GPA.
-
-<!-- -->
-
 -   Time with friends shows little clear relationship with GPA.
-
-<!-- -->
-
 -   Social media time shows a mild negative relationship with GPA.
 
 This indicates that how students allocate their time matters, with academic-focused activities (studying) being more strongly associated with better performance than leisure activities.
@@ -621,11 +632,15 @@ This indicates that how students allocate their time matters, with academic-focu
 
 ## Insight 3: Student Study Time vs Performance
 
-To examine whether study time is associated with GPA, two complementary visual approaches were used: (1) a descriptive visualization and (2) an inferential visualization.
+From Insight 2, Study time is most positively correlated with GPA. To examine whether study time is associated with GPA, two complementary visual approaches were used:
 
-First, a descriptive bar chart was created using ggplot2 from the tidyverse to show the distribution of students across five study-time categories. The code used geom_bar() with after_stat(prop) to display percentages rather than raw counts, allowing comparison of how common each study-time category was among respondents. The variable Time_Studying was treated as a factor to reflect its Likert-scale (ordinal) nature.
+1.  A descriptive visualization
 
-Second, an inferential visualization was produced using the ggscatterstats() function from the ggstatsplot package. Because both Study Time and GPA are measured on Likert (ordinal) scales, a non-parametric Spearman rank correlation (type = "np") was applied rather than a Pearson correlation. Marginal histograms were removed (marginal = FALSE) since the variables are discrete categories rather than continuous measures. This plot visually displays the relationship between study time and GPA while embedding the Spearman correlation coefficient and p-value directly in the graph.
+2.  An inferential visualization.
+
+First, a descriptive bar chart was created using **ggplot2** from the tidyverse to show the distribution of students across five study-time categories. The code used `geom_bar()` with `after_stat(prop)` to display percentages rather than raw counts, allowing comparison of how common each study-time category was among respondents. The variable Time_Studying was treated as a factor.
+
+Second, an inferential visualization was produced using the `ggscatterstats()` function from the **ggstatsplot** package. Because both Study Time and GPA are measured on Likert scales, a non-parametric **Spearman rank correlation** `(type = "np")` was applied rather than a Pearson correlation. Marginal histograms were removed `(marginal = FALSE)` since the variables are discrete categories rather than continuous measures. This plot visually displays the relationship between study time and GPA while embedding the Spearman correlation coefficient and p-value directly in the graph.
 
 ```{r, fig.width=10, fig.height=6}
 #| echo: true
@@ -674,23 +689,31 @@ p2 <- ggscatterstats(
 ::: {.callout-tip title="Insight"}
 The descriptive bar chart shows that the majority of students reported studying in the highest category (“over 8 hours”), indicating that most respondents are relatively intensive study. Very few students reported studying less than 2 hours per day.
 
-However, the inferential scatter plot with Spearman correlation suggests that increased study time does not show a strong or meaningful monotonic association with GPA in this sample (ρ ≈ 0, p ≈ 1.00). This indicates that although many students study for long hours, longer study time alone does not necessarily translate into higher GPA.
+However, the inferential scatter plot with Spearman correlation suggests that **increased study time does not show a strong or meaningful association with GPA** in this sample **(ρ ≈ 0, p ≈ 1.00)**. This indicates that although many students study for long hours, longer study time alone does not necessarily translate into higher GPA.
 
 Together, these two plots suggest that academic performance is likely influenced by factors beyond study duration alone, such as study methods, lecturer quality, university support, or peer influence.
 :::
 
-
 ## Insight 4: Relationship of Class Competitiveness by Friends' Influence
 
-A diverging stacked bar chart was used to compare the distribution of classroom competitiveness (Competitive_Class) between students who reported positive friends’ influence and those who did not. Percentages were calculated within each group to allow fair comparison.
+Students’ friends may affect class competitiveness. A diverging stacked bar chart was used to compare the distribution of classroom competitiveness (Competitive_Class) between students who reported positive friends’ influence and those who did not. Percentages were calculated within each group to allow fair comparison.
+
+To analyze the relationship between friends’ influence, class competitiveness, and GPA, three percentage-based stacked bar charts were created. The data were first summarized using **dplyr**, specifically `count()`, `group_by()`, and `mutate()` to compute within-group percentages for
+
+1.  Friends’ influence vs class competitiveness
+
+2.  Friends’ influence vs GPA
+
+3.  Class competitiveness vs GPA.
+
+The data were then visualized using **ggplot2**, where horizontal stacked bar charts were constructed with `geom_col(position = position_stack())`, placing percentages on the x-axis and categorical variables on the y-axis. Additional formatting such as `scale_x_continuous(labels = scales::percent_format())` and `theme_minimal()` was applied to improve readability and comparability across plots. Finally, the three charts were arranged together using the patchwork syntax to enable a holistic comparison of how peer influence and perceived class competitiveness relate to academic performance.
 
 
 ```{r, fig.width=10, fig.height=6}
 #| echo: true
 #| code-fold: true
 #| code-summary: "Code"
-library(dplyr)
-library(tidyr)
+
 div_data <- student_viz_data |>
   count(InfuenceF_Friends, Competitive_Class) |>
   group_by(InfuenceF_Friends) |>
@@ -755,20 +778,34 @@ Stu_compet <- ggplot(div_data2,
 ```
 
 ::: {.callout-tip title="Insight"}
-The visualization shows that students who perceive positive influence from friends are more likely to report being in highly competitive classes compared to those who do not. Conversely, students who do not feel positively influenced by friends tend to have a higher proportion of low or moderate class competitiveness. This suggests that peer influence and perceived academic environment are related and may jointly shape students’ learning experience.
-
+The visualization shows that students who perceive positive influence from friends are more likely to report being in highly competitive classes compared to those who do not. Conversely, students who do not feel positively influenced by friends tend to have a higher proportion of low or moderate class competitiveness. This suggests that **peer influence and perceived academic environment are related** and may jointly shape students’ learning experience.
 :::
 
 ## Insight 5: Family background Equity & opportunity
+
+Students from different family backgrounds may experience varying impacts on their GPA, two separate visualizations were created:
+
+1.  Father’s Education in relation to GPA.
+
+2.  Mother’s Education in relation to GPA.
+
+First, the relevant variables (GPA, Father_Edu, and Mother_Edu) were selected from the dataset and reshaped into a long format using `pivot_longer()`. This step structured the data so that parental education levels could be analyzed in a consistent way if needed for further extensions or comparisons.
+
+Then, two separate scatter-based plots were generated using **ggplot2**:
+
+-   The x-axis represents the parent’s education level (treated as an ordered factor).
+
+-   The y-axis represents GPA (numeric).
+
+-   `geom_jitter()` was used to spread overlapping points, making the distribution of students within each education category more visible.
+
+The two plots were then displayed side by side to allow direct visual comparison between father’s and mother’s education levels and their association with student GPA.
+
 
 ```{r, fig.width=10, fig.height=6}
 #| echo: true
 #| code-fold: true
 #| code-summary: "Code"
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(ggridges)
 
 parent_gpa_long <- student_viz_data |>
   select(GPA, Father_Edu, Mother_Edu) |>
@@ -814,17 +851,16 @@ Stu_father+Stu_mother
 ```
 
 ::: {.callout-tip title="Insight"}
-The scatter plots show that students whose parents have higher education levels (especially university graduates) tend to cluster more around higher GPA levels, while students with parents who have only primary or secondary education show more variation and include more lower GPA values. This suggests that family educational background is associated with students’ academic performance, reflecting unequal opportunities linked to parental education.
+The scatter plots show that students’ GPA is distributed across all levels of parents’ education, indicating that academic performance is not exclusively determined by family educational background. Students whose parents have only primary or secondary education can still achieve high GPAs comparable to those whose parents are university graduates. However, there is a students whose parents have higher education levels tend to cluster more around higher GPA levels, suggesting that **family educational background may provide some academic advantage, but it does not strictly limit or determine student success**.
 :::
 
 ## Insight 6: University support
 
-To examine the relationship between students’ perceived university support (SupportOf_Uni) and lecturer support (SupportOf_Lec), a stacked bar chart with embedded inferential statistics was produced using the ggbarstats() function from the ggstatsplot package.
+University support may influence how students perceive lecturer support, and this relationship can help explain differences in student experiences. A stacked bar chart with embedded inferential statistics was produced using the `ggbarstats()` function from the **ggstatsplot** package.
 
 The stacked bar chart provides a descriptive visualization of how responses to lecturer support are distributed within each level of university support. Percentages within each bar were displayed to allow easy comparison across categories rather than relying on raw counts alone.
 
-To complement the descriptive visualization, an inferential test of association was automatically performed by ggbarstats(). Because both variables are categorical Likert-scale responses, a Pearson Chi-square test of independence was used to assess whether the two variables are statistically associated. In addition, Cramér’s V was reported as a measure of effect size to indicate the strength of the relationship.
-
+To complement the descriptive visualization, an inferential test of association was automatically performed by `ggbarstats()`. Because both variables are categorical Likert-scale responses, a **Pearson Chi-square test** of independence was used to assess whether the two variables are statistically associated. In addition, **Cramér’s V** was reported as a measure of effect size to indicate the strength of the relationship.
 
 
 ```{r, fig.width=10, fig.height=6}
@@ -839,20 +875,33 @@ ggbarstats(
 )
 
 ```
-:::
+
 
 ::: {.callout-tip title="Insight"}
+The visualization and statistical test suggest that:
 
--   **Pearson χ² = 1795.83, p \< 0.001** → the relationship is statistically significant.
+-   **Pearson χ² = 1795.83, p \< 0.001** → the relationship is **statistically significant.**
 
 -   **Cramér’s V ≈ 0.45** → this represents a **moderate to strong association** between university support and lecturer support.
 
-The stacked bar chart and Pearson Chi-square test show a strong and significant association between perceived university support and lecturer support (Cramér’s V ≈ 0.45). Students who feel highly supported by the university are also much more likely to perceive strong support from their lecturers, indicating that institutional and instructional support are closely interconnected in shaping student experience.
+The stacked bar chart and Pearson Chi-square test **show a strong and significant association between perceived university support and lecturer support**. Students who feel highly supported by the university are also much more likely to perceive strong support from their lecturers, indicating that **institutional and instructional support are closely interconnected in shaping student experience**.
 :::
 
-
-
 # 5. Summary
+
+The study examined factors influencing student experiences and academic performance, focusing on student background, time allocation, peer influence, family background, and institutional support. Overall, the findings suggest that academic outcomes and student perceptions are shaped by a combination of personal, social, and institutional factors rather than any single determinant.
+
+-    **Student Background:** The student population is predominantly female and graduates, with generally positive perceptions of university experience. Peer influence, class competitiveness, and access to facilities show variability, highlighting areas for potential improvement.
+
+-   **Time Allocation & GPA:** Study time positively relates to GPA, while leisure activities, such as social media, show little or negative impact. However, simply studying longer hours does not guarantee higher GPA, suggesting that quality of study and other factors matter.
+
+-    **Peer Influence & Class Environment:** Students perceiving positive peer influence tend to report higher class competitiveness, showing that social interactions and perceived academic environment jointly affect learning experiences.
+
+-    **Family Background:** Academic performance is not strictly determined by parental education. While higher parental education may provide some advantage, students from all backgrounds can achieve high GPAs, highlighting equity in opportunity.
+
+-    **University Support:** Perceived university support is strongly associated with lecturer support, indicating that institutional support and instructional support together play a critical role in shaping positive student experiences.
+
+In summary, student performance and experiences are influenced by a complex interplay of study habits, peer interactions, family background, and institutional support. Effective interventions should therefore consider not only academic behaviors but also social and organizational factors to enhance student outcomes.
 
 # 6. Reference
 
