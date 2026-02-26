@@ -2,10 +2,10 @@ project:
   type: website
 
 website:
-  title: "ISSS608-VAA"
+  title: "<img src='/image/Two.png' style='height:30px; vertical-align:middle; margin-right:8px;'>ISSS608-VAA"
   navbar:
     left:
-    - text: "Hands-on Exercise"
+    - text: "<img src='/image/shinchan.png' style='height:30px; vertical-align:middle; margin-right:8px;'> Hands-on Exercise"
       menu:
         - text: "Hands-on Exercise 1"
           href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
@@ -28,7 +28,7 @@ website:
         - text: "Hands-on Exercise 10"
           href: "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html"
           
-    - text: "Take-home Exercises"
+    - text: "<img src='/image/Shiro.png' style='height:30px; vertical-align:middle; margin-right:8px;'> Take-home Exercises"
       menu:
         - text: "Take-home Exercise 1"
           href: "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html"

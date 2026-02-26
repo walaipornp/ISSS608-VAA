@@ -1,0 +1,12 @@
+name: Prototype1
+title: Prototype1
+username: walapornp
+account: walapornp
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 16729682
+bundleId: 11610446
+url: https://walapornp.shinyapps.io/Prototype1/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

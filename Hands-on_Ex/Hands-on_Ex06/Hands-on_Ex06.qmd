@@ -27,7 +27,13 @@ By the end of this hands-on exercise you will be able create the followings data
 ```{r}
 pacman::p_load(scales, viridis, lubridate, ggthemes,
                gridExtra, readxl, knitr, data.table,
-               CGPfunctions, ggHoriPlot, tidyverse)
+               ggHoriPlot, tidyverse)
+```
+
+```{r}
+library(remotes)
+install_github("haleyjeppson/ggmosaic")
+install_github("ibecav/CGPfunctions")
 ```
 
 ### 1.2.2 The data
@@ -238,7 +244,7 @@ ggplot(top4_attacks,
 
 In this section, you will learn how to plot a cycle plot showing the time-series patterns and trend of visitor arrivals from Vietnam programmatically by using ggplot2 functions.
 
-### 1.4.1 Step 1: Data Import 
+### 1.4.1 Step 1: Data Import
 
 For the purpose of this hands-on exercise, *arrivals_by_air.xlsx* will be used.
 
@@ -248,7 +254,7 @@ The code chunk below imports *arrivals_by_air.xlsx* by using `read_excel()` of *
 air <- read_excel("data/arrivals_by_air.xlsx")
 ```
 
-### 1.4.2 Step 2: Deriving month and year fields 
+### 1.4.2 Step 2: Deriving month and year fields
 
 Next, two new fields called *month* and *year* are derived from *Month-Year* field.
 
@@ -260,7 +266,7 @@ air$month <- factor(month(air$`Month-Year`),
 air$year <- year(ymd(air$`Month-Year`))
 ```
 
-### 1.4.3 Step 3: Extracting the target country 
+### 1.4.3 Step 3: Extracting the target country
 
 Next, the code chunk below is use to extract data for the target country (i.e. Vietnam)
 
@@ -272,7 +278,7 @@ Vietnam <- air %>%
   filter(year >= 2010)
 ```
 
-### 1.4.4 Step 4: Computing year average arrivals by month 
+### 1.4.4 Step 4: Computing year average arrivals by month
 
 The code chunk below uses `group_by()` and `summarise()` of **dplyr** to compute year average arrivals by month.
 
@@ -282,7 +288,7 @@ hline.data <- Vietnam %>%
   summarise(avgvalue = mean(`Vietnam`))
 ```
 
-### 1.4.5 Step 5: Plotting the cycle plot 
+### 1.4.5 Step 5: Plotting the cycle plot
 
 The code chunk below is used to plot the cycle plot as shown in Slide 12/23.
 
@@ -312,7 +318,7 @@ In this section you will learn how to plot a [slopegraph](https://www.storytelli
 
 Before getting start, make sure that **CGPfunctions** has been installed and loaded onto R environment. Then, refer to [Using newggslopegraph](https://cran.r-project.org/web/packages/CGPfunctions/vignettes/Using-newggslopegraph.html) to learn more about the function. Lastly, read more about `newggslopegraph()` and its arguments by referring to this [link](https://www.rdocumentation.org/packages/CGPfunctions/versions/0.6.3/topics/newggslopegraph).
 
-### 1.5.1 Step 1: Data Import 
+### 1.5.1 Step 1: Data Import
 
 Import the rice data set into R environment by using the code chunk below.
 
@@ -324,13 +330,12 @@ rice <- read_csv("data/rice.csv")
 
 Next, code chunk below will be used to plot a basic slopegraph as shown below.
 
-
 ::: {.callout-tip title="Things to learn from the code chunk"}
 For effective data visualization design, factor() is used convert the value type of Year field from numeric to factor.
 :::
 
-```{r, fig.width=10, fig.height=6}
-library(newggslopegraph)
+```{r}
+library(CGPfunctions)
 rice %>% 
   mutate(Year = factor(Year)) %>%
   filter(Year %in% c(1961, 1980)) %>%

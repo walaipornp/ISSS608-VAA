@@ -2,6 +2,10 @@
 title: "Hands-on Exercise 3"
 author: "Walaiporn Pawitranon"
 ---
+execute: 
+  warning: false
+  error: true
+---
 
 # Overview
 
