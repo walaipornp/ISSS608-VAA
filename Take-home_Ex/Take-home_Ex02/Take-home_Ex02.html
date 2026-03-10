@@ -245,7 +245,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#transaction-pattern" id="toc-transaction-pattern" class="nav-link" data-scroll-target="#transaction-pattern">3.2 Transaction Pattern</a></li>
   <li><a href="#digital-engagement-analysis" id="toc-digital-engagement-analysis" class="nav-link" data-scroll-target="#digital-engagement-analysis">3.3 Digital Engagement Analysis</a></li>
   <li><a href="#customer-experience" id="toc-customer-experience" class="nav-link" data-scroll-target="#customer-experience">3.4 Customer Experience</a></li>
-  <li><a href="#initial-churn-exploration" id="toc-initial-churn-exploration" class="nav-link" data-scroll-target="#initial-churn-exploration">3.5 Initial Churn Exploration</a></li>
   </ul></li>
   <li><a href="#confirmatory-data-analysis" id="toc-confirmatory-data-analysis" class="nav-link" data-scroll-target="#confirmatory-data-analysis">4. Confirmatory Data Analysis</a>
   <ul class="collapse">
@@ -1017,61 +1016,38 @@ international_transactions        failed_transactions
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>total_users <span class="ot">&lt;-</span> <span class="fu">nrow</span>(customer)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>avg_logins <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(customer<span class="sc">$</span>app_logins_frequency, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">1</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>avg_tx_freq <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(customer<span class="sc">$</span>monthly_transaction_count, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">2</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>avg_churn <span class="ot">&lt;-</span> <span class="fu">percent</span>(<span class="fu">mean</span>(customer<span class="sc">$</span>churn_probability, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>avg_nps <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(customer<span class="sc">$</span>nps_score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">1</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">5</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Total Users:"</span>, total_users), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg Logins:"</span>, avg_logins), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">3</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg Monthly Tx:"</span>, avg_tx_freq), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">2</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg Churn Probability:"</span>, avg_churn), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg NPS:"</span>, avg_nps), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>login_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> app_logins_frequency)) <span class="sc">+</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"App Login Frequency Distribution"</span>,</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Login Frequency"</span>,</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Users"</span>)</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>feature_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> feature_usage_diversity)) <span class="sc">+</span></span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Feature Usage Diversity"</span>,</span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Number of Features Used"</span>,</span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Users"</span>)</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>engagement_satisfaction_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> app_logins_frequency,</span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> satisfaction_score)) <span class="sc">+</span></span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Engagement vs Satisfaction"</span>,</span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"App Login Frequency"</span>,</span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Satisfaction Score"</span>)</span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>churn_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> churn_probability,</span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> customer_lifetime_value)) <span class="sc">+</span></span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Churn Probability vs CLV"</span>,</span>
-<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Churn Probability"</span>,</span>
-<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Customer Lifetime Value"</span>)</span>
-<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a>transaction_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
-<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> monthly_transaction_count,</span>
-<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> total_transaction_volume)) <span class="sc">+</span></span>
-<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Transaction Frequency vs Volume"</span>,</span>
-<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Monthly Transaction Count"</span>,</span>
-<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Total Transaction Volume"</span>)</span>
-<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="sc">/</span>(login_plot <span class="sc">|</span> feature_plot) <span class="sc">/</span>(engagement_satisfaction_plot <span class="sc">|</span> churn_plot) <span class="sc">/</span> transaction_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">5</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Total Users:"</span>, total_users), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg Logins:"</span>, avg_logins), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">3</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg Monthly Tx:"</span>, avg_tx_freq), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>login_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> app_logins_frequency)) <span class="sc">+</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"App Login Frequency Distribution"</span>,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Login Frequency"</span>,</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Users"</span>)</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>feature_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> feature_usage_diversity)) <span class="sc">+</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Feature Usage Diversity"</span>,</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Number of Features Used"</span>,</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Users"</span>)</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>transaction_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> monthly_transaction_count,</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> total_transaction_volume)) <span class="sc">+</span></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Transaction Frequency vs Volume"</span>,</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Monthly Transaction Count"</span>,</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Total Transaction Volume"</span>)</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="sc">/</span>(login_plot <span class="sc">|</span> feature_plot) <span class="sc">/</span> transaction_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1104,21 +1080,213 @@ international_transactions        failed_transactions
 </section>
 <section id="customer-experience" class="level2">
 <h2 class="anchored" data-anchor-id="customer-experience">3.4 Customer Experience</h2>
-</section>
-<section id="initial-churn-exploration" class="level2">
-<h2 class="anchored" data-anchor-id="initial-churn-exploration">3.5 Initial Churn Exploration</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>avg_churn <span class="ot">&lt;-</span> <span class="fu">percent</span>(<span class="fu">mean</span>(customer<span class="sc">$</span>churn_probability, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>avg_nps <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(customer<span class="sc">$</span>nps_score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">1</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">2</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg Churn Probability:"</span>, avg_churn), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg NPS:"</span>, avg_nps), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>engagement_satisfaction_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> app_logins_frequency,</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> satisfaction_score)) <span class="sc">+</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Engagement vs Satisfaction"</span>,</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"App Login Frequency"</span>,</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Satisfaction Score"</span>)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>churn_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> churn_probability,</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> customer_lifetime_value)) <span class="sc">+</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Churn Probability vs CLV"</span>,</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Churn Probability"</span>,</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Customer Lifetime Value"</span>)</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="sc">/</span>(engagement_satisfaction_plot <span class="sc">|</span> churn_plot) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Insight">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Insight
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>a</p>
+</div>
+</div>
 </section>
 </section>
 <section id="confirmatory-data-analysis" class="level1">
 <h1>4. Confirmatory Data Analysis</h1>
 <section id="hypothesis-1-customer-that-have-low-satisfaction-score-will-have-high-churn-probability" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-1-customer-that-have-low-satisfaction-score-will-have-high-churn-probability">4.1 Hypothesis 1: Customer that have low satisfaction score will have high churn probability</h2>
+<p>Test:</p>
+<ul>
+<li><p>Correlation test</p></li>
+<li><p>T-test (Low vs High satisfaction)</p></li>
+<li><p>Regression</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(customer<span class="sc">$</span>satisfaction_score, customer<span class="sc">$</span>churn_probability)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  customer$satisfaction_score and customer$churn_probability
+t = -41.127, df = 48721, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.1917411 -0.1745782
+sample estimates:
+       cor 
+-0.1831736 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>customer <span class="ot">&lt;-</span> customer <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sat_group =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>      satisfaction_score <span class="sc">&lt;</span> <span class="fu">median</span>(satisfaction_score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Low Satisfaction"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"High Satisfaction"</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>customer<span class="sc">$</span>sat_group <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(customer<span class="sc">$</span>sat_group)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(churn_probability <span class="sc">~</span> sat_group, <span class="at">data =</span> customer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  churn_probability by sat_group
+t = -27.515, df = 5664.5, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group High Satisfaction and group Low Satisfaction is not equal to 0
+95 percent confidence interval:
+ -0.02957877 -0.02564428
+sample estimates:
+mean in group High Satisfaction  mean in group Low Satisfaction 
+                      0.3403204                       0.3679320 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(churn_probability <span class="sc">~</span> satisfaction_score <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                                   customer_tenure <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                                   monthly_transaction_count <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                                   app_logins_frequency,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> customer)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = churn_probability ~ satisfaction_score + customer_tenure + 
+    monthly_transaction_count + app_logins_frequency, data = customer)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.20865 -0.02670  0.02289  0.04464  0.15578 
+
+Coefficients:
+                            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                4.635e-01  5.039e-03  91.973   &lt;2e-16 ***
+satisfaction_score        -2.158e-02  4.983e-04 -43.303   &lt;2e-16 ***
+customer_tenure            2.003e-04  4.013e-04   0.499    0.618    
+monthly_transaction_count  6.313e-07  5.666e-06   0.111    0.911    
+app_logins_frequency      -1.476e-03  2.453e-05 -60.167   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.06362 on 48718 degrees of freedom
+Multiple R-squared:  0.1004,    Adjusted R-squared:  0.1003 
+F-statistic:  1359 on 4 and 48718 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(satisfaction_score), <span class="at">y =</span> churn_probability)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Churn Probability Across Satisfaction Levels"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Satisfaction Score (Likert Scale)"</span>,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Churn Probability"</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="hypothesis-2-customer-that-have-more-active-products-will-have-low-churn-probability" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-2-customer-that-have-more-active-products-will-have-low-churn-probability">4.2 Hypothesis 2: Customer that have more active products will have low churn probability</h2>
+<p>Test:</p>
+<ul>
+<li><p>ANOVA</p></li>
+<li><p>Logistic regression</p></li>
+<li><p>Chi-square (categorize)</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>customer<span class="sc">$</span>active_products <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(customer<span class="sc">$</span>active_products)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>anova_model <span class="ot">&lt;-</span> <span class="fu">aov</span>(churn_probability <span class="sc">~</span> active_products, <span class="at">data =</span> customer)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   Df Sum Sq Mean Sq F value Pr(&gt;F)    
+active_products     4  168.2   42.05   40170 &lt;2e-16 ***
+Residuals       48718   51.0    0.00                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> active_products, <span class="at">y =</span> churn_probability)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Churn Probability by Number of Active Products"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of Active Products"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Churn Probability"</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="hypothesis-3-transaction-frequency-affect-clv" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-3-transaction-frequency-affect-clv">4.3 Hypothesis 3: Transaction frequency affect CLV</h2>
+<p>Test:</p>
+<ul>
+<li><p>Pearson correlation</p></li>
+<li><p>Linear regression</p></li>
+</ul>
 </section>
 </section>
 <section id="storyboard---ui-design" class="level1">
