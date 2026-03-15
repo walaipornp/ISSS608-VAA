@@ -339,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The project uses <code>p_load()</code> of pacman package to check if the R packages are installed in the computer.</p>
 <p>The following code chunk is used to install and launch the R packages.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,tidyr,ggplot2,readxl,scales,ggstatsplot,patchwork,lubridate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,tidyr,ggplot2,readxl,scales,ggstatsplot,patchwork,lubridate, readr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="import-data" class="level2">
@@ -986,7 +986,8 @@ international_transactions        failed_transactions
 <section id="digital-engagement-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="digital-engagement-analysis">3.4 Digital Engagement Analysis</h2>
 <p>The Digital Engagement dashboard was developed using <code>ggplot2</code> to summarize user activity, engagement behavior, and retention-related metrics.</p>
-<p>First, key engagement KPIs were calculated, including total users (<code>nrow()</code>), average app login frequency, average monthly transaction count, average churn probability (formatted as percentage), and average Net Promoter Score (NPS). These metrics provide a high-level overview of platform engagement and customer sentiment.</p>
+<p>The key engagement KPIs were calculated, including total users (<code>nrow()</code>), average app login frequency, average monthly transaction count, and average churn probability (formatted as percentage). These metrics provide a high-level overview of platform engagement and customer sentiment.</p>
+<p>Several visualizations are used to explore relationships in the data. <code>geom_point()</code> creates scatter plots to examine the relationships between app login frequency and churn probability, and between monthly transaction count and total transaction volume, while a regression line <code>(geom_smooth(method = "lm"))</code> highlights the overall trend between engagement and churn risk. In addition, <code>geom_boxplot()</code> is used to show the distribution of feature usage diversity across different satisfaction score levels.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -997,34 +998,31 @@ international_transactions        failed_transactions
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">5</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Total Users:"</span>, total_users), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg Logins:"</span>, avg_logins), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">3</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg Monthly Tx:"</span>, avg_tx_freq), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">3</span>, <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"Avg Monthly Transaction:"</span>, avg_tx_freq), <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">6</span>) <span class="sc">+</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>login_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> app_logins_frequency)) <span class="sc">+</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"App Login Frequency Distribution"</span>,</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Login Frequency"</span>,</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Users"</span>)</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>feature_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> feature_usage_diversity)) <span class="sc">+</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Feature Usage Diversity"</span>,</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Number of Features Used"</span>,</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Users"</span>)</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>transaction_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> monthly_transaction_count,</span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> total_transaction_volume)) <span class="sc">+</span></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Transaction Frequency vs Volume"</span>,</span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Monthly Transaction Count"</span>,</span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Total Transaction Volume"</span>)</span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="sc">/</span>(login_plot <span class="sc">|</span> feature_plot) <span class="sc">/</span> transaction_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>login_churn_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> app_logins_frequency, <span class="at">y =</span> churn_probability)) <span class="sc">+</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"#2C7FB8"</span>) <span class="sc">+</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship Between App Login Frequency and Churn"</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>feature_sat_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer, <span class="fu">aes</span>(<span class="at">x =</span> satisfaction_score, <span class="at">y =</span> feature_usage_diversity))<span class="sc">+</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Feature Usage by Satiafaction Score"</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>transaction_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> monthly_transaction_count,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> total_transaction_volume)) <span class="sc">+</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Transaction Frequency vs Volume"</span>,</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Monthly Transaction Count"</span>,</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Total Transaction Volume"</span>)</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="sc">/</span>(login_churn_plot <span class="sc">|</span> feature_sat_plot) <span class="sc">/</span> transaction_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1045,19 +1043,16 @@ international_transactions        failed_transactions
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>Most users log in between moderate ranges, while a smaller portion shows very high login frequency.</p></li>
-<li><p>Most users utilize only a limited number of features, with fewer customers exploring a wide range of functionalities.</p></li>
-<li><p>The relationship between login frequency and satisfaction appears relatively weak, as indicated by the nearly flat regression line.</p></li>
-<li><p>There is a visible concentration of customers with moderate churn probability and varying CLV levels.</p></li>
-<li><p>The scatter plot shows a positive relationship between transaction count and total transaction volume.</p></li>
+<li><p>The relationship between app login frequency and churn probability shows a negative trend. Customers who log into the app more frequently tend to have lower churn probability, suggesting that higher engagement is associated with better customer retention.</p></li>
+<li><p>The feature usage diversity increases with higher satisfaction levels. Customers with very high satisfaction scores tend to use more app features, as shown by the higher median and wider distribution in the boxplot.</p></li>
+<li><p>The Transaction Frequency vs Volume plot shows a positive relationship between transaction count and total transaction volume.</p></li>
 </ul>
-<p>The Digital Engagement analysis reveals that while customer activity levels are moderate, overall satisfaction and loyalty indicators remain weak. Engagement quantity alone does not guarantee satisfaction, suggesting that improving service quality and user experience may be more impactful than simply increasing login frequency.</p>
 </div>
 </div>
 </section>
 <section id="customer-experience" class="level2">
 <h2 class="anchored" data-anchor-id="customer-experience">3.5 Customer Experience</h2>
-<p>In this section, we explore customer experience by examining key metrics and relationships between engagement, satisfaction, and churn. The average churn probability provide a high-level view of overall customer experience. <code>geom_point()</code> are used to visualize how app login frequency relates to satisfaction and how churn probability relates to customer lifetime value (CLV).</p>
+<p>In this section, customer experience is analyzed by examining key metrics and relationships between engagement, satisfaction, feedback, and churn. The average churn probability provides a high-level overview of overall customer retention risk. Several visualizations are used to explore these relationships: <code>geom_boxplot()</code> illustrates how satisfaction relates to app login frequency and churn probability, <code>geom_point()</code> shows the relationship between churn probability and customer lifetime value (CLV), and <code>geom_tile()</code> visualizes the relationship between feedback sentiment and satisfaction score. Together, these visualizations help identify patterns in customer behavior and highlight factors associated with customer experience and churn risk.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1068,30 +1063,52 @@ international_transactions        failed_transactions
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>engagement_satisfaction_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> app_logins_frequency,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> satisfaction_score)) <span class="sc">+</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Engagement vs Satisfaction"</span>,</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"App Login Frequency"</span>,</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Satisfaction Score"</span>)</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>churn_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> churn_probability,</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> customer_lifetime_value)) <span class="sc">+</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Churn Probability vs CLV"</span>,</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Churn Probability"</span>,</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Customer Lifetime Value"</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span>satisfaction_score,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> app_logins_frequency)) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Satisfaction VS Engagement"</span>,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Satisfaction Score"</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"App Login Frequency"</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>churn_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> churn_probability,</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> customer_lifetime_value)) <span class="sc">+</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Churn Probability vs CLV"</span>,</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Churn Probability"</span>,</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Customer Lifetime Value"</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="sc">/</span>(engagement_satisfaction_plot <span class="sc">|</span> churn_plot) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"feedback_sentiment"</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="st">"satisfaction_score"</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> customer <span class="sc">%&gt;%</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(.data[[x]], .data[[y]])</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>feedback_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df,</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes_string</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> <span class="st">"n"</span>)) <span class="sc">+</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Feedback Sentiment VS Satisfaction Score"</span>)</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>satisfaction_churn_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(customer,</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> satisfaction_score,</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> churn_probability)) <span class="sc">+</span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Satisfaction VS Churn Probability"</span>,</span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Satisfaction Score"</span>,</span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Churn Probability"</span>)</span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>kpi_plot <span class="sc">/</span>(engagement_satisfaction_plot <span class="sc">+</span> churn_plot)<span class="sc">/</span> ( feedback_plot <span class="sc">+</span> satisfaction_churn_plot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1109,11 +1126,9 @@ international_transactions        failed_transactions
 <ul>
 <li><p>The average churn probability across all customers is 34%, indicating a significant portion of the customer base is at risk of leaving.</p></li>
 <li><p>Customer engagement, measured by app login frequency, is positively associated with satisfaction: more frequent logins tend to correspond with higher satisfaction scores.</p></li>
-</ul>
-<!-- -->
-<ul>
 <li><p>The churn probability vs.&nbsp;CLV plot shows that most customers have moderate churn probability, but those with higher churn probability generally have lower customer lifetime value (CLV).</p></li>
-<li><p>These findings suggest that improving customer engagement and satisfaction may help reduce churn and protect overall customer value.</p></li>
+<li><p>The Feedback sentiment VS Satisfaction score shows that positive feedback related to higher satisfaction score.</p></li>
+<li><p>The Satisfaction VS Churn Probability shows that the higher satsfaction score result in lower churn probability.</p></li>
 </ul>
 </div>
 </div>
@@ -1126,7 +1141,7 @@ international_transactions        failed_transactions
 </div>
 <section id="importing-geospatial-data-into-r" class="level3">
 <h3 class="anchored" data-anchor-id="importing-geospatial-data-into-r">3.6.1 Importing Geospatial Data into R</h3>
-<p>The code chunk below uses the st_read() function of sf package to import gadm41_COL_1 shapefile into R as a simple feature data frame</p>
+<p>The code chunk below uses the <code>st_read()</code> function of sf package to import gadm41_COL_1 shapefile into R as a simple feature data frame</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">"data/geospatial"</span>, </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">layer =</span> <span class="st">"gadm41_COL_1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1510,25 +1525,44 @@ First 10 features:
 <section id="customer-overview-tab" class="level3">
 <h3 class="anchored" data-anchor-id="customer-overview-tab">5.2.1 Customer overview tab</h3>
 <p>The main goal of this page is to allow users to interactively explore customer characteristics and distributions.</p>
-<p><img src="images/clipboard-2791510739.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1936581718.png" class="img-fluid"></p>
 <p>At the top of the dashboard, three Key Performance Indicators (KPIs) summarize important metrics. These metrics provide quick insights into customer demographics and risk levels.</p>
 <section id="variable-selection" class="level4">
 <h4 class="anchored" data-anchor-id="variable-selection">Variable Selection</h4>
-<p>There are a filter bar that users can choose a categorical variable (X variable) from the dropdown menu to display in the visualization.</p>
-<p>Examples include:</p>
-<ul>
-<li><p>Gender</p></li>
-<li><p>Income bracket</p></li>
-<li><p>Education level</p></li>
-<li><p>Customer segment</p></li>
-<li><p>Acquisition channel</p></li>
-</ul>
-<p>This allows users to explore how different customer characteristics are distributed.</p>
-</section>
-<section id="plot-type-selection" class="level4">
-<h4 class="anchored" data-anchor-id="plot-type-selection">Plot Type Selection</h4>
-<p>Users can choose different visualization types such as bar chart, box plot, and other chart types</p>
-<p>This flexibility helps users view the data from different perspectives</p>
+<p>There are a filter bar that users can choose X and Y variable type whether they want categorical or numerical variable. After select type of variable user can select which variable in that type that they want to discover the relationship in the Select X/Y Variable filter. User click Submit botton to display in the visualization.</p>
+<p>The visualization will be consisted of 4 possible pairs of x and y variable type. The visualization will shown in different plot as shown in table below</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>X Variable Type</th>
+<th>Y Variable Type</th>
+<th>The Visualization</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Numerical</td>
+<td>Numerical</td>
+<td>Scatter plot</td>
+</tr>
+<tr class="even">
+<td>Numerical</td>
+<td>Categorical</td>
+<td>Box plot</td>
+</tr>
+<tr class="odd">
+<td>Categorical</td>
+<td>Numerical</td>
+<td>Box plot</td>
+</tr>
+<tr class="even">
+<td>Categorical</td>
+<td>Categorical</td>
+<td>Heatmap</td>
+</tr>
+</tbody>
+</table>
+<p>This allows users to explore different relationship between all variables and flexibility helps users view the data from different perspectives</p>
 </section>
 <section id="export-option" class="level4">
 <h4 class="anchored" data-anchor-id="export-option">Export Option</h4>
